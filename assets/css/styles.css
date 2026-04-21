@@ -7,22 +7,24 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  --bg:        #0c0a08;      /* warm black — matches the red earth in photos */
-  --bg-2:      #121009;
-  --surface:   #181410;
-  --surface-2: #1e1a15;
-  --line:      #2a2520;
-  --line-2:    #3a342c;
+  /* Cooler, cinematic palette — deep midnight-navy base,
+     livery green primary, electric blue secondary, crisp white highlights */
+  --bg:        #0a1018;      /* deep midnight navy */
+  --bg-2:      #0e1724;
+  --surface:   #141d2b;
+  --surface-2: #1a2536;
+  --line:      #24324a;
+  --line-2:    #34466a;
 
-  --text:      #f5f2ee;
-  --text-mute: #a09688;
-  --text-dim:  #6b6055;
+  --text:      #f4f8ff;
+  --text-mute: #9fb0c9;
+  --text-dim:  #6a7a95;
 
   --accent:    #22e66b;      /* livery green — exact car colour */
   --accent-2:  #0ea858;      /* deeper green */
-  --accent-3:  #d5ffd5;      /* pale ghost */
-  --earth:     #e07535;      /* red-earth/dust from the stages */
-  --earth-2:   #c25a1a;      /* deeper burnt orange */
+  --accent-3:  #d5ffd5;      /* pale ghost green */
+  --earth:     #38a9ff;      /* electric rally-blue (was red-earth) */
+  --earth-2:   #1d6ee0;      /* deeper blue */
 
   --maxw:      1280px;
   --radius:    4px;
@@ -31,7 +33,7 @@
   --shadow-1:  0 1px 0 rgba(255,255,255,0.03) inset, 0 20px 60px rgba(0,0,0,0.5);
   --shadow-2:  0 0 0 1px var(--line), 0 30px 80px rgba(0,0,0,0.6);
   --shadow-green: 0 12px 40px rgba(34,230,107,0.25);
-  --shadow-earth: 0 12px 40px rgba(224,117,53,0.25);
+  --shadow-earth: 0 12px 40px rgba(56,169,255,0.25);
 
   --font-display: 'Bebas Neue', 'Impact', sans-serif;
   --font-sub:     'Rajdhani', system-ui, sans-serif;
@@ -248,10 +250,14 @@ section { padding: 96px 0; position: relative; }
   content: '';
   position: absolute;
   inset: 0;
+  /* Lighter, cinematic wash so the video reads clearly.
+     Darker on the left (where the headline sits) for legibility,
+     nearly clear on the right so the footage breathes. */
   background:
-    linear-gradient(105deg, rgba(12,10,8,0.92) 0%, rgba(12,10,8,0.75) 55%, rgba(12,10,8,0.55) 100%),
-    radial-gradient(ellipse 80% 60% at 0% 100%, rgba(224,117,53,0.18), transparent 60%),
-    radial-gradient(ellipse 50% 50% at 85% 10%, rgba(34,230,107,0.10), transparent 60%);
+    linear-gradient(100deg, rgba(10,16,24,0.78) 0%, rgba(10,16,24,0.45) 45%, rgba(10,16,24,0.15) 80%, rgba(10,16,24,0.35) 100%),
+    linear-gradient(180deg, rgba(10,16,24,0.0) 55%, rgba(10,16,24,0.55) 100%),
+    radial-gradient(ellipse 70% 55% at 90% 15%, rgba(56,169,255,0.18), transparent 65%),
+    radial-gradient(ellipse 55% 55% at 10% 90%, rgba(34,230,107,0.14), transparent 65%);
   z-index: 1;
 }
 .hero::after {
@@ -905,7 +911,7 @@ section { padding: 96px 0; position: relative; }
 .cta-banner {
   background:
     radial-gradient(60% 80% at 20% 0%, rgba(34,230,107,0.16), transparent 55%),
-    radial-gradient(40% 60% at 90% 100%, rgba(224,117,53,0.10), transparent 55%),
+    radial-gradient(40% 60% at 90% 100%, rgba(56,169,255,0.12), transparent 55%),
     linear-gradient(180deg, #0e0b08 0%, #090706 100%);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
@@ -1130,9 +1136,9 @@ section { padding: 96px 0; position: relative; }
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(12,10,8,0.92) 0%,
-    rgba(12,10,8,0.78) 60%,
-    rgba(12,10,8,0.92) 100%
+    rgba(10,16,24,0.92) 0%,
+    rgba(10,16,24,0.78) 60%,
+    rgba(10,16,24,0.92) 100%
   );
 }
 .photo-section .container { position: relative; z-index: 1; }
@@ -1344,7 +1350,7 @@ section { padding: 96px 0; position: relative; }
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background-color: #0a0806;
+  background-color: #0a1018;
 }
 .hero-video-bg video {
   position: absolute;
@@ -1357,7 +1363,8 @@ section { padding: 96px 0; position: relative; }
   object-fit: cover;
   opacity: 0;
   transition: opacity 1.2s ease, transform 14s ease;
-  filter: contrast(1.05) saturate(1.1) brightness(0.78);
+  /* brighter + slight cool cast so the footage reads through the overlay */
+  filter: contrast(1.08) saturate(1.15) brightness(1.02);
 }
 .hero-video-bg video.is-loaded {
   opacity: 1;
@@ -1439,7 +1446,7 @@ section { padding: 96px 0; position: relative; }
   inset: 0;
   background:
     radial-gradient(50% 60% at 15% 0%, rgba(34,230,107,0.08), transparent 60%),
-    radial-gradient(40% 50% at 90% 100%, rgba(224,117,53,0.08), transparent 60%);
+    radial-gradient(40% 50% at 90% 100%, rgba(56,169,255,0.10), transparent 60%);
   pointer-events: none;
 }
 .reel-wall .container { position: relative; z-index: 1; }
@@ -1554,7 +1561,7 @@ section { padding: 96px 0; position: relative; }
   letter-spacing: 0.2em;
   text-transform: uppercase;
   border: 1px solid var(--line-2);
-  background: rgba(12,10,8,0.92);
+  background: rgba(10,16,24,0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   color: var(--text);
@@ -1603,7 +1610,7 @@ section { padding: 96px 0; position: relative; }
   margin-bottom: -4px;
   width: 22px; height: 22px;
   border-radius: 50%;
-  background: rgba(12,10,8,0.92);
+  background: rgba(10,16,24,0.92);
   border: 1px solid var(--line-2);
   color: var(--text-mute);
   display: none;
@@ -1774,9 +1781,9 @@ section { padding: 96px 0; position: relative; }
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(34, 230, 107, 0.06), transparent 60%),
-    radial-gradient(ellipse at 80% 100%, rgba(224, 117, 53, 0.05), transparent 60%),
-    #0a0807;
+    radial-gradient(ellipse at 20% 0%, rgba(34, 230, 107, 0.08), transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(56, 169, 255, 0.08), transparent 60%),
+    #0a1018;
 }
 .duo-grid {
   display: grid;
