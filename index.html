@@ -3,97 +3,241 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Abhimanyu Sajeevan — National Rally Driver</title>
-  <link rel="stylesheet" href="assets/style.css" />
+  <title>Abhimanyu Sajeevan — Rally Driver · INRC 2026–27</title>
+  <meta name="description" content="JINRC Runner-Up in debut season. IIT Bombay. Stepping up to the Indian National Rally Championship (INRC) 2026–27. Sponsorship proposal." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
 
-  <header class="hero">
-    <div class="hero-overlay"></div>
-    <img src="assets/images/rally-1.jpeg" alt="Abhimanyu Sajeevan rally car" class="hero-bg" />
-    <div class="hero-content">
-      <p class="hero-eyebrow">National Rally Driver</p>
-      <h1>Abhimanyu<br>Sajeevan</h1>
-      <p class="hero-sub">JNRC Runner-Up 2026 &nbsp;·&nbsp; National Rally Podium Holder</p>
-      <a href="#about" class="btn">About me</a>
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"></span>
+        ABHIMANYU
+        <span class="brand-sub">RALLY · INRC</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" data-nav-toggle>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="nav-links" data-nav-links>
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="results.html">Results</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="partners.html">Partners</a>
+        <a href="contact.html" class="nav-cta">Sponsor</a>
+      </div>
     </div>
-    <a href="#about" class="scroll-hint" aria-label="Scroll down">&#8595;</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="container hero-inner">
+      <div class="hero-main">
+        <span class="eyebrow">INRC 2026–27 Season</span>
+        <h1 class="hero-title">
+          Abhimanyu
+          <span class="accent">Sajeevan</span>
+        </h1>
+        <div class="hero-sub">
+          <span>Rally Driver</span><span class="sep">·</span>
+          <span>JINRC Runner-Up</span><span class="sep">·</span>
+          <span>IIT Bombay</span><span class="sep">·</span>
+          <span>Kozhikode</span>
+        </div>
+        <p class="hero-lede">
+          Competing with India's very best — and <em>finishing on the podium in his first national season</em>. Stepping up to the full Indian National Rally Championship in 2026–27.
+        </p>
+        <div class="hero-cta">
+          <a href="partners.html" class="btn btn-primary">
+            Sponsorship Proposal
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="results.html" class="btn btn-ghost">See the results</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <span class="hero-card-label">Season recap</span>
+        <h3>Debut Season · JINRC</h3>
+        <p class="text-mute" style="margin:0 0 4px; font-size:14px;">Less than a year of practice. Missed the opener. Bent the rear beam in the finale. Still finished <strong style="color:var(--accent);">runner-up</strong>.</p>
+        <div class="mini-stats">
+          <div class="mini-stat"><div class="n">P2</div><div class="l">JINRC Season Final</div></div>
+          <div class="mini-stat"><div class="n">3×</div><div class="l">Leg Wins · 5 Podiums</div></div>
+          <div class="mini-stat"><div class="n">5/6</div><div class="l">Rounds Contested</div></div>
+          <div class="mini-stat"><div class="n">#41</div><div class="l">VW Polo · White/Green</div></div>
+        </div>
+      </aside>
+    </div>
   </header>
 
-  <section id="about" class="section about">
-    <div class="container two-col">
-      <div class="about-img-wrap">
-        <img src="assets/images/profile.png" alt="Abhimanyu Sajeevan profile" />
-      </div>
-      <div class="about-text">
-        <span class="label">About</span>
-        <h2>Driver. Engineer.<br>Analyst.</h2>
-        <p>
-          Abhimanyu Sajeevan is an Indian national rally driver competing under the
-          <strong>Blueband Sports</strong> banner in a VW Polo. A Mechanical Engineering
-          graduate from <strong>IIT Bombay (Class of 2017)</strong>, he brings the same
-          precision he applies on gravel stages to his role as a Finance &amp; Analytics Lead.
-        </p>
-        <p>
-          His 2026 season culminated in a <strong>JNRC Runner-Up</strong> finish — a
-          national podium earned through relentless preparation, smart pace notes and
-          MRF rubber pushed to its limits.
-        </p>
-        <ul class="tags">
-          <li>IIT Bombay — Mech Eng '17</li>
-          <li>JNRC Runner-Up 2026</li>
-          <li>Finance Lead, Analytics</li>
-          <li>Football Striker &amp; Captain</li>
-        </ul>
-      </div>
+  <!-- ===== FEATURED STRIP ===== -->
+  <section class="featured-strip" style="padding:24px 0;">
+    <div class="marquee">
+      <strong>JINRC RUNNER-UP 2025–26</strong><span class="dot">●</span>
+      <span>IIT BOMBAY · MECH '17</span><span class="dot">●</span>
+      <strong>GARAGE SNAP RACING</strong><span class="dot">●</span>
+      <span>JK TYRES · TURBOTONIC</span><span class="dot">●</span>
+      <strong>30M+ SOCIAL VIEWS / EVENT</strong><span class="dot">●</span>
+      <span>@ABHIII_MANYU</span><span class="dot">●</span>
+      <strong>JINRC RUNNER-UP 2025–26</strong><span class="dot">●</span>
+      <span>IIT BOMBAY · MECH '17</span><span class="dot">●</span>
+      <strong>GARAGE SNAP RACING</strong><span class="dot">●</span>
+      <span>JK TYRES · TURBOTONIC</span><span class="dot">●</span>
+      <strong>30M+ SOCIAL VIEWS / EVENT</strong><span class="dot">●</span>
+      <span>@ABHIII_MANYU</span><span class="dot">●</span>
     </div>
   </section>
 
-  <section id="gallery" class="section gallery">
+  <!-- ===== STAT STRIP ===== -->
+  <section class="stat-strip" style="padding:72px 0;">
     <div class="container">
-      <span class="label">On Stage</span>
-      <h2>In Action</h2>
-    </div>
-    <div class="gallery-grid">
-      <div class="gallery-item tall">
-        <img src="assets/images/rally-2.jpeg" alt="VW Polo on red dirt stage" loading="lazy" />
-      </div>
-      <div class="gallery-item">
-        <img src="assets/images/rally-3.jpeg" alt="VW Polo charging through forest" loading="lazy" />
-      </div>
-      <div class="gallery-item">
-        <img src="assets/images/rally-4.jpeg" alt="VW Polo corner exit bokeh" loading="lazy" />
-      </div>
-      <div class="gallery-item wide">
-        <img src="assets/images/rally-5.jpeg" alt="Celebration after Robusta Rally Kodagu" loading="lazy" />
-      </div>
-    </div>
-  </section>
-
-  <section id="stats" class="section stats">
-    <div class="container stats-grid">
-      <div class="stat">
-        <span class="stat-num">2026</span>
-        <span class="stat-label">JNRC Runner-Up</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">VW Polo</span>
-        <span class="stat-label">Competition Car</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">IIT Bombay</span>
-        <span class="stat-label">Mechanical Eng '17</span>
-      </div>
-      <div class="stat">
-        <span class="stat-num">MRF</span>
-        <span class="stat-label">Tyre Partner</span>
+      <div class="stat-strip-grid">
+        <div class="stat-item">
+          <div class="n">P2<span class="u">.</span></div>
+          <div class="l">JINRC 2025–26 · Debut</div>
+        </div>
+        <div class="stat-item">
+          <div class="n">6<span class="u">RD</span></div>
+          <div class="l">INRC 2026–27 Target</div>
+        </div>
+        <div class="stat-item">
+          <div class="n">30M<span class="u">+</span></div>
+          <div class="l">Social Views / Event</div>
+        </div>
+        <div class="stat-item">
+          <div class="n">2M<span class="u">+</span></div>
+          <div class="l">National TV Views / Event</div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ===== ABOUT PREVIEW ===== -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">The Driver</span>
+          <h2 style="margin-top:16px;">NFS to <span class="accent">national podium</span>.</h2>
+        </div>
+        <p>NRI kid → PlayStation petrolhead → IIT Bombay mechanical engineer → Bengaluru finance professional → JINRC Runner-Up in his debut season. The story already writes itself.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>Abhimanyu, 27, from Kozhikode, Kerala, is one of Indian rally's most compelling stories. He grew up in Dubai, returned to India in the eighth standard, and spent years with racing at the back of his mind. A karting session in Bengaluru in June 2024 changed everything.</p>
+          <p>He caught the eye of national rally driver <strong>Athira Murali</strong>, joined <strong>Garage Snap Racing</strong>, and — within a single season — was trading times with India's most experienced rally drivers. He's already carrying confirmed personal sponsors into 2026–27.</p>
+          <div class="about-quote">"After the first jump in my car, I knew this was my place."</div>
+          <div class="hero-cta" style="margin-top:32px;">
+            <a href="about.html" class="btn btn-ghost">Full Bio
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="about-card">
+          <div class="about-card-head">At a glance</div>
+          <table>
+            <tr><td>Age</td><td>27</td></tr>
+            <tr><td>From</td><td>Kozhikode · Grew up in Dubai</td></tr>
+            <tr><td>Education</td><td>IIT Bombay · Finance</td></tr>
+            <tr><td>Car</td><td>VW Polo (White/Green)</td></tr>
+            <tr><td>Co-driver</td><td>Avinash CA</td></tr>
+            <tr><td>Team</td><td>Garage Snap Racing</td></tr>
+            <tr><td>Instagram</td><td><a href="https://instagram.com/abhiii_manyu" target="_blank" rel="noopener" class="text-accent">@abhiii_manyu</a></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RESULTS PREVIEW ===== -->
+  <section style="background:#080808; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Debut Season</span>
+          <h2 style="margin-top:16px;">Podium in <span class="accent">year one</span>.</h2>
+        </div>
+        <p>Missed the opener. Took a first leg win in Bengaluru chaos. Dominated Indore, winning both legs. Broke a rear beam in the finale — still took the runner-up title.</p>
+      </div>
+
+      <div class="moments-grid" style="margin-top:0;">
+        <div class="moment">
+          <h4>Indore · Jan '26</h4>
+          <p>Won both legs back-to-back. Most dominant single-round performance of the season.</p>
+        </div>
+        <div class="moment">
+          <h4>Bengaluru K1000</h4>
+          <p>First leg win in chaotic conditions. "Bangalore K1000 was 100% chaos" — still extracted the win.</p>
+        </div>
+        <div class="moment">
+          <h4>Nashik · Grit</h4>
+          <p>Bent rear beam. DNF Leg 1. Came back P3 Leg 2 — sealed the runner-up title anyway.</p>
+        </div>
+      </div>
+
+      <div class="hero-cta" style="justify-content:center; margin-top:48px;">
+        <a href="results.html" class="btn btn-primary">Full season results
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BANNER ===== -->
+  <section class="cta-banner">
+    <div class="container">
+      <span class="eyebrow" style="display:inline-flex;">Open for 2026–27</span>
+      <h2 style="margin-top:20px;">Put your brand on <span class="accent">the fastest-growing</span><br/>motorsport property in India.</h2>
+      <p>30M+ social media views per event. Exclusive national TV coverage on TV5. Title, Gold, and Silver packages available. Custom structures welcome.</p>
+      <div class="hero-cta">
+        <a href="partners.html" class="btn btn-primary">Partnership options
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
   <footer class="footer">
-    <p>© 2026 Abhimanyu Sajeevan &nbsp;·&nbsp; Blueband Sports</p>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h5>Driver</h5>
+          <div class="tag">ABHIMANYU<br/>SAJEEVAN</div>
+          <p>Rally Driver · JINRC Runner-Up · INRC 2026–27. Competing with India's best — and raising the bar.</p>
+        </div>
+        <div>
+          <h5>Site</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="results.html">Results</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="partners.html">Partners</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="mailto:abhimanyusajeevan@gmail.com">abhimanyusajeevan@gmail.com</a></li>
+            <li><a href="https://instagram.com/abhiii_manyu" target="_blank" rel="noopener">@abhiii_manyu</a></li>
+            <li><a href="https://youtube.com/watch?v=Kq-tdhoU5n4" target="_blank" rel="noopener">OnManorama Feature</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Abhimanyu Sajeevan</span>
+        <span>Garage Snap Racing · Mentored by Fabid Ahmer · VW Polo #41</span>
+      </div>
+    </div>
   </footer>
 
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
