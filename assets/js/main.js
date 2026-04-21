@@ -12,6 +12,82 @@
 
   var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ---------- Cinematic intro loader (first visit per session) ----------
+  // Shows a short driveby + engine audio, then fades out.
+  (function mountLoader() {
+    if (prefersReducedMotion) return;
+    try {
+      if (sessionStorage.getItem('abh_loader_shown') === '1') return;
+    } catch (_) {}
+
+    var loader = document.createElement('div');
+    loader.className = 'site-loader';
+    loader.innerHTML =
+      '<video class="site-loader__video" muted playsinline preload="auto" autoplay>' +
+      '  <source src="assets/videos/intro-loader.mp4" type="video/mp4"/>' +
+      '</video>' +
+      '<div class="site-loader__overlay"></div>' +
+      '<div class="site-loader__content">' +
+      '  <div class="site-loader__eyebrow">INRC 2026–27</div>' +
+      '  <div class="site-loader__title">Abhimanyu <span>&amp; Vijay</span></div>' +
+      '  <div class="site-loader__sub">Rally duo · Calicut · VW Polo #41</div>' +
+      '  <div class="site-loader__bar"><span></span></div>' +
+      '  <button class="site-loader__skip" type="button" aria-label="Skip intro">Skip intro &rsaquo;</button>' +
+      '</div>';
+    document.documentElement.classList.add('is-loading');
+    var mount = function () {
+      if (document.body) document.body.appendChild(loader);
+      else document.addEventListener('DOMContentLoaded', function () { document.body.appendChild(loader); });
+    };
+    mount();
+
+    var v = loader.querySelector('video');
+    var dismissed = false;
+    var dismiss = function () {
+      if (dismissed) return;
+      dismissed = true;
+      try { sessionStorage.setItem('abh_loader_shown', '1'); } catch (_) {}
+      loader.classList.add('is-out');
+      document.documentElement.classList.remove('is-loading');
+      setTimeout(function () {
+        if (loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 900);
+    };
+
+    // Try to play with audio (some browsers allow if user has already interacted on the origin).
+    // Fall back to muted autoplay if blocked.
+    if (v) {
+      v.muted = false;
+      v.volume = 0.7;
+      var p = v.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () {
+          v.muted = true;
+          v.play().catch(function () {});
+        });
+      }
+      v.addEventListener('ended', dismiss);
+    }
+    // Hard cap — never block the site more than 4.5s
+    setTimeout(dismiss, 4500);
+
+    // Skip button
+    loader.addEventListener('click', function (e) {
+      if (e.target && e.target.classList && e.target.classList.contains('site-loader__skip')) {
+        dismiss();
+      }
+    });
+
+    // First click anywhere unmutes a muted intro (user gesture)
+    document.addEventListener('click', function once() {
+      if (v && v.muted && !dismissed) {
+        v.muted = false;
+        v.volume = 0.7;
+      }
+      document.removeEventListener('click', once);
+    }, { once: true });
+  })();
+
   // ---------- Hero video autoplay + ready state ----------
   document.querySelectorAll('.hero-video-bg video').forEach(function (v) {
     var onReady = function () { v.classList.add('is-loaded'); };
@@ -26,20 +102,60 @@
     requestAnimationFrame(function () { heroEl.classList.add('is-ready'); });
   }
 
-  // ---------- Reel hover-play / tap-to-play ----------
+  // ---------- Engine-ambience audio (shared; played only when a reel is hovered) ----------
+  // Loaded lazily on first hover because browsers block autoplaying audio until user interaction.
+  var engineAudio = null;
+  function getEngineAudio() {
+    if (engineAudio) return engineAudio;
+    engineAudio = new Audio('assets/audio/engine-ambience.m4a');
+    engineAudio.loop = true;
+    engineAudio.preload = 'auto';
+    engineAudio.volume = 0.0;
+    return engineAudio;
+  }
+  function fadeAudio(audio, target, ms) {
+    if (!audio) return;
+    var start = audio.volume;
+    var t0 = performance.now();
+    (function tick() {
+      var p = Math.min(1, (performance.now() - t0) / ms);
+      audio.volume = start + (target - start) * p;
+      if (p < 1) requestAnimationFrame(tick);
+      else if (target === 0) { try { audio.pause(); } catch (_) {} }
+    })();
+  }
+
+  // ---------- Reel hover-play + hover-unmute ----------
   document.querySelectorAll('.reel-item').forEach(function (item) {
     var video = item.querySelector('video');
     var playBtn = item.querySelector('.reel-play');
     if (!video) return;
 
+    // Mark the item so CSS can show the audio indicator
+    item.classList.add('has-audio');
+
     var startPlay = function () {
       video.play().catch(function () {});
       if (playBtn) playBtn.style.opacity = '0';
+
+      // Try native unmute first (works if video has its own audio track)
+      video.muted = false;
+      item.classList.add('is-unmuted');
+
+      // Layer engine-ambience track (works even if the reel itself has no audio)
+      var a = getEngineAudio();
+      try {
+        if (a.paused) { a.currentTime = Math.random() * 2; a.play().catch(function () {}); }
+        fadeAudio(a, 0.55, 400);
+      } catch (_) {}
     };
     var stopPlay = function () {
       video.pause();
       video.currentTime = 0;
+      video.muted = true;
+      item.classList.remove('is-unmuted');
       if (playBtn) playBtn.style.opacity = '1';
+      if (engineAudio) fadeAudio(engineAudio, 0, 350);
     };
 
     item.addEventListener('mouseenter', startPlay);
@@ -48,7 +164,7 @@
       if (video.paused) { startPlay(); } else { stopPlay(); }
     });
 
-    // Auto-play when scrolled into view on mobile
+    // Auto-play (muted) when scrolled into view on mobile — no audio without interaction
     if ('IntersectionObserver' in window) {
       var vio = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
