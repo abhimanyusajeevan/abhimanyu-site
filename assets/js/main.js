@@ -32,6 +32,7 @@
       '  <div class="site-loader__title">Abhimanyu <span>&amp; Vijay</span></div>' +
       '  <div class="site-loader__sub">Rally duo · Calicut · VW Polo #41</div>' +
       '  <div class="site-loader__bar"><span></span></div>' +
+      '  <button class="site-loader__sound" type="button" aria-label="Enter with sound">Tap for sound 🔊</button>' +
       '  <button class="site-loader__skip" type="button" aria-label="Skip intro">Skip intro &rsaquo;</button>' +
       '</div>';
     document.documentElement.classList.add('is-loading');
@@ -54,38 +55,50 @@
       }, 900);
     };
 
-    // Try to play with audio (some browsers allow if user has already interacted on the origin).
-    // Fall back to muted autoplay if blocked.
+    // Start muted (autoplay guaranteed). Any user gesture (click/touch/key/mousemove)
+    // unmutes and pauses the hard-cap so users get full audio + driveby.
+    var extendedCap = null;
+    var hardCap = null;
     if (v) {
-      v.muted = false;
-      v.volume = 0.7;
-      var p = v.play();
-      if (p && typeof p.catch === 'function') {
-        p.catch(function () {
-          v.muted = true;
-          v.play().catch(function () {});
-        });
-      }
+      v.muted = true;
+      v.play().catch(function () {});
       v.addEventListener('ended', dismiss);
     }
-    // Hard cap — never block the site more than 4.5s
-    setTimeout(dismiss, 4500);
+    // Default hard cap — dismiss at 4.5s if user never interacts
+    hardCap = setTimeout(dismiss, 4500);
 
-    // Skip button
+    var unmuteAndExtend = function () {
+      if (!v || dismissed) return;
+      if (!v.muted) return; // already unmuted
+      v.muted = false;
+      v.volume = 0.8;
+      loader.classList.add('has-sound');
+      // Extend so the full intro audio can play (up to 7s total)
+      if (hardCap) { clearTimeout(hardCap); hardCap = null; }
+      extendedCap = setTimeout(dismiss, 7000);
+    };
+
+    // Skip button — any click on skip dismisses
     loader.addEventListener('click', function (e) {
       if (e.target && e.target.classList && e.target.classList.contains('site-loader__skip')) {
         dismiss();
+        return;
       }
+      // Any other click on the loader unmutes
+      unmuteAndExtend();
     });
 
-    // First click anywhere unmutes a muted intro (user gesture)
-    document.addEventListener('click', function once() {
-      if (v && v.muted && !dismissed) {
-        v.muted = false;
-        v.volume = 0.7;
-      }
-      document.removeEventListener('click', once);
-    }, { once: true });
+    // First interaction anywhere unmutes
+    var gestureEvents = ['click', 'touchstart', 'keydown', 'pointerdown'];
+    var onGesture = function () {
+      unmuteAndExtend();
+      gestureEvents.forEach(function (ev) {
+        document.removeEventListener(ev, onGesture, true);
+      });
+    };
+    gestureEvents.forEach(function (ev) {
+      document.addEventListener(ev, onGesture, true);
+    });
   })();
 
   // ---------- Hero video autoplay + ready state ----------

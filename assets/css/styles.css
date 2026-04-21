@@ -1909,6 +1909,29 @@ html.is-loading { overflow: hidden; }
   transition: all 0.2s ease;
 }
 .site-loader__skip:hover { border-color: var(--accent); color: var(--accent); }
+.site-loader__sound {
+  margin-top: 18px;
+  background: var(--accent);
+  border: 1px solid var(--accent);
+  color: #0a1018;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-family: var(--font-sub);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 0 0 rgba(34,230,107,0.4);
+  animation: sound-pulse 1.8s ease-in-out infinite;
+}
+.site-loader__sound:hover { transform: translateY(-1px); }
+.site-loader.has-sound .site-loader__sound { display: none; }
+@keyframes sound-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34,230,107,0.6); }
+  50%      { box-shadow: 0 0 0 14px rgba(34,230,107,0); }
+}
 .site-loader.is-out { animation: loader-out 0.8s ease forwards; }
 
 @keyframes loader-in  { from { opacity: 0; } to { opacity: 1; } }
