@@ -1371,13 +1371,12 @@ section { padding: 96px 0; position: relative; }
   transform: translate(-50%, -50%) scale(1.08);
 }
 .hero-video-bg::before {
-  /* Cover full area with portrait video */
+  /* Solid midnight fill behind the video — no static image.
+     Prevents any bg flash between video frames / before load. */
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('../images/hero-bg.jpg');
-  background-size: cover;
-  background-position: center 35%;
+  background: #0a1018;
   z-index: 0;
 }
 .hero-video-bg video {
