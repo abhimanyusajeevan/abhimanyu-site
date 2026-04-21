@@ -38,15 +38,22 @@
     </div>
   </header>
 
-  <!-- ===== LIVE INQUIRY FORM ===== -->
+  <!-- ===== LIVE INQUIRY FORM (Formspree-powered) ===== -->
   <section id="inquiry" style="padding-top:0;">
     <div class="container">
-      <div style="max-width:920px; margin:0 auto; padding:40px; background:linear-gradient(180deg, var(--surface) 0%, #0b0b0b 100%); border:1px solid var(--line); border-radius:var(--radius-lg);">
+      <div style="max-width:920px; margin:0 auto; padding:40px; background:linear-gradient(180deg, var(--surface) 0%, #0b0b0b 100%); border:1px solid var(--line); border-radius:var(--radius-lg); position:relative; overflow:hidden;">
+        <!-- subtle accent glow -->
+        <div aria-hidden="true" style="position:absolute; top:-120px; right:-120px; width:320px; height:320px; background:radial-gradient(circle, rgba(34,230,107,0.12), transparent 70%); pointer-events:none;"></div>
+
         <span class="eyebrow">Sponsor inquiry</span>
         <h2 style="margin-top:12px; font-size:clamp(32px, 4vw, 44px);">Start the <span class="accent">conversation</span>.</h2>
-        <p class="form-help" style="margin-top:10px;">Fill this out and hit send — it opens your email client with a pre-filled message to Abhimanyu. No accounts, no third-party tracking.</p>
+        <p class="form-help" style="margin-top:10px;">Fill this out — we'll reply within 48 hours. No forwarding, no mailto handoff, no third-party trackers.</p>
 
-        <form class="inquiry-form" data-inquiry-form novalidate>
+        <form class="inquiry-form"
+              data-inquiry-form
+              action="https://formspree.io/f/mvzdbnpe"
+              method="POST"
+              novalidate>
           <div>
             <label for="if-name">Name *</label>
             <input id="if-name" name="name" type="text" required autocomplete="name" />
@@ -88,15 +95,29 @@
             <label for="if-message">Message *</label>
             <textarea id="if-message" name="message" required placeholder="Tell Abhimanyu a bit about your brand, objectives, and timelines."></textarea>
           </div>
-          <div class="form-status" data-form-status role="status" aria-live="polite"></div>
+
+          <!-- Honeypot — bots fill this, humans don't see it -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="form-error-msg" data-form-error role="alert"></div>
+
           <div class="submit-row">
             <button type="submit">
               Send inquiry
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </button>
-            <p class="form-help" style="margin:0;">Sends to <strong style="color:var(--text);">abhimanyusajeevan@gmail.com</strong> via your default email app.</p>
+            <p class="form-help" style="margin:0;">Delivered to <strong style="color:var(--text);">abhimanyusajeevan@gmail.com</strong>. Typical reply: under 48 hours.</p>
           </div>
         </form>
+
+        <!-- Success state (hidden until form submits successfully) -->
+        <div class="form-success-card" data-form-success role="status" aria-live="polite">
+          <div class="tick">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>Message on its way.</h3>
+          <p>Thanks for reaching out. Abhimanyu will personally get back within 48 hours. In the meantime, feel free to <a href="partners.html" class="text-accent">browse the sponsorship packages</a>.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -106,7 +127,7 @@
       <!-- Team photo strip -->
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:3px; border-radius:var(--radius-lg); overflow:hidden; margin-bottom:64px; max-height:320px;">
         <div style="overflow:hidden;">
-          <img src="assets/images/team-parc-ferme.jpg" alt="Abhimanyu and co-driver at the event" loading="lazy" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block; filter:brightness(0.85); transition:transform 0.5s ease, filter 0.4s ease;" onmouseover="this.style.transform='scale(1.04)';this.style.filter='brightness(1)';" onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(0.85)';"/>
+          <img src="assets/images/team-parc-ferme.jpg" alt="Abhimanyu and Vijay Anand at the event" loading="lazy" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block; filter:brightness(0.85); transition:transform 0.5s ease, filter 0.4s ease;" onmouseover="this.style.transform='scale(1.04)';this.style.filter='brightness(1)';" onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(0.85)';"/>
         </div>
         <div style="overflow:hidden;">
           <img src="assets/images/team-thumbsup.jpg" alt="Abhimanyu and Vijay Anand — VW Polo #41" loading="lazy" style="width:100%; height:100%; object-fit:cover; object-position:center top; display:block; filter:brightness(0.85); transition:transform 0.5s ease, filter 0.4s ease;" onmouseover="this.style.transform='scale(1.04)';this.style.filter='brightness(1)';" onmouseout="this.style.transform='scale(1)';this.style.filter='brightness(0.85)';"/>
@@ -171,8 +192,8 @@
             <li>Finalise partnership ahead of the 2026–27 INRC season opening round.</li>
           </ol>
           <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
-            <a href="mailto:abhimanyusajeevan@gmail.com?subject=Sponsorship%20Inquiry%20%E2%80%94%20INRC%202026%E2%80%9327" class="btn btn-primary" style="flex:1; justify-content:center;">
-              Email Abhimanyu
+            <a href="#inquiry" class="btn btn-primary" style="flex:1; justify-content:center;">
+              Jump to inquiry form
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
           </div>
@@ -196,7 +217,7 @@
         <a class="category-card" href="https://youtube.com/watch?v=Kq-tdhoU5n4" target="_blank" rel="noopener">
           <h5>Video</h5>
           <div class="brands">OnManorama Profile</div>
-          <p class="why">"Kozhikode's Abhimanyu, NFS to National Podium" · youtube.com/watch?v=Kq-tdhoU5n4</p>
+          <p class="why">"Calicut's Abhimanyu, NFS to National Podium" · youtube.com/watch?v=Kq-tdhoU5n4</p>
         </a>
         <a class="category-card" href="https://instagram.com/abhiii_manyu" target="_blank" rel="noopener">
           <h5>Social</h5>
