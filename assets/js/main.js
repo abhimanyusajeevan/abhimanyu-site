@@ -2,6 +2,26 @@
 (function () {
   'use strict';
 
+  // Video reel hover-play / tap-to-play
+  document.querySelectorAll('.reel-item').forEach(function (item) {
+    var video = item.querySelector('video');
+    var playBtn = item.querySelector('.reel-play');
+    if (!video) return;
+    item.addEventListener('mouseenter', function () {
+      video.play().catch(function () {});
+      if (playBtn) playBtn.style.opacity = '0';
+    });
+    item.addEventListener('mouseleave', function () {
+      video.pause();
+      video.currentTime = 0;
+      if (playBtn) playBtn.style.opacity = '1';
+    });
+    item.addEventListener('click', function () {
+      if (video.paused) { video.play().catch(function(){}); if (playBtn) playBtn.style.opacity = '0'; }
+      else { video.pause(); if (playBtn) playBtn.style.opacity = '1'; }
+    });
+  });
+
   // Mobile nav toggle
   var toggleBtn = document.querySelector('[data-nav-toggle]');
   var navLinks  = document.querySelector('[data-nav-links]');
