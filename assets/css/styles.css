@@ -1371,12 +1371,12 @@ section { padding: 96px 0; position: relative; }
   transform: translate(-50%, -50%) scale(1.08);
 }
 .hero-video-bg::before {
-  /* Solid midnight fill behind the video — no static image.
-     Prevents any bg flash between video frames / before load. */
+  /* Fallback layer: action shot of the car, shown when the video
+     hasn't loaded yet, fails, or is disabled (reduced motion). */
   content: '';
   position: absolute;
   inset: 0;
-  background: #0a1018;
+  background: #0a1018 url('../images/action-indore.jpg') center 40% / cover no-repeat;
   z-index: 0;
 }
 .hero-video-bg video {
