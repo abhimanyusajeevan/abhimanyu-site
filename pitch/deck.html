@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <title>Abhimanyu & Vijay — INRC 2026–27 Sponsorship Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Anton&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a1018;
@@ -13,7 +16,7 @@
     --accent: #22e66b;
     --blue: #38a9ff;
   }
-  @page { size: 297mm 167mm; margin: 0; } /* 16:9 landscape */
+  @page { size: 297mm 167mm; margin: 0; }
   * { box-sizing: border-box; }
   html, body {
     margin: 0; padding: 0; background: #000;
@@ -31,7 +34,7 @@
     overflow: hidden;
     display: flex; flex-direction: column;
   }
-  .slide + .slide { margin-top: 6mm; } /* for browser viewing only */
+  .slide + .slide { margin-top: 6mm; }
   @media print { .slide + .slide { margin-top: 0; } }
 
   .slide::before {
@@ -43,7 +46,6 @@
   }
   .slide > * { position: relative; z-index: 1; }
 
-  /* HEADER (every slide) */
   .head { display: flex; justify-content: space-between; align-items: center; }
   .brand { display: flex; align-items: center; gap: 10px; }
   .brand-mark { width: 12px; height: 12px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px rgba(34,230,107,0.18); }
@@ -73,23 +75,21 @@
   }
   .title-slide .big .amp { color: var(--accent); }
   .title-slide .sub { font-size: 14pt; color: var(--text); margin-top: 5mm; max-width: 200mm; line-height: 1.4; }
-  .title-slide .pill { display: inline-block; padding: 4px 12px; background: rgba(34,230,107,0.18); border: 1px solid rgba(34,230,107,0.45); border-radius: 999px; font-size: 9pt; font-weight: 800; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-top: 6mm; }
+  .pill { display: inline-block; padding: 4px 12px; background: rgba(34,230,107,0.18); border: 1px solid rgba(34,230,107,0.45); border-radius: 999px; font-size: 9pt; font-weight: 800; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; }
+  .title-slide .pill { margin-top: 6mm; }
   .title-slide .foot-line { display: flex; justify-content: space-between; align-items: flex-end; font-size: 9pt; color: var(--mute); }
   .title-slide .foot-line strong { color: var(--text); letter-spacing: 0.18em; }
 
-  /* GENERIC CONTENT */
   .h1 { font-size: 36pt; line-height: 1.04; letter-spacing: -0.02em; font-weight: 800; margin: 6mm 0 4mm; }
   .h1 .accent { color: var(--accent); }
   .lede { font-size: 13pt; color: var(--mute); max-width: 220mm; line-height: 1.45; }
 
-  /* DUO SLIDE */
   .duo { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8mm; flex: 1; margin-top: 8mm; align-items: stretch; }
   .duo-img { background: url('../assets/images/duo-pitlane.jpg') center 25% / cover no-repeat; border-radius: 6px; border: 1px solid var(--line); }
   .duo-info p { font-size: 12pt; line-height: 1.55; color: #d8e0ee; margin: 0 0 4mm; }
   .duo-info strong { color: var(--text); }
   .duo-info .quote { font-size: 14pt; line-height: 1.4; color: var(--accent); border-left: 3px solid var(--accent); padding-left: 5mm; margin: 5mm 0; font-style: italic; }
 
-  /* STATS SLIDE */
   .stats4 { margin-top: 10mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; }
   .stat-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10mm 7mm; }
   .stat-card .n { font-size: 56pt; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
@@ -100,8 +100,7 @@
   .stats-note { margin-top: 7mm; font-size: 10pt; color: var(--mute); }
   .stats-note strong { color: var(--text); }
 
-  /* RESULTS SLIDE */
-  .results { margin-top: 8mm; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .results { margin-top: 6mm; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
   .results .row { display: grid; grid-template-columns: 18mm 28mm 50mm 1fr; gap: 4mm; padding: 4mm 6mm; border-bottom: 1px solid var(--line); align-items: center; font-size: 11pt; }
   .results .row:last-child { border-bottom: 0; }
   .results .row.head { background: rgba(255,255,255,0.04); font-size: 9pt; letter-spacing: 0.2em; color: var(--mute); text-transform: uppercase; }
@@ -113,7 +112,6 @@
   .results .row.dns { color: var(--mute); }
   .final { margin-top: 5mm; padding: 3mm 6mm; background: linear-gradient(95deg, rgba(34,230,107,0.18), rgba(56,169,255,0.10)); border: 1px solid rgba(34,230,107,0.40); border-radius: 6px; font-size: 11pt; font-weight: 800; letter-spacing: 0.12em; text-align: center; }
 
-  /* REACH SLIDE */
   .reach { margin-top: 8mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; }
   .reach .r { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 8mm 6mm; }
   .reach .r .big { font-size: 38pt; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
@@ -122,14 +120,12 @@
   .reach-note { margin-top: 6mm; font-size: 10pt; color: var(--mute); line-height: 1.5; }
   .reach-note strong { color: var(--text); }
 
-  /* WHY SLIDE */
   .why { margin-top: 8mm; display: grid; grid-template-columns: repeat(2, 1fr); gap: 5mm; }
   .why .c { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 7mm; }
   .why .c .num { font-size: 9pt; letter-spacing: 0.2em; color: var(--accent); font-weight: 800; }
   .why .c h4 { margin: 2mm 0 3mm; font-size: 14pt; font-weight: 700; }
   .why .c p { margin: 0; font-size: 10.5pt; line-height: 1.5; color: var(--mute); }
 
-  /* PACKAGES SLIDE */
   .pkgs { margin-top: 8mm; display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
   .pkg { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 7mm; display: flex; flex-direction: column; }
   .pkg.title-pkg { border-color: rgba(34,230,107,0.55); background: linear-gradient(170deg, rgba(34,230,107,0.10), var(--panel) 60%); }
@@ -139,6 +135,45 @@
   .pkg ul { margin: 0; padding-left: 5mm; font-size: 10pt; line-height: 1.55; color: #d8e0ee; }
   .pkg ul li { margin-bottom: 1.5mm; }
   .pkg .price { margin-top: auto; padding-top: 5mm; font-size: 9pt; color: var(--mute); border-top: 1px dashed var(--line); }
+
+  /* TEAM SLIDE */
+  .team-grid { margin-top: 7mm; display: grid; grid-template-columns: 1.05fr 1fr; gap: 6mm; flex: 1; }
+  .team-img { background: url('../assets/images/crew-group.jpg') center 30% / cover no-repeat; border-radius: 6px; border: 1px solid var(--line); position: relative; }
+  .team-img::after { content: 'PIT LANE · RALLY DAY'; position: absolute; bottom: 5mm; left: 5mm; font-size: 8pt; letter-spacing: 0.28em; color: var(--accent); font-weight: 800; }
+  .team-cards { display: grid; grid-template-rows: repeat(4, 1fr); gap: 3mm; }
+  .team-card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 4mm 5mm; display: flex; align-items: center; gap: 5mm; }
+  .team-card .role { font-size: 8pt; letter-spacing: 0.22em; color: var(--accent); font-weight: 800; text-transform: uppercase; min-width: 30mm; }
+  .team-card .who { font-size: 10pt; line-height: 1.45; color: var(--text); }
+  .team-card .who strong { font-weight: 700; }
+  .team-card .who span { color: var(--mute); }
+
+  /* BACKING / SPONSORS SLIDE */
+  .backing-head { display: flex; align-items: baseline; gap: 12mm; margin: 4mm 0 6mm; }
+  .backing-head .big-num { font-size: 60pt; font-weight: 800; color: var(--accent); line-height: 1; letter-spacing: -0.03em; }
+  .backing-head .big-text { font-size: 18pt; line-height: 1.2; max-width: 180mm; font-weight: 600; }
+  .logos-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6mm; flex: 1; align-items: stretch; }
+  .logo-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6mm; display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-height: 78mm; }
+  .logo-card .badge { font-size: 8pt; letter-spacing: 0.22em; color: var(--accent); font-weight: 800; text-transform: uppercase; }
+  .logo-card .badge.new { color: var(--blue); }
+  .logo-card .role { font-size: 8.5pt; color: var(--mute); text-align: center; letter-spacing: 0.06em; line-height: 1.45; }
+  .logo-art { display: flex; align-items: center; justify-content: center; width: 100%; height: 50mm; border-radius: 6px; }
+  /* Brand approximations */
+  .logo-art.jk { background: #FFE600; }
+  .logo-art.jk .word { font-family: 'Anton', sans-serif; font-size: 32pt; color: #111; letter-spacing: -0.01em; line-height: 1; }
+  .logo-art.jk .sub { font-family: 'Rajdhani', sans-serif; font-size: 8pt; color: #111; letter-spacing: 0.28em; margin-top: 3mm; font-weight: 600; }
+  .logo-art.jk .stack { display: flex; flex-direction: column; align-items: center; }
+  .logo-art.tt { background: #2b0a1c; }
+  .logo-art.tt .word { font-family: 'Pacifico', cursive; font-size: 22pt; color: #ff70b3; text-shadow: 0 0 12px rgba(255,112,179,0.7), 0 0 22px rgba(255,112,179,0.4); line-height: 1; text-align: center; }
+  .logo-art.snap { background: #f6f6f6; }
+  .logo-art.snap .word { font-family: 'Anton', sans-serif; font-size: 26pt; color: #d8232a; letter-spacing: 0.03em; line-height: 1; }
+  .logo-art.snap .sub { font-family: 'Pacifico', cursive; font-size: 14pt; color: #d8232a; margin-top: 1mm; }
+  .logo-art.snap .stack { display: flex; flex-direction: column; align-items: center; }
+  .logo-art.v4 { background: #000; border: 1px solid rgba(255,255,255,0.10); }
+  .logo-art.v4 .word { font-family: 'Anton', sans-serif; font-size: 28pt; color: #ff7a18; letter-spacing: 0.02em; line-height: 1; }
+  .logo-art.v4 .sub { font-family: 'Rajdhani', sans-serif; font-size: 7pt; color: #fff; letter-spacing: 0.28em; margin-top: 2mm; font-weight: 700; }
+  .logo-art.v4 .stack { display: flex; flex-direction: column; align-items: center; }
+  .backing-foot { margin-top: 4mm; font-size: 10pt; color: var(--mute); line-height: 1.5; }
+  .backing-foot strong { color: var(--text); }
 
   /* CONTACT SLIDE */
   .contact-slide { padding: 0; }
@@ -166,12 +201,12 @@
   <div class="content">
     <div class="head">
       <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">RALLY · INRC · VW POLO #41</div></div></div>
-      <div class="slide-no">01 / 08</div>
+      <div class="slide-no">01 / 09</div>
     </div>
     <div>
       <span class="pill">INRC 2026–27 · Sponsorship Deck</span>
       <div class="big" style="margin-top:5mm;">Two kids from Calicut.<br/>One shot at <span class="amp">history</span>.</div>
-      <div class="sub">Debut season: <strong>P2 JINRC · P4 INRC3 overall</strong>. Stepping up to the premier Indian National Rally Championship.</div>
+      <div class="sub">Debut season: <strong>P2 JINRC · P4 INRC3 overall</strong>. Backed by <strong>JK Tyre</strong> and <strong>Turbo Tonic</strong>. Now stepping up to the premier Indian National Rally Championship.</div>
     </div>
     <div class="foot-line">
       <div><strong>GARAGE SNAP RACING</strong> · Calicut → National</div>
@@ -184,7 +219,7 @@
 <section class="slide">
   <div class="head">
     <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">THE DUO</div></div></div>
-    <div class="slide-no">02 / 08</div>
+    <div class="slide-no">02 / 09</div>
   </div>
   <span class="eyebrow" style="margin-top:8mm; display:inline-block;">The Duo</span>
   <div class="h1">Same city. Same obsession.<br/>Same <span class="accent">car</span>.</div>
@@ -198,11 +233,84 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 3 — THE NUMBERS ============== -->
+<!-- ============== SLIDE 3 — TEAM / GARAGE / MENTORS ============== -->
+<section class="slide">
+  <div class="head">
+    <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">BEHIND THE CAR</div></div></div>
+    <div class="slide-no">03 / 09</div>
+  </div>
+  <span class="eyebrow" style="margin-top:8mm; display:inline-block;">Behind the car</span>
+  <div class="h1">A driver doesn't win alone.<br/>This <span class="accent">team</span> does.</div>
+  <p class="lede" style="margin-top:0;">A national-grade garage, two title-holding mentors, a service crew that travels every round. The same support structure as the front of the field — already in place, already producing results.</p>
+  <div class="team-grid">
+    <div class="team-img"></div>
+    <div class="team-cards">
+      <div class="team-card"><div class="role">The Garage</div><div class="who"><strong>Garage Snap Racing</strong> · <span>Workshop, build &amp; service crew. Prep, recce, inter-event teardown — done in-house.</span></div></div>
+      <div class="team-card"><div class="role">Driver Coach</div><div class="who"><strong>Fabid Ahmer</strong> · <span>Rally champion, Sidewinder driver, multi-title INRC veteran. Drove every coaching kilometre since day one.</span></div></div>
+      <div class="team-card"><div class="role">Co-driver Coach</div><div class="who"><strong>Raghuram S</strong> · <span>Vision 4 Motorsport Solutions. Trained Vijay on pace notes, recce, and stage discipline.</span></div></div>
+      <div class="team-card"><div class="role">Pit Crew + Spotters</div><div class="who"><strong>Snap Racing crew</strong> · <span>Service tent, in-stage spotters, family + friends on every round. The rally only happens because they show up.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SLIDE 4 — RETURNING SPONSORS ============== -->
+<section class="slide">
+  <div class="head">
+    <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">RETURNING BACKERS</div></div></div>
+    <div class="slide-no">04 / 09</div>
+  </div>
+  <span class="eyebrow" style="margin-top:8mm; display:inline-block;">Already backed</span>
+  <div class="backing-head">
+    <div class="big-num">2</div>
+    <div class="big-text">commercial sponsors signed in <strong>year one</strong> — both returning for 2026–27. New partners join an already-funded car.</div>
+  </div>
+  <div class="logos-row">
+    <div class="logo-card">
+      <div class="badge">2025–26 · Returning</div>
+      <div class="logo-art jk">
+        <div class="stack">
+          <div class="word">JK<span style="color:#d8232a;">×</span>TYRE</div>
+          <div class="sub">TOTAL CONTROL</div>
+        </div>
+      </div>
+      <div class="role">Official tyre sponsor &amp; technical partner — FMSCI's most prominent tyre brand.</div>
+    </div>
+    <div class="logo-card">
+      <div class="badge">2025–26 · Returning</div>
+      <div class="logo-art tt">
+        <div class="word">Turbo<br/>Tonic</div>
+      </div>
+      <div class="role">Official media &amp; podcast partner — content collaboration across the season.</div>
+    </div>
+    <div class="logo-card">
+      <div class="badge">Team</div>
+      <div class="logo-art snap">
+        <div class="stack">
+          <div class="word">SNAP</div>
+          <div class="sub">Racing</div>
+        </div>
+      </div>
+      <div class="role">Garage Snap Racing — workshop, build, service crew.</div>
+    </div>
+    <div class="logo-card">
+      <div class="badge">Coaching</div>
+      <div class="logo-art v4">
+        <div class="stack">
+          <div class="word">VISION 4</div>
+          <div class="sub">MOTORSPORT SOLUTIONS</div>
+        </div>
+      </div>
+      <div class="role">Co-driver coaching for Vijay Anand — Raghuram S.</div>
+    </div>
+  </div>
+  <div class="backing-foot"><strong>Why this matters:</strong> when a brand signs Abhimanyu &amp; Vijay, they are joining an existing commercial roster, not bootstrapping one. The car is on the start line either way — sponsors decide where their logo sits on it.</div>
+</section>
+
+<!-- ============== SLIDE 5 — THE NUMBERS ============== -->
 <section class="slide">
   <div class="head">
     <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">DEBUT SCOREBOARD</div></div></div>
-    <div class="slide-no">03 / 08</div>
+    <div class="slide-no">05 / 09</div>
   </div>
   <span class="eyebrow" style="margin-top:8mm; display:inline-block;">Debut · 2025–26</span>
   <div class="h1">The year-one <span class="accent">scoreboard</span>.</div>
@@ -215,11 +323,11 @@
   <div class="stats-note">Five of six rounds contested · missed the Chennai opener · survived a mechanical failure in the finale and still sealed runner-up. <strong>2026–27 target: P1 INRC overall — or a podium every round.</strong></div>
 </section>
 
-<!-- ============== SLIDE 4 — THE SEASON ============== -->
+<!-- ============== SLIDE 6 — THE SEASON ============== -->
 <section class="slide">
   <div class="head">
     <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">ROUND BY ROUND</div></div></div>
-    <div class="slide-no">04 / 08</div>
+    <div class="slide-no">06 / 09</div>
   </div>
   <span class="eyebrow" style="margin-top:8mm; display:inline-block;">Round by round</span>
   <div class="h1">The <span class="accent">debut season</span>.</div>
@@ -235,11 +343,11 @@
   <div class="final">FINAL · P2 JINRC · P4 INRC3 OVERALL · DEBUT SEASON</div>
 </section>
 
-<!-- ============== SLIDE 5 — REACH ============== -->
+<!-- ============== SLIDE 7 — REACH ============== -->
 <section class="slide">
   <div class="head">
     <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">MEDIA REACH</div></div></div>
-    <div class="slide-no">05 / 08</div>
+    <div class="slide-no">07 / 09</div>
   </div>
   <span class="eyebrow" style="margin-top:8mm; display:inline-block;">Media reach · per event</span>
   <div class="h1">India's <span class="accent">fastest-growing</span> motorsport property.</div>
@@ -252,27 +360,11 @@
   <div class="reach-note"><strong>BlueBand Sports (INRC Digital):</strong> 200K+ Instagram followers · 75+ lakh reach/month during rally season · 100M+ cumulative Reels plays — co-branded on all INRC video content. <strong>TV5 News</strong> is the exclusive national broadcast partner with full 6-round coverage.</div>
 </section>
 
-<!-- ============== SLIDE 6 — WHY SPONSOR ============== -->
-<section class="slide">
-  <div class="head">
-    <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">WHY NOW</div></div></div>
-    <div class="slide-no">06 / 08</div>
-  </div>
-  <span class="eyebrow" style="margin-top:8mm; display:inline-block;">Why Abhimanyu &amp; Vijay</span>
-  <div class="h1">The right story, at the <span class="accent">right moment</span>.</div>
-  <div class="why">
-    <div class="c"><div class="num">01 · NARRATIVE</div><h4>A story journalists already want to write.</h4><p>NRI kid → NFS on screen → IIT Bombay → finance career → national podium in debut season. Already featured by Malayala Manorama Group.</p></div>
-    <div class="c"><div class="num">02 · RESILIENCE</div><h4>Intelligent recovery under pressure.</h4><p>Missed Rd 1. Crashed in Coorg. Bent the rear beam in the championship finale. Still finished runner-up.</p></div>
-    <div class="c"><div class="num">03 · GROUND FLOOR</div><h4>Be in the origin story.</h4><p>27 years old. Debut: P2 JINRC, P4 INRC3 overall. Sign before he wins — your brand is in the rise, not the arrival.</p></div>
-    <div class="c"><div class="num">04 · CREDIBILITY</div><h4>Earned, not purchased.</h4><p>IIT Bombay signals merit. Audiences understand he earned the seat on talent and preparation — not a cheque.</p></div>
-  </div>
-</section>
-
-<!-- ============== SLIDE 7 — PACKAGES ============== -->
+<!-- ============== SLIDE 8 — PACKAGES ============== -->
 <section class="slide">
   <div class="head">
     <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">PARTNERSHIP TIERS</div></div></div>
-    <div class="slide-no">07 / 08</div>
+    <div class="slide-no">08 / 09</div>
   </div>
   <span class="eyebrow" style="margin-top:8mm; display:inline-block;">Packages · 2026–27 season</span>
   <div class="h1">Three ways to <span class="accent">sponsor</span>.</div>
@@ -314,18 +406,18 @@
   </div>
 </section>
 
-<!-- ============== SLIDE 8 — CONTACT ============== -->
+<!-- ============== SLIDE 9 — CONTACT ============== -->
 <section class="slide contact-slide">
   <div class="bg-img"></div>
   <div class="content">
     <div class="head">
       <div class="brand"><span class="brand-mark"></span><div><div class="brand-name">ABHIMANYU &amp; VIJAY</div><div class="brand-sub">NEXT STEPS</div></div></div>
-      <div class="slide-no">08 / 08</div>
+      <div class="slide-no">09 / 09</div>
     </div>
     <div>
-      <span class="pill" style="display:inline-block; padding:4px 12px; background:rgba(34,230,107,0.18); border:1px solid rgba(34,230,107,0.45); border-radius:999px; font-size:9pt; font-weight:800; letter-spacing:0.2em; color:var(--accent); text-transform:uppercase;">Open · 2026–27</span>
+      <span class="pill">Open · 2026–27</span>
       <div class="big" style="margin-top:5mm;">Be part of the<br/><span class="accent">origin story</span>.</div>
-      <div style="font-size:13pt; color:#d8e0ee; margin-top:5mm; max-width:200mm; line-height:1.45;">Reply within <strong style="color:var(--text);">1–2 hours</strong>. Title, Gold, and Silver packages available. Custom plans on request.</div>
+      <div style="font-size:13pt; color:#d8e0ee; margin-top:5mm; max-width:200mm; line-height:1.45;">Joining JK Tyre and Turbo Tonic on the #41 livery. Reply within <strong style="color:var(--text);">1–2 hours</strong>. Title, Gold, and Silver packages available.</div>
       <div class="contact-row">
         <div class="c"><div class="lbl">Email</div><div class="v"><a href="mailto:abhimanyusajeevan@gmail.com">abhimanyusajeevan@gmail.com</a></div></div>
         <div class="c"><div class="lbl">Instagram</div><div class="v"><a href="https://instagram.com/abhiii_manyu">@abhiii_manyu</a></div></div>
