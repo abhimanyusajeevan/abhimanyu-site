@@ -799,6 +799,54 @@ section { padding: 96px 0; position: relative; }
   .why-grid { grid-template-columns: 1fr; }
 }
 
+/* ---------- Logo strip (returning sponsors + team) ---------- */
+.logo-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+.logo-tile {
+  background: #f6f6f6;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 160px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.logo-tile.dark { background: #0a0a0a; border-color: var(--line-2); }
+.logo-tile:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 12px 36px rgba(0,0,0,0.4); }
+.logo-tile img {
+  max-width: 80%;
+  max-height: 70px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.logo-tile .logo-cap {
+  font-family: var(--font-sub);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  text-align: center;
+}
+.logo-tile.dark .logo-cap { color: rgba(245,242,238,0.7); }
+.logo-tile.team { background: #fff; }
+.logo-tile.team.dark { background: #0a0a0a; }
+@media (max-width: 800px) {
+  .logo-strip { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .logo-strip { grid-template-columns: 1fr; }
+}
+
 /* ---------- Media reach ---------- */
 .reach-grid {
   display: grid;
@@ -1551,23 +1599,24 @@ section { padding: 96px 0; position: relative; }
 .floater-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
+  gap: 12px;
+  padding: 18px 28px;
   border-radius: 999px;
   font-family: var(--font-sub);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.2em;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  border: 1px solid var(--line-2);
-  background: rgba(10,16,24,0.92);
+  border: 1.5px solid var(--line-2);
+  background: rgba(10,16,24,0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   color: var(--text);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset;
   transition: all 0.25s ease;
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
 }
 .floater-btn:hover {
   transform: translateY(-2px);
@@ -1578,7 +1627,9 @@ section { padding: 96px 0; position: relative; }
   background: var(--accent);
   color: #0a0a0a;
   border-color: var(--accent);
-  box-shadow: 0 14px 40px rgba(34,230,107,0.35), 0 0 0 1px rgba(0,0,0,0.1) inset;
+  font-size: 15px;
+  padding: 20px 30px;
+  box-shadow: 0 18px 54px rgba(34,230,107,0.55), 0 0 0 1px rgba(0,0,0,0.1) inset;
 }
 .floater-btn.is-primary:hover {
   background: #fff;
@@ -1586,7 +1637,8 @@ section { padding: 96px 0; position: relative; }
   border-color: #fff;
   box-shadow: 0 18px 50px rgba(34,230,107,0.5);
 }
-.floater-btn svg { width: 14px; height: 14px; }
+.floater-btn svg { width: 18px; height: 18px; }
+.floater-btn.is-primary svg { width: 20px; height: 20px; }
 .floater-btn.is-primary::after {
   content: '';
   position: absolute;

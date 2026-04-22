@@ -7,8 +7,10 @@
   // Formspree form — live endpoint
   var FORMSPREE_ID = 'mvzdbnpe';
   var FORMSPREE_ENDPOINT = 'https://formspree.io/f/' + FORMSPREE_ID;
-  var PROPOSAL_HREF = 'partners.html';
-  var CONTACT_HREF = 'contact.html';
+  // Detect if we're inside the /pitch/ subdir and adjust hrefs accordingly
+  var IN_PITCH = /\/pitch\//.test(window.location.pathname);
+  var PROPOSAL_HREF = IN_PITCH ? 'index.html' : 'pitch/index.html';
+  var CONTACT_HREF  = IN_PITCH ? '../contact.html' : 'contact.html';
 
   var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -217,11 +219,11 @@
       nav.style.boxShadow = (y > 20) ? '0 8px 30px rgba(0,0,0,0.35)' : 'none';
     }
 
-    // Floater visibility — appear after 320px of scroll
+    // Floater visibility — appear after 80px of scroll (early so it's discoverable)
     if (floater) {
-      if (y > 320 && !floater.classList.contains('is-dismissed')) {
+      if (y > 80 && !floater.classList.contains('is-dismissed')) {
         floater.classList.add('is-visible');
-      } else {
+      } else if (y <= 20) {
         floater.classList.remove('is-visible');
       }
     }
@@ -326,15 +328,10 @@
       });
     }
 
-    // Active-page hint — if we're on /partners, swap the primary action label to "Contact" focus
-    if (path === 'partners.html') {
-      var primary = f.querySelector('.floater-btn.is-primary');
-      var secondary = f.querySelector('.floater-btn:not(.is-primary)');
-      if (primary && secondary) {
-        // Make Contact the primary-weight action on the partners page
-        primary.classList.remove('is-primary');
-        secondary.classList.add('is-primary');
-      }
+    // Active-page hint — on contact page, demote the contact CTA so it doesn't loop
+    if (path === 'contact.html') {
+      var contactBtn = f.querySelector('.floater-btn:not(.is-primary)');
+      if (contactBtn) contactBtn.style.display = 'none';
     }
   }
   ensureFloater();

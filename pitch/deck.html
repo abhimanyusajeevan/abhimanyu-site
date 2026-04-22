@@ -156,22 +156,12 @@
   .logo-card .badge { font-size: 8pt; letter-spacing: 0.22em; color: var(--accent); font-weight: 800; text-transform: uppercase; }
   .logo-card .badge.new { color: var(--blue); }
   .logo-card .role { font-size: 8.5pt; color: var(--mute); text-align: center; letter-spacing: 0.06em; line-height: 1.45; }
-  .logo-art { display: flex; align-items: center; justify-content: center; width: 100%; height: 50mm; border-radius: 6px; }
-  /* Brand approximations */
-  .logo-art.jk { background: #FFE600; }
-  .logo-art.jk .word { font-family: 'Anton', sans-serif; font-size: 32pt; color: #111; letter-spacing: -0.01em; line-height: 1; }
-  .logo-art.jk .sub { font-family: 'Rajdhani', sans-serif; font-size: 8pt; color: #111; letter-spacing: 0.28em; margin-top: 3mm; font-weight: 600; }
-  .logo-art.jk .stack { display: flex; flex-direction: column; align-items: center; }
-  .logo-art.tt { background: #2b0a1c; }
-  .logo-art.tt .word { font-family: 'Pacifico', cursive; font-size: 22pt; color: #ff70b3; text-shadow: 0 0 12px rgba(255,112,179,0.7), 0 0 22px rgba(255,112,179,0.4); line-height: 1; text-align: center; }
-  .logo-art.snap { background: #f6f6f6; }
-  .logo-art.snap .word { font-family: 'Anton', sans-serif; font-size: 26pt; color: #d8232a; letter-spacing: 0.03em; line-height: 1; }
-  .logo-art.snap .sub { font-family: 'Pacifico', cursive; font-size: 14pt; color: #d8232a; margin-top: 1mm; }
-  .logo-art.snap .stack { display: flex; flex-direction: column; align-items: center; }
-  .logo-art.v4 { background: #000; border: 1px solid rgba(255,255,255,0.10); }
-  .logo-art.v4 .word { font-family: 'Anton', sans-serif; font-size: 28pt; color: #ff7a18; letter-spacing: 0.02em; line-height: 1; }
-  .logo-art.v4 .sub { font-family: 'Rajdhani', sans-serif; font-size: 7pt; color: #fff; letter-spacing: 0.28em; margin-top: 2mm; font-weight: 700; }
-  .logo-art.v4 .stack { display: flex; flex-direction: column; align-items: center; }
+  .logo-art { display: flex; align-items: center; justify-content: center; width: 100%; height: 50mm; border-radius: 6px; padding: 5mm; overflow: hidden; }
+  .logo-art img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+  .logo-art.jk   { background: #FFE600; }
+  .logo-art.tt   { background: #2b0a1c; }
+  .logo-art.snap { background: #ffffff; }
+  .logo-art.v4   { background: #000; border: 1px solid rgba(255,255,255,0.10); }
   .backing-foot { margin-top: 4mm; font-size: 10pt; color: var(--mute); line-height: 1.5; }
   .backing-foot strong { color: var(--text); }
 
@@ -267,39 +257,22 @@
   <div class="logos-row">
     <div class="logo-card">
       <div class="badge">2025–26 · Returning</div>
-      <div class="logo-art jk">
-        <div class="stack">
-          <div class="word">JK<span style="color:#d8232a;">×</span>TYRE</div>
-          <div class="sub">TOTAL CONTROL</div>
-        </div>
-      </div>
+      <div class="logo-art jk"><img src="../assets/logos/jk-tyre.png" alt="JK Tyre — Total Control"/></div>
       <div class="role">Official tyre sponsor &amp; technical partner — FMSCI's most prominent tyre brand.</div>
     </div>
     <div class="logo-card">
       <div class="badge">2025–26 · Returning</div>
-      <div class="logo-art tt">
-        <div class="word">Turbo<br/>Tonic</div>
-      </div>
+      <div class="logo-art tt"><img src="../assets/logos/turbotonic.png" alt="Turbo Tonic"/></div>
       <div class="role">Official media &amp; podcast partner — content collaboration across the season.</div>
     </div>
     <div class="logo-card">
       <div class="badge">Team</div>
-      <div class="logo-art snap">
-        <div class="stack">
-          <div class="word">SNAP</div>
-          <div class="sub">Racing</div>
-        </div>
-      </div>
+      <div class="logo-art snap"><img src="../assets/logos/snap-racing.png" alt="Snap Racing"/></div>
       <div class="role">Garage Snap Racing — workshop, build, service crew.</div>
     </div>
     <div class="logo-card">
       <div class="badge">Coaching</div>
-      <div class="logo-art v4">
-        <div class="stack">
-          <div class="word">VISION 4</div>
-          <div class="sub">MOTORSPORT SOLUTIONS</div>
-        </div>
-      </div>
+      <div class="logo-art v4"><img src="../assets/logos/vision4.png" alt="Vision 4 Motorsport Solutions"/></div>
       <div class="role">Co-driver coaching for Vijay Anand — Raghuram S.</div>
     </div>
   </div>

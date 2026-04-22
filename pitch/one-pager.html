@@ -25,18 +25,18 @@
     color: var(--text);
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    overflow: hidden;
   }
   .page {
     width: 210mm;
-    height: 297mm;
-    padding: 14mm 14mm 12mm;
+    height: 296mm;
+    padding: 11mm 12mm 10mm;
     background:
       radial-gradient(ellipse 80% 50% at 100% 0%, rgba(56,169,255,0.10), transparent 60%),
       radial-gradient(ellipse 60% 50% at 0% 100%, rgba(34,230,107,0.08), transparent 60%),
       var(--bg);
     display: flex;
     flex-direction: column;
-    page-break-after: always;
   }
   /* HEADER */
   .head { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--line); padding-bottom: 8mm; }
@@ -49,22 +49,22 @@
   .deadline { font-size: 10px; color: var(--mute); margin-top: 4px; }
 
   /* TITLE */
-  .title-block { margin-top: 9mm; }
-  .title { font-size: 38pt; line-height: 1.0; font-weight: 800; letter-spacing: -0.02em; }
+  .title-block { margin-top: 6mm; }
+  .title { font-size: 32pt; line-height: 1.0; font-weight: 800; letter-spacing: -0.02em; }
   .title .amp { color: var(--accent); }
-  .subtitle { margin-top: 3mm; font-size: 11pt; color: var(--mute); max-width: 165mm; line-height: 1.45; }
+  .subtitle { margin-top: 3mm; font-size: 10.5pt; color: var(--mute); max-width: 165mm; line-height: 1.45; }
 
   /* STATS */
-  .stats { margin-top: 7mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
-  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5mm 4mm; }
-  .stat .n { font-size: 22pt; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+  .stats { margin-top: 5mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 4mm; }
+  .stat .n { font-size: 20pt; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
   .stat .n .u { color: var(--mute); font-size: 12pt; font-weight: 600; margin-left: 2px; }
   .stat .l { margin-top: 3mm; font-size: 8pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); }
   .stat.accent .n { color: var(--accent); }
   .stat.blue   .n { color: var(--blue); }
 
   /* TWO COLUMN BODY */
-  .body { margin-top: 7mm; display: grid; grid-template-columns: 1.05fr 1fr; gap: 6mm; }
+  .body { margin-top: 5mm; display: grid; grid-template-columns: 1.05fr 1fr; gap: 5mm; }
   .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5mm; }
   .panel h3 { margin: 0 0 3mm; font-size: 10pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
   .panel p { margin: 0 0 2.5mm; font-size: 9.5pt; line-height: 1.5; color: #d8e0ee; }
@@ -97,7 +97,7 @@
   .foot a { color: var(--accent); text-decoration: none; }
 
   .target {
-    margin-top: 5mm;
+    margin-top: 4mm;
     background: linear-gradient(95deg, rgba(34,230,107,0.18), rgba(56,169,255,0.10));
     border: 1px solid rgba(34,230,107,0.40);
     border-radius: 6px;
@@ -108,23 +108,16 @@
   .target .val { font-size: 13pt; font-weight: 800; margin-top: 1mm; letter-spacing: -0.01em; }
 
   /* BACKED-BY STRIP */
-  .backed { margin-top: 4mm; display: grid; grid-template-columns: 30mm 1fr; gap: 4mm; align-items: center; }
+  .backed { margin-top: 3mm; display: grid; grid-template-columns: 30mm 1fr; gap: 4mm; align-items: center; }
   .backed .lbl { font-size: 8pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mute); font-weight: 800; line-height: 1.3; }
   .backed .lbl b { color: var(--accent); display: block; font-size: 9pt; }
   .logo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5mm; }
-  .logo-art { display: flex; align-items: center; justify-content: center; height: 14mm; border-radius: 4px; padding: 2mm; }
-  .logo-art .stack { display: flex; flex-direction: column; align-items: center; }
-  .logo-art.jk { background: #FFE600; }
-  .logo-art.jk .word { font-family: 'Anton', sans-serif; font-size: 13pt; color: #111; line-height: 1; }
-  .logo-art.jk .sub { font-family: 'Rajdhani', sans-serif; font-size: 5.5pt; color: #111; letter-spacing: 0.24em; margin-top: 1mm; font-weight: 700; }
-  .logo-art.tt { background: #2b0a1c; }
-  .logo-art.tt .word { font-family: 'Pacifico', cursive; font-size: 12pt; color: #ff70b3; text-shadow: 0 0 8px rgba(255,112,179,0.7); line-height: 1.05; text-align: center; }
-  .logo-art.snap { background: #f6f6f6; }
-  .logo-art.snap .word { font-family: 'Anton', sans-serif; font-size: 12pt; color: #d8232a; line-height: 1; }
-  .logo-art.snap .sub { font-family: 'Pacifico', cursive; font-size: 7pt; color: #d8232a; margin-top: 0.5mm; }
-  .logo-art.v4 { background: #000; border: 1px solid rgba(255,255,255,0.10); }
-  .logo-art.v4 .word { font-family: 'Anton', sans-serif; font-size: 12pt; color: #ff7a18; line-height: 1; }
-  .logo-art.v4 .sub { font-family: 'Rajdhani', sans-serif; font-size: 5pt; color: #fff; letter-spacing: 0.22em; margin-top: 1mm; font-weight: 700; }
+  .logo-art { display: flex; align-items: center; justify-content: center; height: 13mm; border-radius: 4px; padding: 1.5mm; overflow: hidden; }
+  .logo-art img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+  .logo-art.jk   { background: #FFE600; }
+  .logo-art.tt   { background: #2b0a1c; }
+  .logo-art.snap { background: #ffffff; }
+  .logo-art.v4   { background: #000; border: 1px solid rgba(255,255,255,0.10); }
 </style>
 </head>
 <body>
@@ -169,10 +162,10 @@
   <div class="backed">
     <div class="lbl">Backed in 2025–26<b>Returning for 2026–27</b></div>
     <div class="logo-row">
-      <div class="logo-art jk"><div class="stack"><div class="word">JK&nbsp;TYRE</div><div class="sub">TOTAL CONTROL</div></div></div>
-      <div class="logo-art tt"><div class="word">Turbo<br/>Tonic</div></div>
-      <div class="logo-art snap"><div class="stack"><div class="word">SNAP</div><div class="sub">Racing</div></div></div>
-      <div class="logo-art v4"><div class="stack"><div class="word">VISION&nbsp;4</div><div class="sub">MOTORSPORT</div></div></div>
+      <div class="logo-art jk"><img src="../assets/logos/jk-tyre.png" alt="JK Tyre"/></div>
+      <div class="logo-art tt"><img src="../assets/logos/turbotonic.png" alt="Turbo Tonic"/></div>
+      <div class="logo-art snap"><img src="../assets/logos/snap-racing.png" alt="Snap Racing"/></div>
+      <div class="logo-art v4"><img src="../assets/logos/vision4.png" alt="Vision 4"/></div>
     </div>
   </div>
 
