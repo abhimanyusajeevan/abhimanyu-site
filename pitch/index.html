@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pitch Materials — Abhimanyu &amp; Vijay · INRC 2026–27</title>
+<style>
+  body { margin:0; background:#0a1018; color:#f4f8ff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,system-ui,sans-serif; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 20px; }
+  .wrap { max-width: 720px; width:100%; }
+  .eyebrow { font-size:11px; letter-spacing:0.32em; color:#22e66b; font-weight:800; text-transform:uppercase; }
+  h1 { font-size: clamp(32px, 5vw, 48px); line-height:1.05; margin: 12px 0 8px; letter-spacing:-0.02em; font-weight: 800; }
+  h1 .a { color:#22e66b; }
+  p.lede { color:#9ba9c0; font-size:15px; margin: 0 0 32px; line-height:1.55; }
+  .grid { display:grid; grid-template-columns: 1fr 1fr; gap:18px; }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  .card { background:#0f1722; border:1px solid rgba(255,255,255,0.10); border-radius:10px; padding:24px; transition: border-color .2s ease, transform .2s ease; }
+  .card:hover { border-color: #22e66b; transform: translateY(-2px); }
+  .card .t { font-size:10px; letter-spacing:0.28em; color:#9ba9c0; text-transform:uppercase; font-weight:700; }
+  .card h3 { font-size:22px; margin:8px 0 6px; letter-spacing:-0.01em; }
+  .card p { color:#9ba9c0; font-size:13px; margin:0 0 18px; line-height:1.5; }
+  .card .actions { display:flex; gap:10px; flex-wrap:wrap; }
+  .btn { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:6px; font-size:11px; font-weight:800; letter-spacing:0.18em; text-transform:uppercase; text-decoration:none; transition: all .15s ease; }
+  .btn-primary { background:#22e66b; color:#0a1018; }
+  .btn-primary:hover { background:#1bd35d; }
+  .btn-ghost { border:1px solid rgba(255,255,255,0.20); color:#f4f8ff; }
+  .btn-ghost:hover { border-color:#22e66b; color:#22e66b; }
+  .back { display:inline-block; margin-top:28px; color:#9ba9c0; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; text-decoration:none; }
+  .back:hover { color:#22e66b; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyebrow">Sponsorship · 2026–27 INRC</span>
+  <h1>Pitch <span class="a">Materials</span>.</h1>
+  <p class="lede">Two formats — pick the one that fits the audience. The one-pager works as an email attachment; the deck for a 10-minute walkthrough.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="t">Format · A4</div>
+      <h3>One-pager</h3>
+      <p>Single-page sponsor brief. Story, scoreboard, season, why-now, contact — at a glance.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="abhimanyu-vijay-one-pager.pdf" download>Download PDF</a>
+        <a class="btn btn-ghost" href="one-pager.html" target="_blank">Open in browser</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="t">Format · 16:9 · 8 slides</div>
+      <h3>Deck</h3>
+      <p>Title · Duo · Numbers · Season · Reach · Why · Packages · Contact. Built for a short walkthrough.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="abhimanyu-vijay-deck.pdf" download>Download PDF</a>
+        <a class="btn btn-ghost" href="deck.html" target="_blank">Open in browser</a>
+      </div>
+    </div>
+  </div>
+
+  <a class="back" href="../index.html">← Back to site</a>
+</div>
+</body>
+</html>

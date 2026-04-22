@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Abhimanyu & Vijay — INRC 2026–27 Sponsorship One-Pager</title>
+<style>
+  :root {
+    --bg: #0a1018;
+    --panel: #0f1722;
+    --line: rgba(255,255,255,0.10);
+    --text: #f4f8ff;
+    --mute: #9ba9c0;
+    --accent: #22e66b;
+    --blue: #38a9ff;
+  }
+  @page { size: A4 portrait; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #0a1018;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, system-ui, sans-serif;
+    color: var(--text);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 14mm 14mm 12mm;
+    background:
+      radial-gradient(ellipse 80% 50% at 100% 0%, rgba(56,169,255,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 0% 100%, rgba(34,230,107,0.08), transparent 60%),
+      var(--bg);
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+  }
+  /* HEADER */
+  .head { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--line); padding-bottom: 8mm; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark { width: 14px; height: 14px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 4px rgba(34,230,107,0.18); }
+  .brand-name { font-size: 13px; letter-spacing: 0.28em; font-weight: 800; }
+  .brand-sub { font-size: 9px; letter-spacing: 0.32em; color: var(--mute); margin-top: 2px; }
+  .head-right { text-align: right; }
+  .eyebrow { font-size: 9px; letter-spacing: 0.34em; color: var(--accent); font-weight: 800; text-transform: uppercase; }
+  .deadline { font-size: 10px; color: var(--mute); margin-top: 4px; }
+
+  /* TITLE */
+  .title-block { margin-top: 9mm; }
+  .title { font-size: 38pt; line-height: 1.0; font-weight: 800; letter-spacing: -0.02em; }
+  .title .amp { color: var(--accent); }
+  .subtitle { margin-top: 3mm; font-size: 11pt; color: var(--mute); max-width: 165mm; line-height: 1.45; }
+
+  /* STATS */
+  .stats { margin-top: 7mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5mm 4mm; }
+  .stat .n { font-size: 22pt; font-weight: 800; line-height: 1; letter-spacing: -0.02em; }
+  .stat .n .u { color: var(--mute); font-size: 12pt; font-weight: 600; margin-left: 2px; }
+  .stat .l { margin-top: 3mm; font-size: 8pt; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); }
+  .stat.accent .n { color: var(--accent); }
+  .stat.blue   .n { color: var(--blue); }
+
+  /* TWO COLUMN BODY */
+  .body { margin-top: 7mm; display: grid; grid-template-columns: 1.05fr 1fr; gap: 6mm; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5mm; }
+  .panel h3 { margin: 0 0 3mm; font-size: 10pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+  .panel p { margin: 0 0 2.5mm; font-size: 9.5pt; line-height: 1.5; color: #d8e0ee; }
+  .panel ul { margin: 0; padding-left: 5mm; font-size: 9.5pt; line-height: 1.55; color: #d8e0ee; }
+  .panel ul li { margin-bottom: 1.5mm; }
+  .panel strong { color: var(--text); font-weight: 700; }
+
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 1.5mm 4mm; font-size: 9pt; }
+  .kv dt { color: var(--mute); letter-spacing: 0.04em; }
+  .kv dd { margin: 0; color: var(--text); }
+
+  /* RESULTS TABLE */
+  .results-row { display: grid; grid-template-columns: 14mm 18mm 1fr; gap: 2mm; padding: 1.5mm 0; border-bottom: 1px dashed var(--line); font-size: 9pt; }
+  .results-row:last-child { border-bottom: 0; }
+  .results-row .rd { font-weight: 800; letter-spacing: 0.1em; }
+  .results-row .loc { color: var(--mute); }
+  .results-row .res { color: var(--text); }
+  .results-row.win .rd { color: var(--accent); }
+
+  /* WHY SPONSOR */
+  .why { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3mm; }
+  .why-item { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 5px; padding: 3.5mm; }
+  .why-item .num { font-size: 9pt; color: var(--accent); font-weight: 800; letter-spacing: 0.12em; }
+  .why-item .h { font-size: 9.5pt; font-weight: 700; margin: 1mm 0 1.5mm; }
+  .why-item .p { font-size: 8.5pt; line-height: 1.45; color: var(--mute); }
+
+  /* FOOTER */
+  .foot { margin-top: auto; padding-top: 6mm; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-end; font-size: 8.5pt; color: var(--mute); }
+  .foot .cta { color: var(--text); font-size: 9pt; font-weight: 700; letter-spacing: 0.1em; }
+  .foot a { color: var(--accent); text-decoration: none; }
+
+  .target {
+    margin-top: 5mm;
+    background: linear-gradient(95deg, rgba(34,230,107,0.18), rgba(56,169,255,0.10));
+    border: 1px solid rgba(34,230,107,0.40);
+    border-radius: 6px;
+    padding: 4mm 5mm;
+    font-size: 10pt;
+  }
+  .target .label { font-size: 8pt; letter-spacing: 0.28em; text-transform: uppercase; color: var(--accent); font-weight: 800; }
+  .target .val { font-size: 13pt; font-weight: 800; margin-top: 1mm; letter-spacing: -0.01em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEAD -->
+  <div class="head">
+    <div class="brand">
+      <span class="brand-mark"></span>
+      <div>
+        <div class="brand-name">ABHIMANYU &amp; VIJAY</div>
+        <div class="brand-sub">RALLY · INRC · VW POLO #41</div>
+      </div>
+    </div>
+    <div class="head-right">
+      <div class="eyebrow">Sponsorship · 2026–27 INRC</div>
+      <div class="deadline">Garage Snap Racing · Calicut → National</div>
+    </div>
+  </div>
+
+  <!-- TITLE -->
+  <div class="title-block">
+    <div class="title">Two kids from Calicut.<br/>One shot at Indian rally <span class="amp">history</span>.</div>
+    <div class="subtitle">Abhimanyu Sajeevan (driver, IIT Bombay '17) and Vijay Anand (co-driver) finished P2 in the Junior INRC and P4 INRC3 overall in their debut season — and are now stepping up to the premier Indian National Rally Championship.</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat accent"><div class="n">P2<span class="u">.</span></div><div class="l">JINRC Final · Debut</div></div>
+    <div class="stat blue"><div class="n">P4<span class="u">.</span></div><div class="l">INRC3 Overall · Debut</div></div>
+    <div class="stat"><div class="n">3<span class="u">×</span></div><div class="l">Leg Wins · 5 Podiums</div></div>
+    <div class="stat"><div class="n">30M<span class="u">+</span></div><div class="l">Social Views / Event</div></div>
+  </div>
+
+  <!-- TARGET BANNER -->
+  <div class="target">
+    <div class="label">2026–27 Target</div>
+    <div class="val">P1 INRC overall — or a podium every round.</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+    <div class="panel">
+      <h3>The Duo</h3>
+      <p><strong>Abhimanyu Sajeevan</strong>, 27 — IIT Bombay Mechanical Engineering '17, finance professional in Bengaluru. Trained by rally champion <strong>Fabid Ahmer</strong> (Sidewinder). One karting session in June 2024 turned into a national rally seat thirteen months later.</p>
+      <p><strong>Vijay Anand</strong>, co-driver from the same city. Trained in co-driving by <strong>Raghuram S</strong> of Vision 4 Motorsports. The voice between Abhimanyu and every blind corner in India.</p>
+      <h3 style="margin-top:5mm;">At a glance</h3>
+      <dl class="kv">
+        <dt>Team</dt><dd>Garage Snap Racing</dd>
+        <dt>Car</dt><dd>VW Polo · White/Green livery · #41</dd>
+        <dt>Sanctioning</dt><dd>FMSCI — Federation of Motor Sports Clubs of India</dd>
+        <dt>2026–27 Rounds</dt><dd>6–8 across India · gravel &amp; tarmac</dd>
+        <dt>Confirmed</dt><dd>JK Tyres · Turbotonic</dd>
+      </dl>
+    </div>
+
+    <div class="panel">
+      <h3>Debut Season · 2025–26</h3>
+      <div class="results-row"><span class="rd">RD 1</span><span class="loc">Chennai</span><span class="res">DNS — pre-season commitment</span></div>
+      <div class="results-row"><span class="rd">RD 2</span><span class="loc">Coimbatore</span><span class="res">P2 JINRC · debut podium</span></div>
+      <div class="results-row"><span class="rd">RD 3</span><span class="loc">Coorg</span><span class="res">P3 overall · Leg 2 P2</span></div>
+      <div class="results-row win"><span class="rd">RD 4</span><span class="loc">Bengaluru K1000</span><span class="res">P1 Leg 1 · first stage win</span></div>
+      <div class="results-row win"><span class="rd">RD 5</span><span class="loc">Indore</span><span class="res">Won both legs · dominant</span></div>
+      <div class="results-row"><span class="rd">RD 6</span><span class="loc">Nashik</span><span class="res">Beam failure Leg 1 · P3 Leg 2 · sealed P2</span></div>
+
+      <h3 style="margin-top:5mm;">Why now — why this car</h3>
+      <div class="why">
+        <div class="why-item"><div class="num">01 NARRATIVE</div><div class="h">Story journalists already write.</div><div class="p">NRI kid → IIT → finance → national podium. Already featured by Malayala Manorama Group.</div></div>
+        <div class="why-item"><div class="num">02 REACH</div><div class="h">India's fastest-growing motorsport.</div><div class="p">15× INRC viewership growth · 30M+ social views/event · 2M+ national TV.</div></div>
+        <div class="why-item"><div class="num">03 GROUND FLOOR</div><div class="h">Be in the origin story.</div><div class="p">Sign before he wins — the brand is associated with his rise, not his arrival.</div></div>
+        <div class="why-item"><div class="num">04 CREDIBILITY</div><div class="h">Earned, not purchased.</div><div class="p">IIT Bombay signals merit. Sponsors back talent + preparation, not a cheque.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOT -->
+  <div class="foot">
+    <div>
+      <div class="cta">PARTNER NOW · 2026–27 SEASON OPEN</div>
+      <div style="margin-top:1.5mm;">Title · Gold · Silver packages available · response 1–2 hrs</div>
+    </div>
+    <div style="text-align:right;">
+      <div><a href="mailto:abhimanyusajeevan@gmail.com">abhimanyusajeevan@gmail.com</a></div>
+      <div><a href="https://instagram.com/abhiii_manyu">@abhiii_manyu</a> · <a href="https://abhimanyusajeevan.github.io/abhimanyu-site/">abhimanyusajeevan.github.io/abhimanyu-site</a></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
