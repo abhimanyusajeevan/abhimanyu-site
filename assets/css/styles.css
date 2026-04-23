@@ -250,6 +250,7 @@ section { padding: 96px 0; position: relative; }
   content: '';
   position: absolute;
   inset: 0;
+  pointer-events: none;
   /* Lighter, cinematic wash so the video reads clearly.
      Darker on the left (where the headline sits) for legibility,
      nearly clear on the right so the footage breathes. */
@@ -264,6 +265,7 @@ section { padding: 96px 0; position: relative; }
   content: '';
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background-image:
     linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
@@ -274,7 +276,7 @@ section { padding: 96px 0; position: relative; }
 }
 .hero-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   gap: 80px;
