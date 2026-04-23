@@ -11,6 +11,7 @@
   var IN_PITCH = /\/pitch\//.test(window.location.pathname);
   var PROPOSAL_HREF = IN_PITCH ? 'index.html' : 'pitch/index.html';
   var CONTACT_HREF  = IN_PITCH ? '../contact.html' : 'contact.html';
+  var ASSET_PREFIX  = IN_PITCH ? '../' : '';
 
   var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -26,7 +27,7 @@
     loader.className = 'site-loader';
     loader.innerHTML =
       '<video class="site-loader__video" muted playsinline preload="auto" autoplay>' +
-      '  <source src="assets/videos/intro-loader.mp4" type="video/mp4"/>' +
+      '  <source src="' + ASSET_PREFIX + 'assets/videos/intro-loader.mp4" type="video/mp4"/>' +
       '</video>' +
       '<div class="site-loader__overlay"></div>' +
       '<div class="site-loader__content">' +
@@ -122,7 +123,7 @@
   var engineAudio = null;
   function getEngineAudio() {
     if (engineAudio) return engineAudio;
-    engineAudio = new Audio('assets/audio/engine-ambience.m4a');
+    engineAudio = new Audio(ASSET_PREFIX + 'assets/audio/engine-ambience.m4a');
     engineAudio.loop = true;
     engineAudio.preload = 'auto';
     engineAudio.volume = 0.0;
