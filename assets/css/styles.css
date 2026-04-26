@@ -225,6 +225,27 @@ section { padding: 96px 0; position: relative; }
   color: var(--accent);
 }
 .btn svg { width: 16px; height: 16px; }
+.btn-globe {
+  background: rgba(34,230,107,0.08);
+  color: var(--text);
+  border-color: rgba(34,230,107,0.35);
+}
+.btn-globe:hover {
+  background: rgba(34,230,107,0.16);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-globe .globe-icon {
+  animation: globe-spin 5s linear infinite;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+@keyframes globe-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
 
 /* ---------- Hero ---------- */
 .hero {
