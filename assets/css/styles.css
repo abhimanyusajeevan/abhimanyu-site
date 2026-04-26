@@ -224,6 +224,43 @@ section { padding: 96px 0; position: relative; }
   border-color: var(--accent);
   color: var(--accent);
 }
+.btn-globe {
+  background: rgba(34,230,107,0.06);
+  color: var(--text);
+  border: 1px solid rgba(34,230,107,0.55);
+  box-shadow: 0 0 0 4px rgba(34,230,107,0.06), 0 8px 24px rgba(34,230,107,0.18);
+  position: relative;
+  overflow: visible;
+}
+.btn-globe::after {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent);
+  opacity: 0;
+  animation: btn-globe-ring 2.4s ease-out infinite;
+  pointer-events: none;
+}
+.btn-globe:hover {
+  background: rgba(34,230,107,0.12);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(34,230,107,0.35);
+}
+.btn-globe svg {
+  animation: btn-globe-spin 12s linear infinite;
+  transform-origin: center;
+}
+.btn-globe:hover svg { animation-duration: 3s; }
+@keyframes btn-globe-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+@keyframes btn-globe-ring {
+  0%   { opacity: 0.45; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.08); }
+}
 .btn svg { width: 16px; height: 16px; }
 
 /* ---------- Hero ---------- */
