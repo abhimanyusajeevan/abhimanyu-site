@@ -4,158 +4,327 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2026–27 Season — Abhimanyu &amp; Vijay · INRC</title>
-  <meta name="description" content="Six race weekends across India. Spin the season — explore the 2026–27 INRC calendar on the interactive globe." />
+  <meta name="description" content="Six race weekends. Six Indian cities. Your brand on the INRC's most talked-about car — 30M+ social views and 2M+ national TV viewers per event." />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    /* ── Globe section ─────────────────────────────────── */
-    .globe-section {
-      position: relative;
-      width: 100%;
-      height: calc(100vh - 64px);
-      min-height: 400px;
-      background: var(--bg);
-      overflow: hidden;
-    }
-    #globe-container { width: 100%; height: 100%; }
 
-    /* Status pill */
-    .globe-status {
-      position: absolute;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(15,23,34,0.85);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      padding: 7px 18px;
+    /* ── Sponsor hero ─────────────────────────────────────── */
+    .season-hero {
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--line);
+    }
+    .season-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .season-hero-text .hero-eyebrow {
       font-family: var(--font-sub);
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.32em;
       text-transform: uppercase;
       color: var(--accent);
-      backdrop-filter: blur(8px);
-      white-space: nowrap;
-      z-index: 10;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
+      margin-bottom: 16px;
     }
-    .globe-status.offline { color: var(--text-mute); }
-
-    /* Drag hint */
-    .globe-hint {
+    .season-hero-text h1 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+    }
+    .season-hero-text p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-mute);
+      max-width: 440px;
+      margin: 0 0 32px;
+    }
+    .season-reach-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .reach-cell {
+      background: var(--surface);
+      padding: 18px 14px;
+      text-align: center;
+    }
+    .reach-cell .rc-n {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 30px);
+      letter-spacing: -0.01em;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .reach-cell .rc-l {
+      font-family: var(--font-sub);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      margin-top: 5px;
+    }
+    .season-hero-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 1px solid var(--line);
+    }
+    .season-hero-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+    }
+    .season-hero-visual-overlay {
       position: absolute;
-      bottom: 20px;
-      right: 20px;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,16,24,0.7) 0%, transparent 50%);
+    }
+    .season-hero-visual-caption {
+      position: absolute;
+      bottom: 16px; left: 16px;
       font-family: var(--font-sub);
       font-size: 10px;
-      letter-spacing: 0.18em;
+      font-weight: 700;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(155,169,192,0.5);
+      color: var(--accent);
+    }
+
+    /* ── Globe (desktop only) ─────────────────────────────── */
+    .globe-wrap {
+      position: relative;
+      width: 100%;
+      height: clamp(440px, 60vh, 620px);
+      background: var(--bg);
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    #globe-container { width: 100%; height: 100%; }
+
+    .globe-label-bar {
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15,23,34,0.88);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      padding: 6px 16px;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      pointer-events: none;
+    }
+    .globe-label-bar .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .globe-label-bar span {
+      font-family: var(--font-sub);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .globe-label-bar span em { color: var(--accent); font-style: normal; }
+    #globe-status-text { }
+
+    .globe-hint-corner {
+      position: absolute;
+      bottom: 18px; right: 18px;
+      font-family: var(--font-sub);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(155,169,192,0.45);
       pointer-events: none;
       z-index: 5;
     }
 
-    /* Race info panel — slides up from bottom */
+    /* Race detail panel — slides up */
     .race-panel {
       position: absolute;
       bottom: 20px;
       left: 50%;
-      transform: translateX(-50%) translateY(140%);
-      width: min(400px, calc(100vw - 32px));
-      background: rgba(10,16,24,0.94);
-      border: 1px solid rgba(34,230,107,0.35);
+      transform: translateX(-50%) translateY(150%);
+      width: min(420px, calc(100vw - 48px));
+      background: rgba(8,14,22,0.96);
+      border: 1px solid rgba(34,230,107,0.40);
       border-radius: var(--radius-lg);
-      padding: 20px 22px 18px;
-      backdrop-filter: blur(16px);
+      padding: 22px 24px 20px;
+      backdrop-filter: blur(20px);
       z-index: 20;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.65);
       transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     }
-    .race-panel.visible { transform: translateX(-50%) translateY(0); }
-
-    .race-panel-rd {
-      font-family: var(--font-sub);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 4px;
+    .race-panel.is-open { transform: translateX(-50%) translateY(0); }
+    .rp-close {
+      position: absolute; top: 10px; right: 12px;
+      background: none; border: none;
+      color: var(--text-mute); cursor: pointer;
+      font-size: 20px; line-height: 1; padding: 4px 6px;
     }
-    .race-panel-city {
+    .rp-close:hover { color: var(--text); }
+    .rp-rd {
+      font-family: var(--font-sub); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 4px;
+    }
+    .rp-city {
       font-family: var(--font-display);
-      font-size: clamp(20px, 5vw, 28px);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 8px;
+      font-size: clamp(22px, 3vw, 30px);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      line-height: 1; margin-bottom: 10px;
     }
-    .race-panel-desc {
-      font-size: 13px;
-      line-height: 1.55;
-      color: var(--text-mute);
-      margin: 0;
+    .rp-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-bottom: 10px;
     }
-    .race-panel-close {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      background: none;
-      border: none;
-      color: var(--text-mute);
-      cursor: pointer;
-      padding: 4px 6px;
-      font-size: 20px;
-      line-height: 1;
+    .rp-stat {
+      background: rgba(34,230,107,0.07);
+      border: 1px solid rgba(34,230,107,0.15);
+      border-radius: 6px; padding: 9px 12px;
     }
-    .race-panel-close:hover { color: var(--text); }
-
-    /* Achievement toast */
-    .achievement-toast {
-      position: fixed;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-200%);
-      width: min(360px, calc(100vw - 32px));
-      background: linear-gradient(135deg, rgba(34,230,107,0.22), rgba(56,169,255,0.12));
-      border: 1px solid rgba(34,230,107,0.55);
-      border-radius: var(--radius-lg);
-      padding: 18px 24px;
-      text-align: center;
-      z-index: 200;
-      transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
-      backdrop-filter: blur(16px);
-      pointer-events: none;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
-    }
-    .achievement-toast.show { transform: translateX(-50%) translateY(0); }
-    .achievement-toast .trophy { font-size: 28px; line-height: 1; margin-bottom: 4px; }
-    .achievement-toast .a-title {
+    .rp-stat .n {
       font-family: var(--font-display);
-      font-size: 18px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
+      font-size: 18px; color: var(--accent); line-height: 1;
     }
-    .achievement-toast .a-sub {
-      font-size: 12px;
-      color: var(--text-mute);
+    .rp-stat .l {
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-mute);
       margin-top: 3px;
     }
-
-    /* Confetti canvas */
-    #confetti-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 300;
+    .rp-desc {
+      font-size: 12px; line-height: 1.55;
+      color: var(--text-mute); margin: 0;
     }
 
-    /* ── Season grid below globe ───────────────────────── */
-    .season-grid {
+    /* ── Mobile city strip (shown only on mobile) ─────────── */
+    .mobile-season-strip {
+      display: none;
+      border-top: 1px solid var(--line);
+    }
+    .mss-inner {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 40px;
+    }
+    .mss-card {
+      background: var(--surface);
+      padding: 20px 16px;
+      cursor: pointer;
+      transition: background 0.18s ease;
+      position: relative;
+      border-top: 2px solid transparent;
+    }
+    .mss-card.active {
+      background: #111d2b;
+      border-top-color: var(--accent);
+    }
+    .mss-rd {
+      font-family: var(--font-sub); font-size: 10px;
+      font-weight: 700; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 5px;
+    }
+    .mss-city {
+      font-family: var(--font-display);
+      font-size: clamp(16px, 4vw, 20px);
+      letter-spacing: 0.05em; text-transform: uppercase;
+      line-height: 1.1; margin-bottom: 6px;
+    }
+    .mss-note {
+      font-size: 11px; color: var(--text-mute); line-height: 1.4;
+    }
+    .mss-badge {
+      display: inline-block; margin-top: 8px;
+      padding: 2px 8px;
+      background: rgba(56,169,255,0.10);
+      border: 1px solid rgba(56,169,255,0.28);
+      border-radius: 4px;
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent-2);
+    }
+
+    /* Detail drawer under cards (mobile) */
+    .mss-drawer {
+      display: none;
+      grid-column: 1 / -1;
+      background: #0d1825;
+      border-top: 1px solid var(--line);
+      padding: 18px 16px;
+      animation: drawerIn 0.22s ease;
+    }
+    .mss-drawer.open { display: block; }
+    @keyframes drawerIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .mss-drawer .drawer-rd {
+      font-family: var(--font-sub); font-size: 10px;
+      font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .mss-drawer .drawer-city {
+      font-family: var(--font-display);
+      font-size: 22px; letter-spacing: 0.04em;
+      text-transform: uppercase; line-height: 1;
+      margin-bottom: 12px;
+    }
+    .mss-drawer .drawer-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-bottom: 12px;
+    }
+    .mss-drawer .ds {
+      background: rgba(34,230,107,0.07);
+      border: 1px solid rgba(34,230,107,0.15);
+      border-radius: 6px; padding: 10px 12px;
+    }
+    .mss-drawer .ds .n {
+      font-family: var(--font-display);
+      font-size: 20px; color: var(--accent); line-height: 1;
+    }
+    .mss-drawer .ds .l {
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-mute);
+      margin-top: 3px;
+    }
+    .mss-drawer .drawer-desc {
+      font-size: 13px; color: var(--text-mute);
+      line-height: 1.55; margin: 0;
+    }
+
+    /* ── Season detail cards ──────────────────────────────── */
+    .stage-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1px;
       background: var(--line);
       border: 1px solid var(--line);
@@ -163,69 +332,149 @@
       overflow: hidden;
       margin-top: 48px;
     }
-    .season-stop {
+    .stage-card {
       background: var(--surface);
-      padding: 20px 14px 18px;
-      cursor: pointer;
-      transition: background 0.2s ease;
-      user-select: none;
+      padding: 24px 20px;
+      position: relative;
+      border-top: 3px solid transparent;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .season-stop:hover { background: #131e2e; }
-    .season-stop.visited { border-top: 2px solid var(--accent); }
-    .season-stop .s-rd {
-      font-family: var(--font-sub);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 6px;
+    .stage-card:hover {
+      background: #111d2b;
+      border-top-color: var(--accent);
     }
-    .season-stop .s-city {
+    .sc-rd {
+      font-family: var(--font-sub); font-size: 10px;
+      font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .sc-city {
       font-family: var(--font-display);
-      font-size: clamp(12px, 1.4vw, 17px);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      line-height: 1.15;
-      margin-bottom: 5px;
+      font-size: clamp(18px, 2vw, 22px);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      line-height: 1.1; margin-bottom: 10px;
     }
-    .season-stop .s-note {
-      font-size: 11px;
-      color: var(--text-mute);
-      line-height: 1.4;
+    .sc-result {
+      font-size: 12px; color: var(--text-mute);
+      line-height: 1.5; margin-bottom: 14px;
     }
-    .tbc-badge {
-      display: inline-block;
-      margin-top: 8px;
-      padding: 2px 7px;
-      background: rgba(56,169,255,0.10);
-      border: 1px solid rgba(56,169,255,0.28);
+    .sc-result strong { color: var(--text); }
+    .sc-reach {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .sc-reach-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 9px;
+      background: rgba(34,230,107,0.08);
+      border: 1px solid rgba(34,230,107,0.2);
       border-radius: 4px;
-      font-family: var(--font-sub);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent-2);
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .sc-tbc {
+      display: inline-block; margin-top: 12px;
+      padding: 2px 8px;
+      background: rgba(56,169,255,0.08);
+      border: 1px solid rgba(56,169,255,0.25);
+      border-radius: 4px;
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent-2);
     }
 
-    /* ── Mobile ──────────────────────────────────────────── */
-    @media (max-width: 860px) {
-      .season-grid { grid-template-columns: repeat(3, 1fr); }
+    /* ── Sponsor placement CTA ────────────────────────────── */
+    .placement-section {
+      background: linear-gradient(180deg, var(--surface) 0%, #080808 100%);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
-    @media (max-width: 640px) {
-      .globe-section {
-        height: 75vw;
-        min-height: 300px;
-        max-height: 460px;
-      }
-      .globe-hint { display: none; }
-      .race-panel { bottom: 10px; padding: 14px 16px 12px; }
-      .season-grid { grid-template-columns: repeat(2, 1fr); }
-      .season-stop { padding: 14px 12px; }
+    .placement-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
     }
-    @media (max-width: 380px) {
-      .season-grid { grid-template-columns: 1fr; }
+    .placement-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      aspect-ratio: 3/2;
+    }
+    .placement-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      display: block;
+      filter: brightness(0.92);
+    }
+    .placement-text .eyebrow { margin-bottom: 16px; display: block; }
+    .placement-text h2 { margin: 0 0 16px; }
+    .placement-text p { color: var(--text-mute); margin-bottom: 12px; }
+    .placement-bullets {
+      list-style: none; padding: 0; margin: 0 0 28px;
+    }
+    .placement-bullets li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 14px; color: var(--text-mute);
+      padding: 7px 0; border-bottom: 1px solid var(--line);
+    }
+    .placement-bullets li:last-child { border-bottom: 0; }
+    .placement-bullets li::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    /* Achievement toast */
+    .achievement-toast {
+      position: fixed;
+      top: 80px; left: 50%;
+      transform: translateX(-50%) translateY(-220%);
+      width: min(340px, calc(100vw - 32px));
+      background: rgba(8,14,22,0.96);
+      border: 1px solid rgba(34,230,107,0.55);
+      border-radius: var(--radius-lg);
+      padding: 18px 22px;
+      text-align: center;
+      z-index: 200;
+      backdrop-filter: blur(16px);
+      pointer-events: none;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .achievement-toast.show { transform: translateX(-50%) translateY(0); }
+    .at-icon { font-size: 26px; line-height: 1; margin-bottom: 6px; }
+    .at-title {
+      font-family: var(--font-display);
+      font-size: 16px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .at-sub { font-size: 12px; color: var(--text-mute); margin-top: 3px; }
+
+    #confetti-canvas {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 300;
+    }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .season-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .season-hero-visual { display: none; }
+      .stage-cards { grid-template-columns: repeat(2, 1fr); }
+      .placement-grid { grid-template-columns: 1fr; gap: 32px; }
+      .placement-img { display: none; }
+    }
+    @media (max-width: 768px) {
+      .globe-wrap { display: none; }
+      .mobile-season-strip { display: block; }
+      .season-reach-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .stage-cards { grid-template-columns: 1fr; }
+      .season-hero { padding: 48px 0 40px; }
     }
   </style>
 </head>
@@ -253,98 +502,147 @@
     </div>
   </nav>
 
-  <!-- ===== PAGE HEAD ===== -->
-  <header class="page-head">
+  <!-- ===== SPONSOR HERO ===== -->
+  <section class="season-hero">
     <div class="container">
-      <span class="eyebrow">INRC 2026–27 · Six race weekends</span>
-      <h1>Spin the <span class="accent">Season</span></h1>
-      <p>Six race weekends. Six Indian cities. Click any pin to fly in and read the story — then check the calendar below.</p>
-    </div>
-  </header>
+      <div class="season-hero-inner">
+        <div class="season-hero-text">
+          <div class="hero-eyebrow">INRC 2026–27 · Season calendar</div>
+          <h1>Six stages.<br/><span class="accent">Your brand</span><br/>everywhere.</h1>
+          <p>Six race weekends across India's premier rally championship — national TV, 30M+ social views per event, and a car sponsors already back. Pick a city below and see what your brand would be part of.</p>
+          <div class="hero-cta">
+            <a href="partners.html" class="btn btn-primary">See sponsor packages
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+          </div>
+        </div>
+        <div class="season-hero-visual">
+          <img src="assets/images/action-indore.jpg" alt="VW Polo #41 — Indore stage win, 2025–26" />
+          <div class="season-hero-visual-overlay"></div>
+          <div class="season-hero-visual-caption">Indore · Jan 2026 · Both legs won</div>
+        </div>
+      </div>
 
-  <!-- ===== GLOBE ===== -->
-  <section class="globe-section" aria-label="Interactive season map">
-    <div id="globe-container"></div>
-    <div class="globe-status" id="globe-status">Loading globe…</div>
-    <div class="globe-hint">Drag · Scroll · Tap a pin</div>
-
-    <div class="race-panel" id="race-panel" role="region" aria-live="polite" aria-label="Race details">
-      <button class="race-panel-close" id="race-panel-close" aria-label="Close">&times;</button>
-      <div class="race-panel-rd" id="panel-rd"></div>
-      <div class="race-panel-city" id="panel-city"></div>
-      <p class="race-panel-desc" id="panel-desc"></p>
+      <!-- Reach strip -->
+      <div class="season-reach-strip" style="margin-top:40px;">
+        <div class="reach-cell">
+          <div class="rc-n">6</div>
+          <div class="rc-l">Race weekends</div>
+        </div>
+        <div class="reach-cell">
+          <div class="rc-n">30M<span style="font-size:0.6em;color:var(--text-mute);">+</span></div>
+          <div class="rc-l">Social views / event</div>
+        </div>
+        <div class="reach-cell">
+          <div class="rc-n">2M<span style="font-size:0.6em;color:var(--text-mute);">+</span></div>
+          <div class="rc-l">National TV / event</div>
+        </div>
+        <div class="reach-cell">
+          <div class="rc-n">6</div>
+          <div class="rc-l">Indian cities</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== ACHIEVEMENT TOAST ===== -->
-  <div class="achievement-toast" id="achievement-toast" role="status" aria-live="polite">
-    <div class="trophy">🏆</div>
-    <div class="a-title">All six weekends — visited!</div>
-    <div class="a-sub">P1 INRC 2026–27, or a podium every race weekend.</div>
+  <!-- ===== GLOBE (desktop ≥769px) ===== -->
+  <div class="globe-wrap">
+    <div id="globe-container"></div>
+    <div class="globe-label-bar">
+      <div class="dot"></div>
+      <span id="globe-status-text">Loading globe&hellip;</span>
+    </div>
+    <div class="globe-hint-corner">Drag · Click a pin</div>
+
+    <div class="race-panel" id="race-panel">
+      <button class="rp-close" id="rp-close" aria-label="Close">&times;</button>
+      <div class="rp-rd"  id="rp-rd"></div>
+      <div class="rp-city" id="rp-city"></div>
+      <div class="rp-row" id="rp-stats"></div>
+      <p class="rp-desc"  id="rp-desc"></p>
+    </div>
   </div>
 
-  <canvas id="confetti-canvas"></canvas>
-
-  <!-- ===== SEASON CALENDAR GRID ===== -->
-  <section style="padding-top:0; padding-bottom:72px;">
+  <!-- ===== MOBILE CITY STRIP (mobile ≤768px) ===== -->
+  <div class="mobile-season-strip">
     <div class="container">
-      <div class="section-head" style="margin-bottom:0;">
+      <div class="section-head" style="padding-top:56px; margin-bottom:0;">
         <div>
           <span class="eyebrow">The calendar</span>
-          <h2 style="margin-top:16px;">Six weekends. <span class="accent">One championship.</span></h2>
+          <h2 style="margin-top:12px;">Six weekends. <span class="accent">Every stage.</span></h2>
         </div>
-        <p>FMSCI-sanctioned · Calendar TBC · Click any city to fly there on the globe.</p>
+        <p>Tap any city to see what your brand would be part of.</p>
+      </div>
+      <div class="mss-inner" id="mss-grid">
+        <!-- cards injected by JS so data stays in one place -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SEASON DETAIL CARDS ===== -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Round by round</span>
+          <h2 style="margin-top:16px;">The <span class="accent">2026–27 calendar</span>.</h2>
+        </div>
+        <p>FMSCI-sanctioned · Calendar TBC · Each weekend is a brand activation at India's most-watched rally event.</p>
       </div>
 
-      <div class="season-grid" id="season-grid">
-        <div class="season-stop" data-race="nashik">
-          <div class="s-rd">RD 1</div>
-          <div class="s-city">Nashik</div>
-          <div class="s-note">Maharashtra gravel — 2025–26 mechanical finale</div>
-          <div class="tbc-badge">TBC · FMSCI</div>
+      <div class="stage-cards" id="stage-cards">
+        <!-- injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SPONSOR PLACEMENT SECTION ===== -->
+  <section class="placement-section">
+    <div class="container">
+      <div class="placement-grid">
+        <div class="placement-img">
+          <img src="assets/images/team-celebrate-car.jpg" alt="Abhimanyu &amp; Vijay on VW Polo #41" />
         </div>
-        <div class="season-stop" data-race="indore">
-          <div class="s-rd">RD 2</div>
-          <div class="s-city">Indore</div>
-          <div class="s-note">Both legs won — most dominant 2025–26 round</div>
-          <div class="tbc-badge">TBC · FMSCI</div>
-        </div>
-        <div class="season-stop" data-race="chennai">
-          <div class="s-rd">RD 3</div>
-          <div class="s-city">Chennai</div>
-          <div class="s-note">Missed in 2025–26 — full campaign in 2026–27</div>
-          <div class="tbc-badge">TBC · FMSCI</div>
-        </div>
-        <div class="season-stop" data-race="coimbatore">
-          <div class="s-rd">RD 4</div>
-          <div class="s-city">Coimbatore</div>
-          <div class="s-note">Debut podium — P2 JINRC, P4 INRC3</div>
-          <div class="tbc-badge">TBC · FMSCI</div>
-        </div>
-        <div class="season-stop" data-race="coorg">
-          <div class="s-rd">RD 5</div>
-          <div class="s-city">Coorg</div>
-          <div class="s-note">Western Ghats forest stages — P3 overall</div>
-          <div class="tbc-badge">TBC · FMSCI</div>
-        </div>
-        <div class="season-stop" data-race="bengaluru">
-          <div class="s-rd">RD 6</div>
-          <div class="s-city">Bengaluru K1000</div>
-          <div class="s-note">First-ever stage win — Leg 1, 2025</div>
-          <div class="tbc-badge">TBC · FMSCI</div>
+        <div class="placement-text">
+          <span class="eyebrow">Your brand on this car</span>
+          <h2 style="margin-top:12px;">Six chances to <span class="accent">own the story</span>.</h2>
+          <p>Every race weekend is a brand activation — national TV, social reels that rack millions of views, and press conferences that place your logo in regional and national media.</p>
+          <ul class="placement-bullets">
+            <li>Primary livery placement — bonnet, doors, rear wing</li>
+            <li>Race suit and helmet branding on every stage</li>
+            <li>Dedicated Reels + Stories at every round</li>
+            <li>Brand mention in all press releases &amp; interviews</li>
+            <li>Co-branded end-of-season highlight reel</li>
+            <li>In-kind &amp; custom packages welcome</li>
+          </ul>
+          <div class="hero-cta">
+            <a href="partners.html" class="btn btn-primary">View packages
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="contact.html" class="btn btn-ghost">Talk to us</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Achievement + confetti -->
+  <div class="achievement-toast" id="achievement-toast">
+    <div class="at-icon">🏆</div>
+    <div class="at-title">All six visited</div>
+    <div class="at-sub">P1 INRC 2026–27, or a podium every race weekend.</div>
+  </div>
+  <canvas id="confetti-canvas"></canvas>
 
   <!-- ===== CTA BANNER ===== -->
   <section class="cta-banner">
     <div class="container">
-      <span class="eyebrow" style="display:inline-flex;">Season ready</span>
-      <h2 style="margin-top:20px;">Your brand on <span class="accent">six stages</span>.</h2>
-      <p>Six race weekends · six Indian cities · 30M+ social views per event · 2M+ national TV viewers per race weekend.</p>
+      <span class="eyebrow" style="display:inline-flex;">Season open</span>
+      <h2 style="margin-top:20px;">Be in the <span class="accent">origin story</span>.</h2>
+      <p>Partnering before the championship means your brand is there from race weekend one. When he wins, you were there from the start.</p>
       <div class="hero-cta">
-        <a href="partners.html" class="btn btn-primary">Partnership options
+        <a href="partners.html" class="btn btn-primary">Sponsorship options
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a href="contact.html" class="btn btn-ghost">Get in touch</a>
@@ -393,224 +691,274 @@
   (function () {
     'use strict';
 
+    /* ── Race data ─────────────────────────────────────────── */
     var RACES = [
       {
-        id: 'nashik', rd: 'RD 1', name: 'Nashik',
+        id: 'nashik', rd: 'RD 1', name: 'Nashik', state: 'Maharashtra',
         lat: 20.006, lng: 73.790,
-        desc: 'Maharashtra gravel stages. The 2025–26 finale — a bent rear beam in Leg 1, P3 in Leg 2, and the runner-up title sealed anyway.'
+        result2526: 'Rear-beam failure Leg 1 · P3 Leg 2 · Runner-up title sealed',
+        stat1n: 'P2', stat1l: 'Season finish',
+        stat2n: '30M+', stat2l: 'Social views',
+        desc: 'Maharashtra gravel stages. The 2025–26 finale — a mechanical in Leg 1, P3 in Leg 2, and still the runner-up title. Grit is the story a sponsor wants next to its logo.'
       },
       {
-        id: 'indore', rd: 'RD 2', name: 'Indore',
+        id: 'indore', rd: 'RD 2', name: 'Indore', state: 'Madhya Pradesh',
         lat: 22.720, lng: 75.858,
-        desc: 'The standout round of the debut season — won both legs back-to-back. Most dominant single-weekend performance of 2025–26.'
+        result2526: 'Won both legs back-to-back — most dominant round of the season',
+        stat1n: '2×', stat1l: 'Leg wins',
+        stat2n: '30M+', stat2l: 'Social views',
+        desc: 'The standout weekend of 2025–26 — won both legs. Most dominant single-round performance of the debut season. Brands carried here got maximum exposure when the story broke nationally.'
       },
       {
-        id: 'chennai', rd: 'RD 3', name: 'Chennai',
+        id: 'chennai', rd: 'RD 3', name: 'Chennai', state: 'Tamil Nadu',
         lat: 13.083, lng: 80.271,
-        desc: 'Missed the 2025–26 opener due to a pre-season commitment. Coming back in 2026–27 with a full campaign and a point to prove.'
+        result2526: 'DNS 2025–26 — pre-season commitment · Full campaign in 2026–27',
+        stat1n: 'RD 1', stat1l: '2025–26 opener',
+        stat2n: '2M+', stat2l: 'National TV',
+        desc: 'Missed the 2025–26 opener. Coming back in 2026–27 with a full campaign and something to prove. A Tamil Nadu audience, national TV coverage, and redemption as the narrative.'
       },
       {
-        id: 'coimbatore', rd: 'RD 4', name: 'Coimbatore',
+        id: 'coimbatore', rd: 'RD 4', name: 'Coimbatore', state: 'Tamil Nadu',
         lat: 11.017, lng: 76.956,
-        desc: 'Debut podium weekend — P2 JINRC, P4 INRC3 overall. The round that put the #41 on the national radar.'
+        result2526: 'Debut podium — P2 JINRC · P4 INRC3 overall',
+        stat1n: 'P2', stat1l: 'Debut podium',
+        stat2n: '30M+', stat2l: 'Social views',
+        desc: 'The debut weekend. P2 JINRC, P4 INRC3 overall — the round that put the #41 on India\'s motorsport radar. Sponsors on the car for this one were in the debut story.'
       },
       {
-        id: 'coorg', rd: 'RD 5', name: 'Coorg',
+        id: 'coorg', rd: 'RD 5', name: 'Coorg', state: 'Karnataka',
         lat: 12.338, lng: 75.807,
-        desc: 'Western Ghats forest stages. P3 overall in 2025–26, Leg 2 P2. One of the most technically demanding rounds on the INRC calendar.'
+        result2526: 'P3 overall · Leg 1 P3 · Leg 2 P2',
+        stat1n: 'P3', stat1l: 'Round finish',
+        stat2n: '30M+', stat2l: 'Social views',
+        desc: 'Western Ghats forest stages — visually the most photogenic weekend on the INRC calendar. P3 overall in 2025–26. Logos on the car here look great in every piece of media content.'
       },
       {
-        id: 'bengaluru', rd: 'RD 6', name: 'Bengaluru K1000',
+        id: 'bengaluru', rd: 'RD 6', name: 'Bengaluru K1000', state: 'Karnataka',
         lat: 12.972, lng: 77.595,
-        desc: '"100% chaos. Stages changing minute to minute." First-ever stage win — P1 Leg 1, P2 overall. The night the car arrived.'
+        result2526: 'P1 Leg 1 — first stage win · P2 overall',
+        stat1n: 'P1', stat1l: 'Leg 1 win',
+        stat2n: '2M+', stat2l: 'National TV',
+        desc: '"100% chaos. Stages changing minute to minute. Still the fastest car." First-ever stage win. The city Abhimanyu lives and works in — a home crowd, a home win, and a sponsor\'s brand in the frame.'
       }
     ];
 
-    var visited   = {};
+    var visited = {};
     var globeInst = null;
+    var activeMssId = null;
 
-    var container  = document.getElementById('globe-container');
-    var statusEl   = document.getElementById('globe-status');
-    var panel      = document.getElementById('race-panel');
-    var panelClose = document.getElementById('race-panel-close');
-    var panelRd    = document.getElementById('panel-rd');
-    var panelCity  = document.getElementById('panel-city');
-    var panelDesc  = document.getElementById('panel-desc');
-    var toast      = document.getElementById('achievement-toast');
-    var cvs        = document.getElementById('confetti-canvas');
-
-    /* ── helpers ─────────────────────────────────────────── */
-    function getSize() {
-      return { w: container.clientWidth, h: container.clientHeight };
+    /* ── Confetti ──────────────────────────────────────────── */
+    function launchConfetti() {
+      var cvs = document.getElementById('confetti-canvas');
+      cvs.width = window.innerWidth; cvs.height = window.innerHeight;
+      var ctx = cvs.getContext('2d');
+      var colors = ['#22e66b','#38a9ff','#f4f8ff','#ffd700','#ff6b6b'];
+      var parts = [];
+      for (var i = 0; i < 150; i++) {
+        parts.push({
+          x: Math.random() * cvs.width, y: -20,
+          vx: (Math.random()-0.5)*4, vy: 2+Math.random()*4,
+          r: 4+Math.random()*5, color: colors[i%colors.length],
+          rot: Math.random()*360, vr: (Math.random()-0.5)*8
+        });
+      }
+      var f=0;
+      (function tick(){
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+        parts.forEach(function(p){
+          ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+          ctx.fillStyle=p.color; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.55);
+          ctx.restore();
+          p.x+=p.vx; p.y+=p.vy; p.vy+=0.07; p.rot+=p.vr;
+        });
+        if(++f<200) requestAnimationFrame(tick);
+        else ctx.clearRect(0,0,cvs.width,cvs.height);
+      }());
     }
-
-    function showPanel(race) {
-      panelRd.textContent   = race.rd + ' · INRC 2026–27 · TBC';
-      panelCity.textContent = race.name;
-      panelDesc.textContent = race.desc;
-      panel.classList.add('visible');
-    }
-
-    function hidePanel() { panel.classList.remove('visible'); }
 
     function markVisited(id) {
       if (visited[id]) return;
       visited[id] = true;
-      var el = document.querySelector('.season-stop[data-race="' + id + '"]');
-      if (el) el.classList.add('visited');
-      if (globeInst) refreshPoints();
-    }
-
-    function refreshPoints() {
-      globeInst
-        .pointRadius(function (r) { return visited[r.id] ? 0.65 : 0.45; })
-        .pointColor(function (r)  { return visited[r.id] ? '#ffffff' : '#22e66b'; });
-    }
-
-    function checkAchievement() {
-      if (Object.keys(visited).length < RACES.length) return;
-      toast.classList.add('show');
-      launchConfetti();
-      setTimeout(function () { toast.classList.remove('show'); }, 5000);
-    }
-
-    /* ── confetti ────────────────────────────────────────── */
-    function launchConfetti() {
-      cvs.width  = window.innerWidth;
-      cvs.height = window.innerHeight;
-      var ctx = cvs.getContext('2d');
-      var colors = ['#22e66b', '#38a9ff', '#f4f8ff', '#ffd700', '#ff6b6b'];
-      var parts = [];
-      for (var i = 0; i < 140; i++) {
-        parts.push({
-          x: Math.random() * cvs.width,
-          y: -10 - Math.random() * 60,
-          vx: (Math.random() - 0.5) * 3.5,
-          vy: 2 + Math.random() * 4,
-          r: 4 + Math.random() * 5,
-          color: colors[i % colors.length],
-          rot: Math.random() * 360,
-          vr: (Math.random() - 0.5) * 7
-        });
+      /* highlight stage card */
+      var sc = document.querySelector('.stage-card[data-race="'+id+'"]');
+      if (sc) sc.style.borderTopColor = 'var(--accent)';
+      /* achievement */
+      if (Object.keys(visited).length >= RACES.length) {
+        var toast = document.getElementById('achievement-toast');
+        toast.classList.add('show');
+        launchConfetti();
+        setTimeout(function(){ toast.classList.remove('show'); }, 5000);
       }
-      var frame = 0;
-      function tick() {
-        ctx.clearRect(0, 0, cvs.width, cvs.height);
-        parts.forEach(function (p) {
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate(p.rot * Math.PI / 180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.55);
-          ctx.restore();
-          p.x += p.vx; p.y += p.vy; p.vy += 0.07;
-          p.rot += p.vr;
-        });
-        frame++;
-        if (frame < 200) requestAnimationFrame(tick);
-        else ctx.clearRect(0, 0, cvs.width, cvs.height);
-      }
-      tick();
     }
 
-    /* ── globe build ─────────────────────────────────────── */
+    /* ── Globe panel ───────────────────────────────────────── */
+    var racePanel = document.getElementById('race-panel');
+    function showGlobePanel(race) {
+      markVisited(race.id);
+      document.getElementById('rp-rd').textContent   = race.rd + ' · INRC 2026–27 · TBC';
+      document.getElementById('rp-city').textContent = race.name + ', ' + race.state;
+      document.getElementById('rp-stats').innerHTML =
+        '<div class="rp-stat"><div class="n">'+race.stat1n+'</div><div class="l">'+race.stat1l+'</div></div>' +
+        '<div class="rp-stat"><div class="n">'+race.stat2n+'</div><div class="l">'+race.stat2l+'</div></div>';
+      document.getElementById('rp-desc').textContent = race.desc;
+      racePanel.classList.add('is-open');
+    }
+    document.getElementById('rp-close').addEventListener('click', function(){
+      racePanel.classList.remove('is-open');
+    });
+
+    /* ── Stage cards (desktop detail grid) ────────────────── */
+    var stageCardsEl = document.getElementById('stage-cards');
+    RACES.forEach(function(r) {
+      var el = document.createElement('div');
+      el.className = 'stage-card';
+      el.setAttribute('data-race', r.id);
+      el.innerHTML =
+        '<div class="sc-rd">'+r.rd+'</div>' +
+        '<div class="sc-city">'+r.name+'<br/><span style="font-size:0.65em;color:var(--text-mute);letter-spacing:0.08em;">'+r.state.toUpperCase()+'</span></div>' +
+        '<div class="sc-result"><strong>2025–26:</strong> '+r.result2526+'</div>' +
+        '<div class="sc-reach">' +
+          '<span class="sc-reach-tag">'+r.stat1n+' '+r.stat1l+'</span>' +
+          '<span class="sc-reach-tag">'+r.stat2n+' '+r.stat2l+'</span>' +
+        '</div>' +
+        '<div class="sc-tbc">TBC · FMSCI</div>';
+      el.addEventListener('click', function() {
+        markVisited(r.id);
+        if (globeInst) {
+          globeInst.pointOfView({ lat: r.lat, lng: r.lng, altitude: 1.8 }, 900);
+          showGlobePanel(r);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+      stageCardsEl.appendChild(el);
+    });
+
+    /* ── Mobile city strip ─────────────────────────────────── */
+    var mssGrid = document.getElementById('mss-grid');
+    var mssDrawer = null;
+
+    RACES.forEach(function(r, i) {
+      var card = document.createElement('div');
+      card.className = 'mss-card';
+      card.setAttribute('data-race', r.id);
+      card.innerHTML =
+        '<div class="mss-rd">'+r.rd+'</div>' +
+        '<div class="mss-city">'+r.name+'</div>' +
+        '<div class="mss-note">'+r.result2526+'</div>' +
+        '<div class="mss-badge">TBC · FMSCI</div>';
+
+      /* drawer: insert after every 2nd card (or at end of row) */
+      mssGrid.appendChild(card);
+
+      /* insert a drawer slot after pairs */
+      if (i % 2 === 1 || i === RACES.length - 1) {
+        var drawer = document.createElement('div');
+        drawer.className = 'mss-drawer';
+        drawer.setAttribute('data-drawer-after', i);
+        mssGrid.appendChild(drawer);
+      }
+
+      card.addEventListener('click', function() {
+        markVisited(r.id);
+        /* toggle active state */
+        var isAlreadyActive = card.classList.contains('active');
+        document.querySelectorAll('.mss-card').forEach(function(c){ c.classList.remove('active'); });
+        document.querySelectorAll('.mss-drawer').forEach(function(d){ d.classList.remove('open'); });
+
+        if (isAlreadyActive) { activeMssId = null; return; }
+
+        card.classList.add('active');
+        activeMssId = r.id;
+
+        /* find the drawer after this card's row */
+        var rowEnd = (i % 2 === 0) ? i + 1 : i;
+        var targetDrawer = mssGrid.querySelector('.mss-drawer[data-drawer-after="'+rowEnd+'"]');
+        if (!targetDrawer) {
+          /* last item fallback */
+          var drawers = mssGrid.querySelectorAll('.mss-drawer');
+          targetDrawer = drawers[drawers.length - 1];
+        }
+
+        targetDrawer.innerHTML =
+          '<div class="drawer-rd">'+r.rd+' · INRC 2026–27 · TBC</div>' +
+          '<div class="drawer-city">'+r.name+', <span style="font-size:0.7em;color:var(--text-mute);">'+r.state+'</span></div>' +
+          '<div class="drawer-stats">' +
+            '<div class="ds"><div class="n">'+r.stat1n+'</div><div class="l">'+r.stat1l+'</div></div>' +
+            '<div class="ds"><div class="n">'+r.stat2n+'</div><div class="l">'+r.stat2l+'</div></div>' +
+          '</div>' +
+          '<p class="drawer-desc">'+r.desc+'</p>';
+        targetDrawer.classList.add('open');
+      });
+    });
+
+    /* ── Globe (desktop only) ──────────────────────────────── */
     function buildGlobe() {
-      var sz   = getSize();
-      var arcs = RACES.map(function (r, i) {
-        var nxt = RACES[(i + 1) % RACES.length];
-        return { sLat: r.lat, sLng: r.lng, eLat: nxt.lat, eLng: nxt.lng };
+      var container = document.getElementById('globe-container');
+      var statusEl  = document.getElementById('globe-status-text');
+      var sz = { w: container.clientWidth, h: container.clientHeight };
+
+      var arcs = RACES.map(function(r, i) {
+        var n = RACES[(i+1) % RACES.length];
+        return { sLat: r.lat, sLng: r.lng, eLat: n.lat, eLng: n.lng };
       });
 
       /* eslint-disable no-undef */
       globeInst = Globe()
-        .width(sz.w)
-        .height(sz.h)
+        .width(sz.w).height(sz.h)
         .backgroundColor('rgba(0,0,0,0)')
         .atmosphereColor('#38a9ff')
-        .atmosphereAltitude(0.16)
+        .atmosphereAltitude(0.15)
         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
         .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-        /* ── points ── */
         .pointsData(RACES)
-        .pointLat('lat')
-        .pointLng('lng')
-        .pointColor(function () { return '#22e66b'; })
-        .pointAltitude(0.015)
-        .pointRadius(0.45)
-        .pointLabel(function (r) {
-          return '<div style="font-family:sans-serif;background:rgba(10,16,24,0.92);border:1px solid rgba(34,230,107,0.6);border-radius:7px;padding:6px 12px;font-size:12px;color:#f4f8ff;white-space:nowrap;">'
-            + '<strong style="color:#22e66b;">' + r.rd + '</strong> &nbsp;' + r.name + '</div>';
+        .pointLat('lat').pointLng('lng')
+        .pointColor(function() { return '#22e66b'; })
+        .pointAltitude(0.02)
+        .pointRadius(0.55)
+        .pointLabel(function(r) {
+          return '<div style="font-family:sans-serif;background:rgba(8,14,22,0.95);border:1px solid rgba(34,230,107,0.55);border-radius:7px;padding:7px 13px;font-size:12px;color:#f4f8ff;white-space:nowrap;">'
+            +'<strong style="color:#22e66b;">'+r.rd+'</strong> &nbsp;'+r.name+'</div>';
         })
-        .onPointClick(function (race) {
-          markVisited(race.id);
-          showPanel(race);
+        .onPointClick(function(race) {
+          showGlobePanel(race);
           globeInst.pointOfView({ lat: race.lat, lng: race.lng, altitude: 1.8 }, 900);
-          checkAchievement();
         })
-        /* ── arcs ── */
         .arcsData(arcs)
         .arcStartLat('sLat').arcStartLng('sLng')
         .arcEndLat('eLat').arcEndLng('eLng')
-        .arcColor(function () {
-          return ['rgba(56,169,255,0)', 'rgba(56,169,255,0.75)', 'rgba(56,169,255,0)'];
+        .arcColor(function() {
+          return ['rgba(56,169,255,0)','rgba(56,169,255,0.7)','rgba(56,169,255,0)'];
         })
-        .arcAltitude(0.22)
-        .arcStroke(0.5)
-        .arcDashLength(0.38)
-        .arcDashGap(0.18)
-        .arcDashAnimateTime(2400)
-        /* ── mount ── */
+        .arcAltitude(0.22).arcStroke(0.5)
+        .arcDashLength(0.38).arcDashGap(0.18).arcDashAnimateTime(2400)
         (container);
       /* eslint-enable no-undef */
 
       globeInst.pointOfView({ lat: 17, lng: 78, altitude: 2.4 }, 0);
+      statusEl.innerHTML = '<em>6 race weekends</em> · click a pin';
 
-      statusEl.style.opacity = '0';
-      setTimeout(function () { statusEl.style.display = 'none'; }, 500);
-
-      /* ── resize handler ─────────────────────────────── */
-      var resizeTimer;
-      window.addEventListener('resize', function () {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
-          var ns = getSize();
-          globeInst.width(ns.w).height(ns.h);
+      var t;
+      window.addEventListener('resize', function() {
+        clearTimeout(t);
+        t = setTimeout(function() {
+          globeInst.width(container.clientWidth).height(container.clientHeight);
         }, 150);
       });
     }
 
-    /* ── panel close ─────────────────────────────────────── */
-    panelClose.addEventListener('click', hidePanel);
+    function loadGlobe() {
+      if (window.innerWidth <= 768) return; /* mobile — no globe */
+      var s = document.createElement('script');
+      s.src = 'https://unpkg.com/globe.gl@2/dist/globe.gl.min.js';
+      s.onload  = buildGlobe;
+      s.onerror = function() {
+        document.getElementById('globe-status-text').textContent = 'OFFLINE';
+      };
+      document.head.appendChild(s);
+    }
 
-    /* ── season-grid clicks → fly-to ────────────────────── */
-    document.querySelectorAll('.season-stop').forEach(function (el) {
-      el.addEventListener('click', function () {
-        var id   = el.getAttribute('data-race');
-        var race = null;
-        for (var i = 0; i < RACES.length; i++) {
-          if (RACES[i].id === id) { race = RACES[i]; break; }
-        }
-        if (!race) return;
-        markVisited(race.id);
-        showPanel(race);
-        if (globeInst) {
-          globeInst.pointOfView({ lat: race.lat, lng: race.lng, altitude: 1.8 }, 900);
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        checkAchievement();
-      });
-    });
+    loadGlobe();
 
-    /* ── load globe.gl from CDN ──────────────────────────── */
-    var s = document.createElement('script');
-    s.src = 'https://unpkg.com/globe.gl@2/dist/globe.gl.min.js';
-    s.onload = function () { buildGlobe(); };
-    s.onerror = function () {
-      statusEl.textContent = 'OFFLINE';
-      statusEl.classList.add('offline');
-      statusEl.style.opacity = '1';
-    };
-    document.head.appendChild(s);
   }());
   </script>
 </body>
