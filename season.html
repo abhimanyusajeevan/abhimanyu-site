@@ -320,11 +320,14 @@
       to   { opacity: 1; transform: translateY(0); }
     }
     @media (max-width: 720px) {
-      .hud-status, .hud-counter { top: 76px; padding: 10px 14px; }
-      .hud-status { left: 14px; }
-      .hud-counter { right: 14px; }
-      .hud-counter .val { font-size: 26px; }
-      .hud-status .val { font-size: 13px; letter-spacing: 0.18em; }
+      .hud-status, .hud-counter { top: 68px; padding: 8px 12px; border-radius: 6px; }
+      .hud-status { left: 10px; }
+      .hud-counter { right: 10px; text-align: right; }
+      .hud .lbl { font-size: 8px; letter-spacing: 0.32em; }
+      .hud-counter .val { font-size: 22px; }
+      .hud-counter .val .of { font-size: 13px; }
+      .hud-status .val { font-size: 11px; letter-spacing: 0.16em; }
+      .hud-status .val::before { width: 6px; height: 6px; margin-right: 6px; }
       .hud-tag { display: none; }
     }
 
@@ -434,9 +437,33 @@
     }
     .rc-cta:hover { background: #fff; transform: translateY(-1px); box-shadow: 0 12px 26px rgba(34,230,107,0.35); }
     @media (max-width: 720px) {
-      .round-card { right: 12px; left: 12px; width: auto; padding: 20px; top: auto; bottom: 200px; transform: translateY(20px); }
+      /* Bottom-sheet treatment so the card never collides with the timeline
+         strip and the user has a familiar mobile interaction model */
+      .round-card {
+        right: 0; left: 0; width: auto;
+        top: auto; bottom: 0;
+        padding: 20px 18px 24px;
+        border-radius: 18px 18px 0 0;
+        border-bottom: 0;
+        transform: translateY(110%);
+        max-height: 70vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
       .round-card[data-open="true"] { transform: translateY(0); }
-      .round-card h2 { font-size: 38px; }
+      .round-card::before {
+        /* Drag-handle affordance */
+        content: '';
+        position: absolute;
+        top: 8px; left: 50%;
+        transform: translateX(-50%);
+        width: 48px; height: 4px;
+        border-radius: 2px;
+        background: rgba(255,255,255,0.18);
+      }
+      .round-card-close { top: 14px; right: 14px; }
+      .round-card h2 { font-size: 36px; }
+      .rc-cta { padding: 14px; font-size: 13px; }
     }
 
     /* ===== Achievement banner ===== */
@@ -589,11 +616,32 @@
     @media (max-width: 960px) {
       .timeline { grid-template-columns: repeat(3, 1fr); }
     }
-    @media (max-width: 520px) {
-      .timeline { grid-template-columns: repeat(2, 1fr); padding: 14px 14px 18px; gap: 8px; }
-      .timeline li { padding: 10px; }
-      .timeline .city { font-size: 12px; }
-      .timeline .month { font-size: 9px; }
+    @media (max-width: 720px) {
+      /* Horizontal scroll strip — keeps the globe big and the cards
+         finger-friendly without stacking 3 rows of cards on a phone */
+      .timeline {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 8px;
+        padding: 12px 14px 16px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .timeline::-webkit-scrollbar { display: none; }
+      .timeline li {
+        flex: 0 0 132px;
+        padding: 10px 12px;
+        scroll-snap-align: start;
+      }
+      .timeline li:first-child { margin-left: 4px; }
+      .timeline li:last-child  { margin-right: 4px; }
+      .timeline .num { font-size: 18px; }
+      .timeline .city { font-size: 12px; margin-top: 2px; }
+      .timeline .month { font-size: 9px; margin-top: 2px; }
+      .timeline li[data-visited="true"]::after { width: 9px; height: 9px; top: 8px; right: 8px; }
     }
 
     /* ===== Utility row (replay/reset) ===== */
@@ -622,7 +670,11 @@
     .util-btn:hover { color: var(--accent); border-color: var(--accent); }
     .util-btn svg { width: 13px; height: 13px; }
     @media (max-width: 720px) {
-      .utility-row { bottom: 180px; right: 12px; }
+      /* Icon-only utility buttons tucked above the timeline */
+      .utility-row { bottom: 130px; right: 10px; gap: 6px; }
+      .util-btn { padding: 8px; border-radius: 50%; }
+      .util-btn span { display: none; }
+      .util-btn svg { width: 14px; height: 14px; }
     }
 
     /* ===== Custom HTML pin (used by globe.gl htmlElementsData) ===== */
@@ -695,6 +747,24 @@
     @keyframes gpin-label {
       from { opacity: 0; transform: translate(8px, -50%); }
       to   { opacity: 0.95; transform: translate(0, -50%); }
+    }
+
+    @media (max-width: 720px) {
+      /* Mobile pins: hide trailing label (cluttered on small viewports),
+         bump tap target, and add an invisible padding ring so fingers
+         aren't fighting a 32px hit area on the southern cluster. */
+      .gpin { width: 36px; height: 36px; }
+      .gpin .pin-dot { font-size: 13px; }
+      .gpin .pin-label { display: none; }
+      .gpin::before {
+        content: '';
+        position: absolute;
+        inset: -6px;  /* extra invisible hit area, kept tight so the
+                        southern cluster cities don't fight for taps */
+      }
+      /* Tighter achievement banner on phones */
+      .achievement { padding: 32px 20px; border-radius: 14px; }
+      .achv-cta { padding: 14px 22px; font-size: 12px; letter-spacing: 0.22em; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -899,7 +969,11 @@
     var controls = world.controls();
     controls.autoRotate = true;
     controls.autoRotateSpeed = prefersReducedMotion ? 0 : 4.0;
-    controls.enableZoom = false;
+    // Allow pinch / wheel zoom but bound it so users can't escape the planet
+    controls.enableZoom = true;
+    controls.zoomSpeed = 0.8;
+    controls.minDistance = 160;   // can't zoom into the surface
+    controls.maxDistance = 480;   // can't zoom past low-earth orbit
     controls.enablePan = false;
 
     // Keep canvas sized to window
