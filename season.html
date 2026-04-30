@@ -3,1176 +3,996 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Season — Abhimanyu &amp; Vijay · INRC 2026–27</title>
-  <meta name="description" content="Spin the globe and explore all six INRC 2026–27 rally weekends across India — Nashik, Indore, Chennai, Coimbatore, Coorg, Bengaluru K1000." />
+  <title>2026–27 Season — Abhimanyu &amp; Vijay · INRC</title>
+  <meta name="description" content="Six race weekends. Six Indian cities. Your brand on the INRC's most talked-about car — 30M+ social views and 2M+ national TV viewers per event." />
 
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a1018'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-size='36' font-weight='900' fill='%2322e66b'%3E41%3C/text%3E%3C/svg%3E" />
   <link rel="apple-touch-icon" href="assets/images/portrait-color.png" />
 
+  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Abhimanyu &amp; Vijay · Rally Duo" />
-  <meta property="og:title" content="The Season — Abhimanyu &amp; Vijay · INRC 2026–27" />
-  <meta property="og:description" content="Spin the globe and explore all six INRC 2026–27 rally weekends across India." />
+  <meta property="og:title" content="2026–27 Season — Abhimanyu &amp; Vijay · INRC" />
+  <meta property="og:description" content="Six race weekends. Six Indian cities. Spin the season — explore the 2026–27 INRC calendar." />
   <meta property="og:url" content="https://abhimanyusajeevan.github.io/abhimanyu-site/season.html" />
   <meta property="og:image" content="https://abhimanyusajeevan.github.io/abhimanyu-site/assets/images/action-indore.jpg" />
   <meta property="og:locale" content="en_IN" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Season — Abhimanyu &amp; Vijay · INRC 2026–27" />
-  <meta name="twitter:description" content="Spin the globe and explore all six INRC 2026–27 rally weekends across India." />
+  <meta name="twitter:title" content="2026–27 Season — Abhimanyu &amp; Vijay · INRC" />
+  <meta name="twitter:description" content="Six race weekends. Six Indian cities. Spin the season — explore the 2026–27 INRC calendar." />
   <meta name="twitter:image" content="https://abhimanyusajeevan.github.io/abhimanyu-site/assets/images/action-indore.jpg" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    :root {
-      --bg:        #05080e;
-      --bg-2:      #0a1018;
-      --surface:   #0f1722;
-      --text:      #f4f8ff;
-      --mute:      #9ba9c0;
-      --line:      rgba(255,255,255,0.10);
-      --line-2:    rgba(255,255,255,0.18);
-      --accent:    #22e66b;
-      --accent-2:  #38a9ff;
-      --warn:      #ffb547;
-      --font-display: 'Bebas Neue', 'Impact', sans-serif;
-      --font-sub:     'Rajdhani', system-ui, sans-serif;
-      --font-body:    'Inter', system-ui, sans-serif;
-    }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, #0a1424 0%, #05080e 70%, #02040a 100%);
-      color: var(--text);
-      font-family: var(--font-body);
-      overflow: hidden;
-      letter-spacing: 0.005em;
-      -webkit-font-smoothing: antialiased;
+    /* ── Sponsor hero ─────────────────────────────────────── */
+    .season-hero {
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--line);
     }
-    h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 400; letter-spacing: 0.02em; line-height: 1; }
-    button { font-family: inherit; cursor: pointer; }
-    a { color: inherit; text-decoration: none; }
-
-    /* ===== Letterbox intro ===== */
-    .intro {
-      position: fixed; inset: 0; z-index: 200;
-      pointer-events: none;
-    }
-    .intro-bar {
-      position: absolute; left: 0; right: 0;
-      height: 50vh;
-      background: #03060c;
-      box-shadow: 0 0 80px rgba(0,0,0,0.8);
-      transition: transform 1.1s cubic-bezier(0.86, 0.0, 0.07, 1.0);
-    }
-    .intro-bar-top { top: 0; transform: translateY(0); }
-    .intro-bar-bot { bottom: 0; transform: translateY(0); }
-    .intro.is-out .intro-bar-top { transform: translateY(-100%); }
-    .intro.is-out .intro-bar-bot { transform: translateY(100%); }
-    .intro.is-out .intro-content { opacity: 0; transform: translate(-50%, -50%) scale(1.04); transition-delay: 0s; }
-
-    .intro-content {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.2,0.8,0.2,1);
-      width: min(90vw, 760px);
-    }
-    .intro-eyebrow {
-      display: inline-block;
-      font-family: var(--font-sub);
-      font-size: 13px; font-weight: 700;
-      letter-spacing: 0.42em;
-      color: var(--accent);
-      padding: 7px 14px;
-      border: 1px solid rgba(34,230,107,0.5);
-      border-radius: 999px;
-      animation: pulse-border 1.6s ease-in-out infinite;
-    }
-    .intro-title {
-      font-family: var(--font-display);
-      font-size: clamp(80px, 18vw, 240px);
-      line-height: 0.9;
-      margin: 22px 0 10px;
-      letter-spacing: 0.04em;
-      color: #fff;
-      text-shadow: 0 0 60px rgba(34,230,107,0.15), 0 0 120px rgba(56,169,255,0.1);
-      animation: title-flicker 4s ease-in-out infinite;
-    }
-    .intro-title span { color: var(--accent); }
-    .intro-tag {
-      display: block;
-      font-family: var(--font-sub);
-      font-size: 14px; font-weight: 700;
-      letter-spacing: 0.32em;
-      color: var(--mute);
-      margin-bottom: 28px;
-    }
-    .intro-bar-fill {
-      width: min(60vw, 320px);
-      height: 2px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.10);
-      border-radius: 1px;
-      overflow: hidden;
-    }
-    .intro-bar-fill span {
-      display: block; height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      width: 0%;
-      animation: bar-fill 2.6s cubic-bezier(0.65, 0.05, 0.35, 1) forwards;
-    }
-    @keyframes bar-fill { to { width: 100%; } }
-    @keyframes pulse-border {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(34,230,107,0.6); }
-      50%      { box-shadow: 0 0 0 10px rgba(34,230,107,0); }
-    }
-    @keyframes title-flicker {
-      0%, 90%, 100% { opacity: 1; }
-      92%, 94% { opacity: 0.7; }
-      93%, 95% { opacity: 1; }
-    }
-
-    /* ===== Starfield ===== */
-    .starfield {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none;
-      background:
-        radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.5), transparent),
-        radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.7), transparent),
-        radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.4), transparent),
-        radial-gradient(1.5px 1.5px at 40% 50%, rgba(255,255,255,0.6), transparent),
-        radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.3), transparent),
-        radial-gradient(2px 2px at 10% 90%, rgba(34,230,107,0.5), transparent),
-        radial-gradient(1px 1px at 70% 25%, rgba(56,169,255,0.4), transparent),
-        radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,0.5), transparent);
-      background-size: 200% 200%;
-      animation: drift 90s linear infinite;
-      opacity: 0.65;
-    }
-    @keyframes drift {
-      0%   { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
-    .grid-overlay {
-      position: fixed; inset: 0; z-index: 1; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 80px 80px;
-      mask-image: radial-gradient(ellipse 75% 70% at 50% 55%, transparent 30%, black 80%);
-      -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 55%, transparent 30%, black 80%);
-    }
-
-    /* ===== Top nav ===== */
-    .season-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 28px;
-      background: linear-gradient(to bottom, rgba(5,8,14,0.85), rgba(5,8,14,0));
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-    .season-nav .back, .season-nav .cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--font-sub);
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      padding: 11px 18px;
-      border: 1px solid var(--line-2);
-      border-radius: 999px;
-      transition: all 0.2s ease;
-      color: var(--text);
-      background: rgba(15,23,34,0.6);
-    }
-    .season-nav .back:hover { border-color: var(--accent); color: var(--accent); transform: translateX(-2px); }
-    .season-nav .cta {
-      background: var(--accent);
-      color: #0a0a0a;
-      border-color: var(--accent);
-      box-shadow: 0 8px 22px rgba(34,230,107,0.35);
-    }
-    .season-nav .cta:hover { background: #fff; border-color: #fff; transform: translateX(2px); }
-    .season-nav .back svg, .season-nav .cta svg { width: 14px; height: 14px; }
-    .season-nav .brand {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--font-sub);
-      font-weight: 800;
-      font-size: 12px;
-      letter-spacing: 0.28em;
-      color: var(--text);
-    }
-    .season-nav .brand-mark {
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(34,230,107,0.18);
-      animation: dot-pulse 1.6s ease-in-out infinite;
-    }
-    .season-nav .brand-sub { color: var(--mute); font-weight: 600; letter-spacing: 0.32em; }
-    @keyframes dot-pulse {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(34,230,107,0.2); }
-      50%      { box-shadow: 0 0 0 9px rgba(34,230,107,0); }
-    }
-    @media (max-width: 720px) {
-      .season-nav { padding: 14px 16px; }
-      .season-nav .brand-name, .season-nav .brand-sub { display: none; }
-    }
-
-    /* ===== Stage / globe ===== */
-    .stage {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      z-index: 2;
-    }
-    #globeViz {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-    }
-    #globeViz canvas { display: block; }
-    .vignette {
-      position: absolute; inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse 90% 70% at 50% 50%, transparent 50%, rgba(5,8,14,0.55) 80%, rgba(5,8,14,0.85) 100%),
-        linear-gradient(to top, rgba(5,8,14,0.65) 0%, transparent 25%);
-    }
-
-    /* ===== HUD ===== */
-    .hud {
-      position: absolute; z-index: 4;
-      pointer-events: none;
-      font-family: var(--font-sub);
-    }
-    .hud .lbl {
-      display: block;
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 0.42em;
-      text-transform: uppercase;
-      color: var(--mute);
-    }
-    .hud .val {
-      font-family: var(--font-display);
-      font-size: 28px;
-      letter-spacing: 0.04em;
-      color: var(--text);
-    }
-    .hud-status {
-      top: 92px; left: 32px;
-      padding: 14px 18px;
-      background: rgba(15,23,34,0.55);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      animation: hud-fade 0.8s 2.6s ease both;
-    }
-    .hud-status .val { color: var(--accent); font-size: 18px; letter-spacing: 0.22em; }
-    .hud-status .val::before {
-      content: '';
-      display: inline-block;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      margin-right: 8px;
-      animation: dot-pulse 1.4s ease-in-out infinite;
-      transform: translateY(-1px);
-    }
-    .hud-counter {
-      top: 92px; right: 32px;
-      padding: 14px 22px;
-      background: rgba(15,23,34,0.55);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      text-align: right;
-      animation: hud-fade 0.8s 2.8s ease both;
-    }
-    .hud-counter .val { font-size: 36px; }
-    .hud-counter .val .of { font-size: 18px; color: var(--mute); margin-left: 4px; }
-    .hud-tag {
-      bottom: 200px; left: 32px;
-      max-width: 280px;
-      padding: 14px 18px;
-      background: rgba(15,23,34,0.40);
-      border-left: 2px solid var(--accent);
-      animation: hud-fade 0.8s 3.2s ease both;
-    }
-    .hud-tag .hint {
-      display: block;
-      margin-top: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      text-transform: none;
-      font-family: var(--font-body);
-    }
-    @keyframes hud-fade {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @media (max-width: 720px) {
-      .hud-status, .hud-counter { top: 68px; padding: 8px 12px; border-radius: 6px; }
-      .hud-status { left: 10px; }
-      .hud-counter { right: 10px; text-align: right; }
-      .hud .lbl { font-size: 8px; letter-spacing: 0.32em; }
-      .hud-counter .val { font-size: 22px; }
-      .hud-counter .val .of { font-size: 13px; }
-      .hud-status .val { font-size: 11px; letter-spacing: 0.16em; }
-      .hud-status .val::before { width: 6px; height: 6px; margin-right: 6px; }
-      .hud-tag { display: none; }
-    }
-
-    /* ===== Round detail card ===== */
-    .round-card {
-      position: absolute; z-index: 6;
-      right: 32px; top: 50%;
-      transform: translateY(-50%) translateX(40px);
-      width: 360px;
-      padding: 28px;
-      background: linear-gradient(170deg, rgba(15,23,34,0.96), rgba(10,16,24,0.96));
-      border: 1px solid var(--line-2);
-      border-radius: 12px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.04) inset;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.2,0.8,0.2,1);
-    }
-    .round-card[data-open="true"] {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(-50%) translateX(0);
-    }
-    .round-card-close {
-      position: absolute; top: 12px; right: 12px;
-      width: 30px; height: 30px;
-      background: transparent;
-      border: 1px solid var(--line-2);
-      border-radius: 50%;
-      color: var(--mute);
-      font-size: 16px;
-      line-height: 1;
-      transition: all 0.2s ease;
-    }
-    .round-card-close:hover { color: var(--accent); border-color: var(--accent); }
-    .rc-eyebrow {
-      font-family: var(--font-sub);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .round-card h2 {
-      font-family: var(--font-display);
-      font-size: 56px;
-      letter-spacing: 0.02em;
-      margin: 8px 0 14px;
-      text-transform: uppercase;
-      color: #fff;
-    }
-    .rc-meta {
-      display: flex; gap: 8px; flex-wrap: wrap;
-      margin-bottom: 18px;
-    }
-    .rc-pill {
-      font-family: var(--font-sub);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(34,230,107,0.14);
-      color: var(--accent);
-      border: 1px solid rgba(34,230,107,0.4);
-    }
-    .rc-pill.ghost {
-      background: transparent;
-      color: var(--mute);
-      border-color: var(--line-2);
-    }
-    .rc-row {
-      display: flex; justify-content: space-between; gap: 12px;
-      padding: 10px 0;
-      border-top: 1px solid var(--line);
-      font-size: 13px;
-    }
-    .rc-row span {
-      font-family: var(--font-sub);
-      font-size: 10px; font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--mute);
-    }
-    .rc-row strong {
-      color: var(--text);
-      font-weight: 600;
-      text-align: right;
-    }
-    .rc-cta {
-      display: block;
-      margin-top: 18px;
-      padding: 12px 14px;
-      background: var(--accent);
-      color: #0a0a0a;
-      font-family: var(--font-sub);
-      font-weight: 800;
-      font-size: 12px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      text-align: center;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-    .rc-cta:hover { background: #fff; transform: translateY(-1px); box-shadow: 0 12px 26px rgba(34,230,107,0.35); }
-    @media (max-width: 720px) {
-      /* Bottom-sheet treatment so the card never collides with the timeline
-         strip and the user has a familiar mobile interaction model */
-      .round-card {
-        right: 0; left: 0; width: auto;
-        top: auto; bottom: 0;
-        padding: 20px 18px 24px;
-        border-radius: 18px 18px 0 0;
-        border-bottom: 0;
-        transform: translateY(110%);
-        max-height: 70vh;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .round-card[data-open="true"] { transform: translateY(0); }
-      .round-card::before {
-        /* Drag-handle affordance */
-        content: '';
-        position: absolute;
-        top: 8px; left: 50%;
-        transform: translateX(-50%);
-        width: 48px; height: 4px;
-        border-radius: 2px;
-        background: rgba(255,255,255,0.18);
-      }
-      .round-card-close { top: 14px; right: 14px; }
-      .round-card h2 { font-size: 36px; }
-      .rc-cta { padding: 14px; font-size: 13px; }
-    }
-
-    /* ===== Achievement banner ===== */
-    .achievement {
-      position: absolute; z-index: 30;
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%) scale(0.85);
-      text-align: center;
-      width: min(92vw, 720px);
-      padding: 48px 36px;
-      background: radial-gradient(ellipse 80% 80% at 50% 30%, rgba(34,230,107,0.18), rgba(10,16,24,0.95));
-      border: 1px solid rgba(34,230,107,0.5);
-      border-radius: 18px;
-      box-shadow: 0 40px 100px rgba(34,230,107,0.35), 0 0 0 1px rgba(255,255,255,0.04) inset;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.2,0.8,0.2,1);
-    }
-    .achievement[data-open="true"] {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      pointer-events: auto;
-    }
-    .achv-eyebrow {
-      display: inline-block;
-      font-family: var(--font-sub);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.42em;
-      color: var(--accent);
-      padding: 7px 14px;
-      border: 1px solid rgba(34,230,107,0.5);
-      border-radius: 999px;
-    }
-    .achv-title {
-      font-family: var(--font-display);
-      font-size: clamp(56px, 9vw, 110px);
-      margin: 18px 0 12px;
-      letter-spacing: 0.04em;
-      color: #fff;
-      text-shadow: 0 0 60px rgba(34,230,107,0.5);
-    }
-    .achv-title span { color: var(--accent); }
-    .achv-sub {
-      font-size: 16px;
-      color: var(--mute);
-      margin: 0 0 28px;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.5;
-    }
-    .achv-cta {
-      display: inline-block;
-      padding: 16px 28px;
-      background: var(--accent);
-      color: #0a0a0a;
-      font-family: var(--font-sub);
-      font-weight: 800;
-      font-size: 13px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      border-radius: 8px;
-      box-shadow: 0 12px 30px rgba(34,230,107,0.4);
-      transition: all 0.2s ease;
-    }
-    .achv-cta:hover { background: #fff; transform: translateY(-2px); }
-
-    /* ===== Bottom timeline ===== */
-    .timeline {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 5;
-      list-style: none;
-      margin: 0;
-      padding: 18px 28px 24px;
+    .season-hero-inner {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-      background: linear-gradient(to top, rgba(5,8,14,0.92), rgba(5,8,14,0.4) 70%, transparent);
-      pointer-events: auto;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
     }
-    .timeline li {
-      position: relative;
-      padding: 14px 14px 14px 14px;
-      background: rgba(15,23,34,0.55);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      animation: tl-rise 0.8s cubic-bezier(0.2,0.8,0.2,1) both;
-    }
-    .timeline li:nth-child(1) { animation-delay: 3.0s; }
-    .timeline li:nth-child(2) { animation-delay: 3.1s; }
-    .timeline li:nth-child(3) { animation-delay: 3.2s; }
-    .timeline li:nth-child(4) { animation-delay: 3.3s; }
-    .timeline li:nth-child(5) { animation-delay: 3.4s; }
-    .timeline li:nth-child(6) { animation-delay: 3.5s; }
-    @keyframes tl-rise {
-      from { opacity: 0; transform: translateY(40px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .timeline li:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(34,230,107,0.25);
-    }
-    .timeline li[data-active="true"] {
-      border-color: var(--accent);
-      background: rgba(34,230,107,0.08);
-      box-shadow: 0 0 0 1px rgba(34,230,107,0.4) inset, 0 12px 28px rgba(34,230,107,0.25);
-    }
-    .timeline li[data-visited="true"]::after {
-      content: '';
-      position: absolute;
-      top: 10px; right: 10px;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(34,230,107,0.18);
-    }
-    .timeline .num {
-      display: inline-block;
-      font-family: var(--font-display);
-      font-size: 22px;
+    .season-hero-text .hero-eyebrow {
+      font-family: var(--font-sub);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
       color: var(--accent);
-      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+    }
+    .season-hero-text h1 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 1.0;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin: 0 0 20px;
+    }
+    .season-hero-text p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-mute);
+      max-width: 440px;
+      margin: 0 0 32px;
+    }
+    .season-reach-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .reach-cell {
+      background: var(--surface);
+      padding: 18px 14px;
+      text-align: center;
+    }
+    .reach-cell .rc-n {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 30px);
+      letter-spacing: -0.01em;
+      color: var(--accent);
       line-height: 1;
     }
-    .timeline .city {
-      display: block;
+    .reach-cell .rc-l {
       font-family: var(--font-sub);
-      font-weight: 800;
-      font-size: 14px;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      margin-top: 4px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
+      color: var(--text-mute);
+      margin-top: 5px;
     }
-    .timeline .month {
+    .season-hero-visual {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 1px solid var(--line);
+    }
+    .season-hero-visual img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
       display: block;
+    }
+    .season-hero-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,16,24,0.7) 0%, transparent 50%);
+    }
+    .season-hero-visual-caption {
+      position: absolute;
+      bottom: 16px; left: 16px;
       font-family: var(--font-sub);
       font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
-      color: var(--mute);
-      margin-top: 4px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-    }
-    @media (max-width: 960px) {
-      .timeline { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 720px) {
-      /* Horizontal scroll strip — keeps the globe big and the cards
-         finger-friendly without stacking 3 rows of cards on a phone */
-      .timeline {
-        display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
-        gap: 8px;
-        padding: 12px 14px 16px;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-      }
-      .timeline::-webkit-scrollbar { display: none; }
-      .timeline li {
-        flex: 0 0 132px;
-        padding: 10px 12px;
-        scroll-snap-align: start;
-      }
-      .timeline li:first-child { margin-left: 4px; }
-      .timeline li:last-child  { margin-right: 4px; }
-      .timeline .num { font-size: 18px; }
-      .timeline .city { font-size: 12px; margin-top: 2px; }
-      .timeline .month { font-size: 9px; margin-top: 2px; }
-      .timeline li[data-visited="true"]::after { width: 9px; height: 9px; top: 8px; right: 8px; }
+      color: var(--accent);
     }
 
-    /* ===== Utility row (replay/reset) ===== */
-    .utility-row {
-      position: fixed; z-index: 4;
-      bottom: 200px; right: 32px;
-      display: flex; gap: 8px;
-      animation: hud-fade 0.8s 3.4s ease both;
+    /* ── Globe (desktop only) ─────────────────────────────── */
+    .globe-wrap {
+      position: relative;
+      width: 100%;
+      height: clamp(440px, 60vh, 620px);
+      background: var(--bg);
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
-    .util-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 14px;
-      background: rgba(15,23,34,0.6);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--mute);
-      font-family: var(--font-sub);
-      font-weight: 600;
-      font-size: 11px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: all 0.2s ease;
-    }
-    .util-btn:hover { color: var(--accent); border-color: var(--accent); }
-    .util-btn svg { width: 13px; height: 13px; }
-    @media (max-width: 720px) {
-      /* Icon-only utility buttons tucked above the timeline */
-      .utility-row { bottom: 130px; right: 10px; gap: 6px; }
-      .util-btn { padding: 8px; border-radius: 50%; }
-      .util-btn span { display: none; }
-      .util-btn svg { width: 14px; height: 14px; }
-    }
+    #globe-container { width: 100%; height: 100%; }
 
-    /* ===== Custom HTML pin (used by globe.gl htmlElementsData) ===== */
-    .gpin {
+    .globe-label-bar {
       position: absolute;
-      transform: translate(-50%, -50%);
-      pointer-events: auto;
-      cursor: pointer;
-      width: 32px; height: 32px;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(15,23,34,0.88);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      padding: 6px 16px;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      pointer-events: none;
     }
-    .gpin .pin-dot {
-      position: absolute; inset: 0;
+    .globe-label-bar .dot {
+      width: 7px; height: 7px;
       border-radius: 50%;
       background: var(--accent);
-      color: #0a0a0a;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-sub);
-      font-weight: 900;
-      font-size: 14px;
-      box-shadow: 0 0 0 4px rgba(34,230,107,0.22), 0 6px 18px rgba(0,0,0,0.55);
-      animation: gpin-drop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both, gpin-pulse 2.4s ease-in-out infinite;
-      transition: transform 0.2s ease, box-shadow 0.25s ease;
-      z-index: 2;
+      flex-shrink: 0;
     }
-    .gpin .pin-ring {
-      position: absolute; inset: -8px;
-      border: 2px solid var(--accent);
-      border-radius: 50%;
-      opacity: 0;
-      animation: gpin-ring 2s ease-out infinite;
-    }
-    .gpin .pin-label {
-      position: absolute;
-      top: 50%; left: calc(100% + 12px);
-      transform: translateY(-50%);
-      white-space: nowrap;
+    .globe-label-bar span {
       font-family: var(--font-sub);
-      font-weight: 800;
-      font-size: 11px;
+      font-size: 10px;
+      font-weight: 700;
       letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--text);
-      padding: 5px 10px;
-      background: rgba(15,23,34,0.85);
-      border: 1px solid var(--line-2);
-      border-radius: 4px;
+      color: var(--text-mute);
+    }
+    .globe-label-bar span em { color: var(--accent); font-style: normal; }
+    #globe-status-text { }
+
+    .globe-hint-corner {
+      position: absolute;
+      bottom: 18px; right: 18px;
+      font-family: var(--font-sub);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(155,169,192,0.45);
       pointer-events: none;
-      opacity: 0;
-      animation: gpin-label 0.6s 0.6s ease both;
-    }
-    .gpin[data-visited="true"] .pin-dot {
-      background: #fff;
-      color: #0a0a0a;
-      box-shadow: 0 0 0 4px rgba(255,255,255,0.22), 0 6px 18px rgba(0,0,0,0.55);
-    }
-    .gpin:hover .pin-dot { transform: scale(1.18); box-shadow: 0 0 0 6px rgba(34,230,107,0.32), 0 8px 22px rgba(0,0,0,0.6); }
-    @keyframes gpin-drop {
-      0%   { transform: translateY(-180px) scale(0.6); opacity: 0; }
-      60%  { transform: translateY(0) scale(1.05); opacity: 1; }
-      100% { transform: translateY(0) scale(1); opacity: 1; }
-    }
-    @keyframes gpin-pulse {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(34,230,107,0.22), 0 6px 18px rgba(0,0,0,0.55); }
-      50%      { box-shadow: 0 0 0 8px rgba(34,230,107,0.35), 0 6px 18px rgba(0,0,0,0.55); }
-    }
-    @keyframes gpin-ring {
-      0%   { opacity: 0.65; transform: scale(0.8); }
-      100% { opacity: 0; transform: scale(2); }
-    }
-    @keyframes gpin-label {
-      from { opacity: 0; transform: translate(8px, -50%); }
-      to   { opacity: 0.95; transform: translate(0, -50%); }
+      z-index: 5;
     }
 
-    @media (max-width: 720px) {
-      /* Mobile pins: hide trailing label (cluttered on small viewports),
-         bump tap target, and add an invisible padding ring so fingers
-         aren't fighting a 32px hit area on the southern cluster. */
-      .gpin { width: 36px; height: 36px; }
-      .gpin .pin-dot { font-size: 13px; }
-      .gpin .pin-label { display: none; }
-      .gpin::before {
-        content: '';
-        position: absolute;
-        inset: -6px;  /* extra invisible hit area, kept tight so the
-                        southern cluster cities don't fight for taps */
-      }
-      /* Tighter achievement banner on phones */
-      .achievement { padding: 32px 20px; border-radius: 14px; }
-      .achv-cta { padding: 14px 22px; font-size: 12px; letter-spacing: 0.22em; }
+    /* Race detail panel — slides up */
+    .race-panel {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(150%);
+      width: min(420px, calc(100vw - 48px));
+      background: rgba(8,14,22,0.96);
+      border: 1px solid rgba(34,230,107,0.40);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px 20px;
+      backdrop-filter: blur(20px);
+      z-index: 20;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.65);
+      transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .race-panel.is-open { transform: translateX(-50%) translateY(0); }
+    .rp-close {
+      position: absolute; top: 10px; right: 12px;
+      background: none; border: none;
+      color: var(--text-mute); cursor: pointer;
+      font-size: 20px; line-height: 1; padding: 4px 6px;
+    }
+    .rp-close:hover { color: var(--text); }
+    .rp-rd {
+      font-family: var(--font-sub); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 4px;
+    }
+    .rp-city {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 30px);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      line-height: 1; margin-bottom: 10px;
+    }
+    .rp-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-bottom: 10px;
+    }
+    .rp-stat {
+      background: rgba(34,230,107,0.07);
+      border: 1px solid rgba(34,230,107,0.15);
+      border-radius: 6px; padding: 9px 12px;
+    }
+    .rp-stat .n {
+      font-family: var(--font-display);
+      font-size: 18px; color: var(--accent); line-height: 1;
+    }
+    .rp-stat .l {
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-mute);
+      margin-top: 3px;
+    }
+    .rp-desc {
+      font-size: 12px; line-height: 1.55;
+      color: var(--text-mute); margin: 0;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .intro-bar, .intro-content, .gpin .pin-dot, .gpin .pin-ring,
-      .timeline li, .hud { animation: none !important; transition: none !important; }
-      .intro { display: none; }
+    /* ── Mobile city strip (shown only on mobile) ─────────── */
+    .mobile-season-strip {
+      display: none;
+      border-top: 1px solid var(--line);
+    }
+    .mss-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 40px;
+    }
+    .mss-card {
+      background: var(--surface);
+      padding: 20px 16px;
+      cursor: pointer;
+      transition: background 0.18s ease;
+      position: relative;
+      border-top: 2px solid transparent;
+    }
+    .mss-card.active {
+      background: #111d2b;
+      border-top-color: var(--accent);
+    }
+    .mss-rd {
+      font-family: var(--font-sub); font-size: 10px;
+      font-weight: 700; letter-spacing: 0.28em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 5px;
+    }
+    .mss-city {
+      font-family: var(--font-display);
+      font-size: clamp(16px, 4vw, 20px);
+      letter-spacing: 0.05em; text-transform: uppercase;
+      line-height: 1.1; margin-bottom: 6px;
+    }
+    .mss-note {
+      font-size: 11px; color: var(--text-mute); line-height: 1.4;
+    }
+    .mss-badge {
+      display: inline-block; margin-top: 8px;
+      padding: 2px 8px;
+      background: rgba(56,169,255,0.10);
+      border: 1px solid rgba(56,169,255,0.28);
+      border-radius: 4px;
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent-2);
+    }
+
+    /* Detail drawer under cards (mobile) */
+    .mss-drawer {
+      display: none;
+      grid-column: 1 / -1;
+      background: #0d1825;
+      border-top: 1px solid var(--line);
+      padding: 18px 16px;
+      animation: drawerIn 0.22s ease;
+    }
+    .mss-drawer.open { display: block; }
+    @keyframes drawerIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .mss-drawer .drawer-rd {
+      font-family: var(--font-sub); font-size: 10px;
+      font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .mss-drawer .drawer-city {
+      font-family: var(--font-display);
+      font-size: 22px; letter-spacing: 0.04em;
+      text-transform: uppercase; line-height: 1;
+      margin-bottom: 12px;
+    }
+    .mss-drawer .drawer-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px; margin-bottom: 12px;
+    }
+    .mss-drawer .ds {
+      background: rgba(34,230,107,0.07);
+      border: 1px solid rgba(34,230,107,0.15);
+      border-radius: 6px; padding: 10px 12px;
+    }
+    .mss-drawer .ds .n {
+      font-family: var(--font-display);
+      font-size: 20px; color: var(--accent); line-height: 1;
+    }
+    .mss-drawer .ds .l {
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--text-mute);
+      margin-top: 3px;
+    }
+    .mss-drawer .drawer-desc {
+      font-size: 13px; color: var(--text-mute);
+      line-height: 1.55; margin: 0;
+    }
+
+    /* ── Season detail cards ──────────────────────────────── */
+    .stage-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 48px;
+    }
+    .stage-card {
+      background: var(--surface);
+      padding: 24px 20px;
+      position: relative;
+      border-top: 3px solid transparent;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .stage-card:hover {
+      background: #111d2b;
+      border-top-color: var(--accent);
+    }
+    .sc-rd {
+      font-family: var(--font-sub); font-size: 10px;
+      font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .sc-city {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2vw, 22px);
+      letter-spacing: 0.04em; text-transform: uppercase;
+      line-height: 1.1; margin-bottom: 10px;
+    }
+    .sc-result {
+      font-size: 12px; color: var(--text-mute);
+      line-height: 1.5; margin-bottom: 14px;
+    }
+    .sc-result strong { color: var(--text); }
+    .sc-reach {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .sc-reach-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 9px;
+      background: rgba(34,230,107,0.08);
+      border: 1px solid rgba(34,230,107,0.2);
+      border-radius: 4px;
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .sc-tbc {
+      display: inline-block; margin-top: 12px;
+      padding: 2px 8px;
+      background: rgba(56,169,255,0.08);
+      border: 1px solid rgba(56,169,255,0.25);
+      border-radius: 4px;
+      font-family: var(--font-sub); font-size: 9px;
+      font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent-2);
+    }
+
+    /* ── Sponsor placement CTA ────────────────────────────── */
+    .placement-section {
+      background: linear-gradient(180deg, var(--surface) 0%, #080808 100%);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .placement-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .placement-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--line);
+      aspect-ratio: 3/2;
+    }
+    .placement-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      display: block;
+      filter: brightness(0.92);
+    }
+    .placement-text .eyebrow { margin-bottom: 16px; display: block; }
+    .placement-text h2 { margin: 0 0 16px; }
+    .placement-text p { color: var(--text-mute); margin-bottom: 12px; }
+    .placement-bullets {
+      list-style: none; padding: 0; margin: 0 0 28px;
+    }
+    .placement-bullets li {
+      display: flex; gap: 10px; align-items: flex-start;
+      font-size: 14px; color: var(--text-mute);
+      padding: 7px 0; border-bottom: 1px solid var(--line);
+    }
+    .placement-bullets li:last-child { border-bottom: 0; }
+    .placement-bullets li::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    /* Achievement toast */
+    .achievement-toast {
+      position: fixed;
+      top: 80px; left: 50%;
+      transform: translateX(-50%) translateY(-220%);
+      width: min(340px, calc(100vw - 32px));
+      background: rgba(8,14,22,0.96);
+      border: 1px solid rgba(34,230,107,0.55);
+      border-radius: var(--radius-lg);
+      padding: 18px 22px;
+      text-align: center;
+      z-index: 200;
+      backdrop-filter: blur(16px);
+      pointer-events: none;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+      transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .achievement-toast.show { transform: translateX(-50%) translateY(0); }
+    .at-icon { font-size: 26px; line-height: 1; margin-bottom: 6px; }
+    .at-title {
+      font-family: var(--font-display);
+      font-size: 16px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .at-sub { font-size: 12px; color: var(--text-mute); margin-top: 3px; }
+
+    #confetti-canvas {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 300;
+    }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .season-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .season-hero-visual { display: none; }
+      .stage-cards { grid-template-columns: repeat(2, 1fr); }
+      .placement-grid { grid-template-columns: 1fr; gap: 32px; }
+      .placement-img { display: none; }
+    }
+    /* Hide globe on any touch device OR viewport ≤900px (covers landscape iPhones) */
+    @media (max-width: 900px), (pointer: coarse) {
+      .globe-wrap { display: none !important; }
+      .mobile-season-strip { display: block !important; }
+    }
+    @media (max-width: 900px) {
+      .season-reach-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .stage-cards { grid-template-columns: 1fr; }
+      .season-hero { padding: 48px 0 40px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Letterbox intro -->
-  <div class="intro" id="intro" aria-hidden="true">
-    <div class="intro-bar intro-bar-top"></div>
-    <div class="intro-bar intro-bar-bot"></div>
-    <div class="intro-content">
-      <span class="intro-eyebrow">INRC 2026–27 · TBC</span>
-      <h1 class="intro-title">THE <span>SEASON</span></h1>
-      <span class="intro-tag">SIX RACE WEEKENDS · ONE CAR · #41</span>
-      <div class="intro-bar-fill"><span></span></div>
-    </div>
-  </div>
-
-  <!-- Background starfield -->
-  <div class="starfield" id="starfield" aria-hidden="true"></div>
-  <div class="grid-overlay" aria-hidden="true"></div>
-
-  <!-- Top nav -->
-  <header class="season-nav">
-    <a href="index.html" class="back" aria-label="Back to home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      <span>Home</span>
-    </a>
-    <div class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-name">ABHIMANYU &amp; VIJAY</span>
-      <span class="brand-sub">· THE SEASON ·</span>
-    </div>
-    <a href="partners.html" class="cta">
-      Sponsor
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    </a>
-  </header>
-
-  <!-- Globe stage -->
-  <main class="stage">
-    <div id="globeViz"></div>
-    <div class="vignette" aria-hidden="true"></div>
-
-    <!-- HUD: top-left status, top-right counter, mid-left tagline -->
-    <div class="hud hud-status" id="hudStatus">
-      <span class="lbl">Status</span>
-      <span class="val" id="statusVal">SPINNING UP</span>
-    </div>
-    <div class="hud hud-counter" id="hudCounter">
-      <span class="lbl">Rounds visited</span>
-      <span class="val"><span id="counterCurrent">0</span><span class="of">/ 6</span></span>
-    </div>
-    <div class="hud hud-tag" id="hudTag">
-      <span class="lbl">FMSCI · 2026–27</span>
-      <span class="hint">Click a pin to see the round →</span>
-    </div>
-
-    <!-- Round detail card -->
-    <aside class="round-card" id="roundCard" hidden>
-      <button class="round-card-close" data-card-close aria-label="Close">×</button>
-      <span class="rc-eyebrow">Round <span id="rcRound">—</span></span>
-      <h2 id="rcCity">—</h2>
-      <div class="rc-meta">
-        <span class="rc-pill" id="rcSurface">—</span>
-        <span class="rc-pill ghost" id="rcRegion">—</span>
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"></span>
+        ABHIMANYU &amp; VIJAY
+        <span class="brand-sub">RALLY · INRC</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle menu" data-nav-toggle>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="nav-links" data-nav-links>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="results.html">Results</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="partners.html">Partners</a>
+        <a href="contact.html" class="nav-cta">Sponsor</a>
       </div>
-      <div class="rc-row"><span>Window</span><strong id="rcWindow">—</strong></div>
-      <div class="rc-row"><span>Notes</span><strong id="rcNote">—</strong></div>
-      <a href="partners.html" class="rc-cta">Put your brand on this round →</a>
-    </aside>
-
-    <!-- Achievement -->
-    <div class="achievement" id="achievement" hidden>
-      <span class="achv-eyebrow">SEASON LOCKED IN</span>
-      <h2 class="achv-title">SIX <span>·</span> SIX <span>·</span> ONE</h2>
-      <p class="achv-sub">Six rounds. Six cities. One #41. Now find the brand that puts it on the livery.</p>
-      <a href="partners.html" class="achv-cta">View sponsorship packages →</a>
     </div>
-  </main>
+  </nav>
 
-  <!-- Bottom timeline -->
-  <ol class="timeline" id="timeline" aria-label="Six rounds of the 2026-27 INRC season"></ol>
+  <!-- ===== STICKY SUB-NAV ===== -->
+  <nav class="subnav" data-subnav aria-label="In-page navigation">
+    <div class="subnav-inner">
+      <a href="#overview" class="is-active">Overview</a>
+      <a href="#map">Season map</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#placement">Brand placement</a>
+    </div>
+  </nav>
 
-  <!-- Mute / replay HUD -->
-  <div class="utility-row">
-    <button class="util-btn" id="replayBtn" type="button" aria-label="Replay intro">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-      <span>Replay</span>
-    </button>
-    <button class="util-btn" id="resetBtn" type="button" aria-label="Reset visited rounds">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-      <span>Reset</span>
-    </button>
+  <!-- ===== SPONSOR HERO ===== -->
+  <section id="overview" class="season-hero" style="scroll-margin-top:120px;">
+    <div class="container">
+      <div class="season-hero-inner">
+        <div class="season-hero-text">
+          <div class="hero-eyebrow">INRC 2026–27 · Season calendar</div>
+          <h1>Six stages.<br/><span class="accent">Your brand</span><br/>everywhere.</h1>
+          <p>Six race weekends across India's premier rally championship — national TV, 30M+ social views per event, and a car sponsors already back. Pick a city below and see what your brand would be part of.</p>
+          <div class="hero-cta">
+            <a href="partners.html" class="btn btn-primary">See sponsor packages
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+          </div>
+        </div>
+        <div class="season-hero-visual">
+          <img src="assets/images/action-indore.jpg" alt="VW Polo #41 — Indore stage win, 2025–26" />
+          <div class="season-hero-visual-overlay"></div>
+          <div class="season-hero-visual-caption">Indore · Jan 2026 · Both legs won</div>
+        </div>
+      </div>
+
+      <!-- Reach strip -->
+      <div class="season-reach-strip" style="margin-top:40px;">
+        <div class="reach-cell">
+          <div class="rc-n">6</div>
+          <div class="rc-l">Race weekends</div>
+        </div>
+        <div class="reach-cell">
+          <div class="rc-n">30M<span style="font-size:0.6em;color:var(--text-mute);">+</span></div>
+          <div class="rc-l">Social views / event</div>
+        </div>
+        <div class="reach-cell">
+          <div class="rc-n">2M<span style="font-size:0.6em;color:var(--text-mute);">+</span></div>
+          <div class="rc-l">National TV / event</div>
+        </div>
+        <div class="reach-cell">
+          <div class="rc-n">6</div>
+          <div class="rc-l">Indian cities</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GLOBE (desktop) / MOBILE STRIP ===== -->
+  <div id="map" style="scroll-margin-top:120px;"></div>
+  <div class="globe-wrap">
+    <div id="globe-container"></div>
+    <div class="globe-label-bar">
+      <div class="dot"></div>
+      <span id="globe-status-text">Loading globe&hellip;</span>
+    </div>
+    <div class="globe-hint-corner">Drag · Click a pin</div>
+
+    <div class="race-panel" id="race-panel">
+      <button class="rp-close" id="rp-close" aria-label="Close">&times;</button>
+      <div class="rp-rd"  id="rp-rd"></div>
+      <div class="rp-city" id="rp-city"></div>
+      <div class="rp-row" id="rp-stats"></div>
+      <p class="rp-desc"  id="rp-desc"></p>
+    </div>
   </div>
 
-  <!-- globe.gl + confetti via CDN -->
-  <script src="https://unpkg.com/globe.gl"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  <!-- ===== MOBILE CITY STRIP (mobile ≤768px) ===== -->
+  <div class="mobile-season-strip">
+    <div class="container">
+      <div class="section-head" style="padding-top:56px; margin-bottom:0;">
+        <div>
+          <span class="eyebrow">The calendar</span>
+          <h2 style="margin-top:12px;">Six weekends. <span class="accent">Every stage.</span></h2>
+        </div>
+        <p>Tap any city to see what your brand would be part of.</p>
+      </div>
+      <div class="mss-inner" id="mss-grid">
+        <!-- cards injected by JS so data stays in one place -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SEASON DETAIL CARDS ===== -->
+  <section id="calendar" style="scroll-margin-top:120px;">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Round by round</span>
+          <h2 style="margin-top:16px;">The <span class="accent">2026–27 calendar</span>.</h2>
+        </div>
+        <p>FMSCI-sanctioned · Calendar TBC · Each weekend is a brand activation at India's most-watched rally event.</p>
+      </div>
+
+      <div class="stage-cards" id="stage-cards">
+        <!-- injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SPONSOR PLACEMENT SECTION ===== -->
+  <section id="placement" class="placement-section" style="scroll-margin-top:120px;">
+    <div class="container">
+      <div class="placement-grid">
+        <div class="placement-img">
+          <img src="assets/images/team-celebrate-car.jpg" alt="Abhimanyu &amp; Vijay on VW Polo #41" />
+        </div>
+        <div class="placement-text">
+          <span class="eyebrow">Your brand on this car</span>
+          <h2 style="margin-top:12px;">Six chances to <span class="accent">own the story</span>.</h2>
+          <p>Every race weekend is a brand activation — national TV, social reels that rack millions of views, and press conferences that place your logo in regional and national media.</p>
+          <ul class="placement-bullets">
+            <li>Primary livery placement — bonnet, doors, rear wing</li>
+            <li>Race suit and helmet branding on every stage</li>
+            <li>Dedicated Reels + Stories at every round</li>
+            <li>Brand mention in all press releases &amp; interviews</li>
+            <li>Co-branded end-of-season highlight reel</li>
+            <li>In-kind &amp; custom packages welcome</li>
+          </ul>
+          <div class="hero-cta">
+            <a href="partners.html" class="btn btn-primary">View packages
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="contact.html" class="btn btn-ghost">Talk to us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievement + confetti -->
+  <div class="achievement-toast" id="achievement-toast">
+    <div class="at-icon">🏆</div>
+    <div class="at-title">All six visited</div>
+    <div class="at-sub">P1 INRC 2026–27, or a podium every race weekend.</div>
+  </div>
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ===== CTA BANNER ===== -->
+  <section class="cta-banner">
+    <div class="container">
+      <span class="eyebrow" style="display:inline-flex;">Season open</span>
+      <h2 style="margin-top:20px;">Be in the <span class="accent">origin story</span>.</h2>
+      <p>Partnering before the championship means your brand is there from race weekend one. When he wins, you were there from the start.</p>
+      <div class="hero-cta">
+        <a href="partners.html" class="btn btn-primary">Sponsorship options
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="contact.html" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <h5>Crew</h5>
+          <div class="tag">ABHIMANYU<br/>&amp; VIJAY</div>
+          <p>Rally Driver · JINRC Runner-Up · INRC3 P4 · INRC 2026–27. Two kids from Calicut, racing for a place in Indian motorsport history.</p>
+        </div>
+        <div>
+          <h5>Site</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="results.html">Results</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="partners.html">Partners</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Connect</h5>
+          <ul>
+            <li><a href="mailto:abhimanyusajeevan@gmail.com">abhimanyusajeevan@gmail.com</a></li>
+            <li><a href="https://instagram.com/abhiii_manyu" target="_blank" rel="noopener">@abhiii_manyu</a></li>
+            <li><a href="https://youtube.com/watch?v=Kq-tdhoU5n4" target="_blank" rel="noopener">OnManorama Feature</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Abhimanyu Sajeevan &amp; Vijay Anand</span>
+        <span>Garage Snap Racing · Mentored by Fabid Ahmer · VW Polo #41</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
   <script>
   (function () {
     'use strict';
 
-    // ===== Round data =====
-    var ROUNDS = [
-      { id: 1, city: 'Nashik',          lat: 19.99, lng: 73.79, surface: 'Tarmac', region: 'West India',    window: 'Aug 2026 · TBC', note: 'A tarmac sprint round in the Western Ghats foothills.' },
-      { id: 2, city: 'Indore',          lat: 22.72, lng: 75.87, surface: 'Gravel', region: 'Central India', window: 'Sep 2026 · TBC', note: 'Fast, flowing gravel — Madhya Pradesh open country.' },
-      { id: 3, city: 'Chennai',         lat: 13.08, lng: 80.27, surface: 'Tarmac', region: 'South · Coast', window: 'Oct 2026 · TBC', note: 'East-coast opener · technical tarmac stages.' },
-      { id: 4, city: 'Coimbatore',      lat: 11.02, lng: 76.96, surface: 'Gravel', region: 'South · TN',    window: 'Dec 2026 · TBC', note: 'High-grip red-earth gravel · Kovai stages.' },
-      { id: 5, city: 'Coorg',           lat: 12.42, lng: 75.74, surface: 'Forest', region: 'South · KA',    window: 'Feb 2027 · TBC', note: 'Forest twisties · narrow plantation roads.' },
-      { id: 6, city: 'Bengaluru K1000', lat: 12.97, lng: 77.59, surface: 'Mixed',  region: 'Flagship round',window: 'Apr 2027 · TBC', note: 'INRC flagship · the K1000 finale.' }
+    /* ── Race data ─────────────────────────────────────────── */
+    var RACES = [
+      {
+        id: 'nashik', rd: 'RD 1', name: 'Nashik', state: 'Maharashtra',
+        lat: 20.006, lng: 73.790,
+        result2526: 'Rear-beam failure Leg 1 · P3 Leg 2 · Runner-up title sealed',
+        stat1n: 'P2', stat1l: 'Season finish',
+        stat2n: '30M+', stat2l: 'Social views',
+        desc: 'Maharashtra gravel stages. The 2025–26 finale — a mechanical in Leg 1, P3 in Leg 2, and still the runner-up title. Grit is the story a sponsor wants next to its logo.'
+      },
+      {
+        id: 'indore', rd: 'RD 2', name: 'Indore', state: 'Madhya Pradesh',
+        lat: 22.720, lng: 75.858,
+        result2526: 'Won both legs back-to-back — most dominant round of the season',
+        stat1n: '2×', stat1l: 'Leg wins',
+        stat2n: '30M+', stat2l: 'Social views',
+        desc: 'The standout weekend of 2025–26 — won both legs. Most dominant single-round performance of the debut season. Brands carried here got maximum exposure when the story broke nationally.'
+      },
+      {
+        id: 'chennai', rd: 'RD 3', name: 'Chennai', state: 'Tamil Nadu',
+        lat: 13.083, lng: 80.271,
+        result2526: 'DNS 2025–26 — pre-season commitment · Full campaign in 2026–27',
+        stat1n: 'RD 1', stat1l: '2025–26 opener',
+        stat2n: '2M+', stat2l: 'National TV',
+        desc: 'Missed the 2025–26 opener. Coming back in 2026–27 with a full campaign and something to prove. A Tamil Nadu audience, national TV coverage, and redemption as the narrative.'
+      },
+      {
+        id: 'coimbatore', rd: 'RD 4', name: 'Coimbatore', state: 'Tamil Nadu',
+        lat: 11.017, lng: 76.956,
+        result2526: 'Debut podium — P2 JINRC · P4 INRC3 overall',
+        stat1n: 'P2', stat1l: 'Debut podium',
+        stat2n: '30M+', stat2l: 'Social views',
+        desc: 'The debut weekend. P2 JINRC, P4 INRC3 overall — the round that put the #41 on India\'s motorsport radar. Sponsors on the car for this one were in the debut story.'
+      },
+      {
+        id: 'coorg', rd: 'RD 5', name: 'Coorg', state: 'Karnataka',
+        lat: 12.338, lng: 75.807,
+        result2526: 'P3 overall · Leg 1 P3 · Leg 2 P2',
+        stat1n: 'P3', stat1l: 'Round finish',
+        stat2n: '30M+', stat2l: 'Social views',
+        desc: 'Western Ghats forest stages — visually the most photogenic weekend on the INRC calendar. P3 overall in 2025–26. Logos on the car here look great in every piece of media content.'
+      },
+      {
+        id: 'bengaluru', rd: 'RD 6', name: 'Bengaluru K1000', state: 'Karnataka',
+        lat: 12.972, lng: 77.595,
+        result2526: 'P1 Leg 1 — first stage win · P2 overall',
+        stat1n: 'P1', stat1l: 'Leg 1 win',
+        stat2n: '2M+', stat2l: 'National TV',
+        desc: '"100% chaos. Stages changing minute to minute. Still the fastest car." First-ever stage win. The city Abhimanyu lives and works in — a home crowd, a home win, and a sponsor\'s brand in the frame.'
+      }
     ];
 
-    // ===== Build timeline =====
-    var timeline = document.getElementById('timeline');
-    ROUNDS.forEach(function (r, i) {
-      var li = document.createElement('li');
-      li.dataset.idx = i;
-      li.innerHTML =
-        '<span class="num">0' + r.id + '</span>' +
-        '<span class="city">' + r.city + '</span>' +
-        '<span class="month">' + r.window.split(' · ')[0].toUpperCase() + '</span>';
-      li.addEventListener('click', function () { focusRound(i, true); });
-      timeline.appendChild(li);
-    });
+    var visited = {};
+    var globeInst = null;
+    var activeMssId = null;
 
-    // ===== Globe init =====
-    var globeEl = document.getElementById('globeViz');
-    var prefersReducedMotion = window.matchMedia &&
-                               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Build arcs in calendar order: 1 → 2 → 3 → 4 → 5 → 6
-    var arcs = [];
-    for (var i = 0; i < ROUNDS.length - 1; i++) {
-      arcs.push({
-        startLat: ROUNDS[i].lat,    startLng: ROUNDS[i].lng,
-        endLat:   ROUNDS[i + 1].lat, endLng:   ROUNDS[i + 1].lng,
-        color: ['rgba(34,230,107,0.95)', 'rgba(56,169,255,0.95)']
-      });
-    }
-
-    // globe.gl exposes Globe() globally via the UMD bundle
-    if (typeof Globe !== 'function') {
-      console.error('[season] globe.gl failed to load');
-      var s = document.getElementById('statusVal');
-      if (s) s.textContent = 'OFFLINE';
-      setTimeout(function () {
-        var intro = document.getElementById('intro');
-        if (intro) intro.classList.add('is-out');
-      }, 2400);
-      return;
-    }
-
-    var world = Globe()
-      .backgroundColor('rgba(0,0,0,0)')
-      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-      .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-      .showAtmosphere(true)
-      .atmosphereColor('#22e66b')
-      .atmosphereAltitude(0.22)
-      .htmlElementsData([])
-      .htmlLat('lat')
-      .htmlLng('lng')
-      .htmlAltitude(0.01)
-      .htmlElement(function (d) {
-        var el = document.createElement('div');
-        el.className = 'gpin';
-        el.dataset.idx = d.idx;
-        el.dataset.visited = !!d.visited;
-        // Stagger the entrance via CSS animation-delay so a single
-        // batch render still feels choreographed.
-        var delay = (d.idx * 0.28).toFixed(2) + 's';
-        el.innerHTML =
-          '<div class="pin-dot" style="animation-delay:' + delay + ',' + delay + '">' + d.id + '</div>' +
-          '<div class="pin-ring" style="animation-delay:' + delay + '"></div>' +
-          '<div class="pin-label" style="animation-delay:calc(' + delay + ' + 0.6s)">' + d.city + '</div>';
-        el.addEventListener('click', function (ev) {
-          ev.stopPropagation();
-          focusRound(parseInt(d.idx, 10), true);
+    /* ── Confetti ──────────────────────────────────────────── */
+    function launchConfetti() {
+      var cvs = document.getElementById('confetti-canvas');
+      cvs.width = window.innerWidth; cvs.height = window.innerHeight;
+      var ctx = cvs.getContext('2d');
+      var colors = ['#22e66b','#38a9ff','#f4f8ff','#ffd700','#ff6b6b'];
+      var parts = [];
+      for (var i = 0; i < 150; i++) {
+        parts.push({
+          x: Math.random() * cvs.width, y: -20,
+          vx: (Math.random()-0.5)*4, vy: 2+Math.random()*4,
+          r: 4+Math.random()*5, color: colors[i%colors.length],
+          rot: Math.random()*360, vr: (Math.random()-0.5)*8
         });
-        return el;
-      })
-      .arcsData([])
-      .arcColor('color')
-      .arcStroke(0.45)
-      .arcAltitudeAutoScale(0.35)
-      .arcDashLength(0.4)
-      .arcDashGap(0.18)
-      .arcDashInitialGap(function () { return 1; })
-      .arcDashAnimateTime(2200)
-      (globeEl);
-
-    // Initial camera: looking somewhere mid-Indian-Ocean so we can rotate to India
-    world.pointOfView({ lat: 0, lng: -110, altitude: 2.8 }, 0);
-
-    // Auto-rotate
-    var controls = world.controls();
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = prefersReducedMotion ? 0 : 4.0;
-    // Allow pinch / wheel zoom but bound it so users can't escape the planet
-    controls.enableZoom = true;
-    controls.zoomSpeed = 0.8;
-    controls.minDistance = 160;   // can't zoom into the surface
-    controls.maxDistance = 480;   // can't zoom past low-earth orbit
-    controls.enablePan = false;
-
-    // Keep canvas sized to window
-    function resize() {
-      world.width(globeEl.clientWidth);
-      world.height(globeEl.clientHeight);
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    // ===== Choreographed entrance =====
-    var pinsDeployed = false;
-    var visited = new Set();
-    var statusEl = document.getElementById('statusVal');
-    function setStatus(s) { if (statusEl) statusEl.textContent = s; }
-
-    function flyToIndia() {
-      setStatus('LOCATING INDIA');
-      world.pointOfView({ lat: 22, lng: 78, altitude: 1.4 }, 2400);
-      setTimeout(function () { controls.autoRotateSpeed = 0.55; }, 2400);
-    }
-
-    function deployPins() {
-      if (pinsDeployed) return;
-      pinsDeployed = true;
-      setStatus('DEPLOYING PINS');
-      // Single batch render — CSS animation-delay handles the stagger
-      var data = ROUNDS.map(function (r, idx) {
-        return { idx: idx, id: r.id, city: r.city, lat: r.lat, lng: r.lng, visited: false };
-      });
-      world.htmlElementsData(data);
-      // After pins finish their drop choreography, draw arcs
-      setTimeout(function () {
-        setStatus('FLIGHT PATH ONLINE');
-        world.arcsData(arcs);
-      }, ROUNDS.length * 280 + 400);
-      // Status idle
-      setTimeout(function () { setStatus('READY · CLICK A PIN'); }, ROUNDS.length * 280 + 2200);
-    }
-
-    // Run choreography after intro
-    setTimeout(function () {
-      var intro = document.getElementById('intro');
-      if (intro) intro.classList.add('is-out');
-      setTimeout(function () { intro && intro.parentNode && intro.parentNode.removeChild(intro); }, 1200);
-      flyToIndia();
-      setTimeout(deployPins, 2200);
-    }, 2400);
-
-    // ===== Round focus / detail card =====
-    var card = document.getElementById('roundCard');
-    var rcRound = document.getElementById('rcRound');
-    var rcCity = document.getElementById('rcCity');
-    var rcSurface = document.getElementById('rcSurface');
-    var rcRegion = document.getElementById('rcRegion');
-    var rcWindow = document.getElementById('rcWindow');
-    var rcNote = document.getElementById('rcNote');
-    var counter = document.getElementById('counterCurrent');
-    var achv = document.getElementById('achievement');
-
-    function focusRound(idx, fly) {
-      var r = ROUNDS[idx];
-      if (!r) return;
-      rcRound.textContent = String(r.id).padStart(2, '0');
-      rcCity.textContent = r.city;
-      rcSurface.textContent = r.surface;
-      rcRegion.textContent = r.region;
-      rcWindow.textContent = r.window;
-      rcNote.textContent = r.note;
-      card.hidden = false;
-      requestAnimationFrame(function () { card.dataset.open = 'true'; });
-
-      // Mark visited + update timeline (direct DOM toggle so the pin
-      // doesn't get re-rendered + re-animated by globe.gl)
-      if (!visited.has(idx)) {
-        visited.add(idx);
-        if (counter) counter.textContent = visited.size;
-        var pinEl = document.querySelector('.gpin[data-idx="' + idx + '"]');
-        if (pinEl) pinEl.dataset.visited = 'true';
       }
-      Array.prototype.forEach.call(timeline.querySelectorAll('li'), function (li, i) {
-        li.dataset.active = (i === idx) ? 'true' : 'false';
-        if (visited.has(i)) li.dataset.visited = 'true';
-      });
+      var f=0;
+      (function tick(){
+        ctx.clearRect(0,0,cvs.width,cvs.height);
+        parts.forEach(function(p){
+          ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+          ctx.fillStyle=p.color; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.55);
+          ctx.restore();
+          p.x+=p.vx; p.y+=p.vy; p.vy+=0.07; p.rot+=p.vr;
+        });
+        if(++f<200) requestAnimationFrame(tick);
+        else ctx.clearRect(0,0,cvs.width,cvs.height);
+      }());
+    }
 
-      // Camera fly-to
-      if (fly) {
-        controls.autoRotate = false;
-        world.pointOfView({ lat: r.lat, lng: r.lng, altitude: 0.8 }, 1400);
-        // resume gentle rotation after a beat
-        setTimeout(function () { controls.autoRotate = true; controls.autoRotateSpeed = 0.35; }, 5000);
-      }
-
-      // Achievement: visited all 6
-      if (visited.size === ROUNDS.length) {
-        setTimeout(showAchievement, 900);
+    function markVisited(id) {
+      if (visited[id]) return;
+      visited[id] = true;
+      /* highlight stage card */
+      var sc = document.querySelector('.stage-card[data-race="'+id+'"]');
+      if (sc) sc.style.borderTopColor = 'var(--accent)';
+      /* achievement */
+      if (Object.keys(visited).length >= RACES.length) {
+        var toast = document.getElementById('achievement-toast');
+        toast.classList.add('show');
+        launchConfetti();
+        setTimeout(function(){ toast.classList.remove('show'); }, 5000);
       }
     }
 
-    function closeCard() {
-      card.dataset.open = 'false';
-      setTimeout(function () { card.hidden = true; }, 400);
-      Array.prototype.forEach.call(timeline.querySelectorAll('li'), function (li) {
-        li.dataset.active = 'false';
-      });
+    /* ── Globe panel ───────────────────────────────────────── */
+    var racePanel = document.getElementById('race-panel');
+    function showGlobePanel(race) {
+      markVisited(race.id);
+      document.getElementById('rp-rd').textContent   = race.rd + ' · INRC 2026–27 · TBC';
+      document.getElementById('rp-city').textContent = race.name + ', ' + race.state;
+      document.getElementById('rp-stats').innerHTML =
+        '<div class="rp-stat"><div class="n">'+race.stat1n+'</div><div class="l">'+race.stat1l+'</div></div>' +
+        '<div class="rp-stat"><div class="n">'+race.stat2n+'</div><div class="l">'+race.stat2l+'</div></div>';
+      document.getElementById('rp-desc').textContent = race.desc;
+      racePanel.classList.add('is-open');
     }
-    document.querySelector('[data-card-close]').addEventListener('click', closeCard);
-
-    // ===== Achievement + confetti =====
-    var celebrated = false;
-    function showAchievement() {
-      if (celebrated) return;
-      celebrated = true;
-      setStatus('SEASON COMPLETE');
-      achv.hidden = false;
-      requestAnimationFrame(function () { achv.dataset.open = 'true'; });
-
-      if (typeof confetti === 'function') {
-        var burst = function (origin) {
-          confetti({
-            particleCount: 80,
-            spread: 80,
-            startVelocity: 45,
-            colors: ['#22e66b', '#38a9ff', '#ffffff', '#ffb547'],
-            origin: origin
-          });
-        };
-        burst({ x: 0.15, y: 0.8 });
-        burst({ x: 0.85, y: 0.8 });
-        setTimeout(function () { burst({ x: 0.5, y: 0.4 }); }, 350);
-        setTimeout(function () {
-          burst({ x: 0.2, y: 0.6 }); burst({ x: 0.8, y: 0.6 });
-        }, 700);
-      }
-    }
-
-    // Click outside to close achievement
-    achv.addEventListener('click', function (e) {
-      if (e.target === achv || e.target.classList.contains('achv-cta')) return;
+    document.getElementById('rp-close').addEventListener('click', function(){
+      racePanel.classList.remove('is-open');
     });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        if (achv.dataset.open === 'true') {
-          achv.dataset.open = 'false';
-          setTimeout(function () { achv.hidden = true; }, 500);
-        } else if (card.dataset.open === 'true') {
-          closeCard();
+
+    /* ── Stage cards (desktop detail grid) ────────────────── */
+    var stageCardsEl = document.getElementById('stage-cards');
+    RACES.forEach(function(r) {
+      var el = document.createElement('div');
+      el.className = 'stage-card';
+      el.setAttribute('data-race', r.id);
+      el.innerHTML =
+        '<div class="sc-rd">'+r.rd+'</div>' +
+        '<div class="sc-city">'+r.name+'<br/><span style="font-size:0.65em;color:var(--text-mute);letter-spacing:0.08em;">'+r.state.toUpperCase()+'</span></div>' +
+        '<div class="sc-result"><strong>2025–26:</strong> '+r.result2526+'</div>' +
+        '<div class="sc-reach">' +
+          '<span class="sc-reach-tag">'+r.stat1n+' '+r.stat1l+'</span>' +
+          '<span class="sc-reach-tag">'+r.stat2n+' '+r.stat2l+'</span>' +
+        '</div>' +
+        '<div class="sc-tbc">TBC · FMSCI</div>';
+      el.addEventListener('click', function() {
+        markVisited(r.id);
+        if (globeInst) {
+          globeInst.pointOfView({ lat: r.lat, lng: r.lng, altitude: 1.8 }, 900);
+          showGlobePanel(r);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+      });
+      stageCardsEl.appendChild(el);
+    });
+
+    /* ── Mobile city strip ─────────────────────────────────── */
+    var mssGrid = document.getElementById('mss-grid');
+    var mssDrawer = null;
+
+    RACES.forEach(function(r, i) {
+      var card = document.createElement('div');
+      card.className = 'mss-card';
+      card.setAttribute('data-race', r.id);
+      card.innerHTML =
+        '<div class="mss-rd">'+r.rd+'</div>' +
+        '<div class="mss-city">'+r.name+'</div>' +
+        '<div class="mss-note">'+r.result2526+'</div>' +
+        '<div class="mss-badge">TBC · FMSCI</div>';
+
+      /* drawer: insert after every 2nd card (or at end of row) */
+      mssGrid.appendChild(card);
+
+      /* insert a drawer slot after pairs */
+      if (i % 2 === 1 || i === RACES.length - 1) {
+        var drawer = document.createElement('div');
+        drawer.className = 'mss-drawer';
+        drawer.setAttribute('data-drawer-after', i);
+        mssGrid.appendChild(drawer);
       }
+
+      card.addEventListener('click', function() {
+        markVisited(r.id);
+        /* toggle active state */
+        var isAlreadyActive = card.classList.contains('active');
+        document.querySelectorAll('.mss-card').forEach(function(c){ c.classList.remove('active'); });
+        document.querySelectorAll('.mss-drawer').forEach(function(d){ d.classList.remove('open'); });
+
+        if (isAlreadyActive) { activeMssId = null; return; }
+
+        card.classList.add('active');
+        activeMssId = r.id;
+
+        /* find the drawer after this card's row */
+        var rowEnd = (i % 2 === 0) ? i + 1 : i;
+        var targetDrawer = mssGrid.querySelector('.mss-drawer[data-drawer-after="'+rowEnd+'"]');
+        if (!targetDrawer) {
+          /* last item fallback */
+          var drawers = mssGrid.querySelectorAll('.mss-drawer');
+          targetDrawer = drawers[drawers.length - 1];
+        }
+
+        targetDrawer.innerHTML =
+          '<div class="drawer-rd">'+r.rd+' · INRC 2026–27 · TBC</div>' +
+          '<div class="drawer-city">'+r.name+', <span style="font-size:0.7em;color:var(--text-mute);">'+r.state+'</span></div>' +
+          '<div class="drawer-stats">' +
+            '<div class="ds"><div class="n">'+r.stat1n+'</div><div class="l">'+r.stat1l+'</div></div>' +
+            '<div class="ds"><div class="n">'+r.stat2n+'</div><div class="l">'+r.stat2l+'</div></div>' +
+          '</div>' +
+          '<p class="drawer-desc">'+r.desc+'</p>';
+        targetDrawer.classList.add('open');
+      });
     });
 
-    // ===== Replay / reset =====
-    document.getElementById('replayBtn').addEventListener('click', function () {
-      // Replay the entrance choreography (without DOM intro)
-      controls.autoRotate = true;
-      controls.autoRotateSpeed = 4.0;
-      world.pointOfView({ lat: 0, lng: -110, altitude: 2.8 }, 800);
-      world.htmlElementsData([]);
-      world.arcsData([]);
-      pinsDeployed = false;
-      visited.clear();
-      counter.textContent = '0';
-      Array.prototype.forEach.call(timeline.querySelectorAll('li'), function (li) {
-        li.dataset.active = 'false';
-        li.dataset.visited = 'false';
-      });
-      closeCard();
-      achv.dataset.open = 'false';
-      achv.hidden = true;
-      celebrated = false;
-      setTimeout(flyToIndia, 1000);
-      setTimeout(deployPins, 3200);
-    });
-    document.getElementById('resetBtn').addEventListener('click', function () {
-      visited.clear();
-      counter.textContent = '0';
-      Array.prototype.forEach.call(document.querySelectorAll('.gpin'), function (el) {
-        el.dataset.visited = 'false';
-      });
-      Array.prototype.forEach.call(timeline.querySelectorAll('li'), function (li) {
-        li.dataset.visited = 'false';
-        li.dataset.active = 'false';
-      });
-      closeCard();
-      achv.dataset.open = 'false';
-      achv.hidden = true;
-      celebrated = false;
-    });
+    /* ── Globe (desktop only) ──────────────────────────────── */
+    function buildGlobe() {
+      var container = document.getElementById('globe-container');
+      var statusEl  = document.getElementById('globe-status-text');
+      var sz = { w: container.clientWidth, h: container.clientHeight };
 
-    // ===== Subtle parallax on stars (mouse) =====
-    if (!prefersReducedMotion) {
-      var stars = document.getElementById('starfield');
-      window.addEventListener('mousemove', function (e) {
-        var x = (e.clientX / window.innerWidth - 0.5) * -10;
-        var y = (e.clientY / window.innerHeight - 0.5) * -10;
-        stars.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)';
-      }, { passive: true });
+      var arcs = RACES.map(function(r, i) {
+        var n = RACES[(i+1) % RACES.length];
+        return { sLat: r.lat, sLng: r.lng, eLat: n.lat, eLng: n.lng };
+      });
+
+      /* eslint-disable no-undef */
+      globeInst = Globe()
+        .width(sz.w).height(sz.h)
+        .backgroundColor('rgba(0,0,0,0)')
+        .atmosphereColor('#38a9ff')
+        .atmosphereAltitude(0.15)
+        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+        .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+        .pointsData(RACES)
+        .pointLat('lat').pointLng('lng')
+        .pointColor(function() { return '#22e66b'; })
+        .pointAltitude(0.02)
+        .pointRadius(0.55)
+        .pointLabel(function(r) {
+          return '<div style="font-family:sans-serif;background:rgba(8,14,22,0.95);border:1px solid rgba(34,230,107,0.55);border-radius:7px;padding:7px 13px;font-size:12px;color:#f4f8ff;white-space:nowrap;">'
+            +'<strong style="color:#22e66b;">'+r.rd+'</strong> &nbsp;'+r.name+'</div>';
+        })
+        .onPointClick(function(race) {
+          showGlobePanel(race);
+          globeInst.pointOfView({ lat: race.lat, lng: race.lng, altitude: 1.8 }, 900);
+        })
+        .arcsData(arcs)
+        .arcStartLat('sLat').arcStartLng('sLng')
+        .arcEndLat('eLat').arcEndLng('eLng')
+        .arcColor(function() {
+          return ['rgba(56,169,255,0)','rgba(56,169,255,0.7)','rgba(56,169,255,0)'];
+        })
+        .arcAltitude(0.22).arcStroke(0.5)
+        .arcDashLength(0.38).arcDashGap(0.18).arcDashAnimateTime(2400)
+        (container);
+      /* eslint-enable no-undef */
+
+      globeInst.pointOfView({ lat: 17, lng: 78, altitude: 2.4 }, 0);
+      statusEl.innerHTML = '<em>6 race weekends</em> · click a pin';
+
+      var t;
+      window.addEventListener('resize', function() {
+        clearTimeout(t);
+        t = setTimeout(function() {
+          globeInst.width(container.clientWidth).height(container.clientHeight);
+        }, 150);
+      });
     }
-  })();
+
+    function loadGlobe() {
+      var isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      if (window.innerWidth <= 900 || isTouch) return; /* phones/tablets — no globe */
+      var s = document.createElement('script');
+      s.src = 'https://unpkg.com/globe.gl@2/dist/globe.gl.min.js';
+      s.onload  = buildGlobe;
+      s.onerror = function() {
+        document.getElementById('globe-status-text').textContent = 'OFFLINE';
+      };
+      document.head.appendChild(s);
+    }
+
+    loadGlobe();
+
+  }());
   </script>
 </body>
 </html>
