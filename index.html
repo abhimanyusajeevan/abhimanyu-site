@@ -106,67 +106,40 @@
     </div>
   </header>
 
-  <!-- ===== QUICK-JUMP DASHBOARD (WRC-style) ===== -->
-  <section class="quickjump" aria-label="Quick navigation">
-    <div class="quickjump-inner">
-      <a href="season.html" class="qj-tile">
-        <span class="qj-num">6<span class="u">×</span></span>
-        <span class="qj-l">Season<br/>map</span>
-        <svg class="qj-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
-      <a href="results.html" class="qj-tile">
-        <span class="qj-num">P2<span class="u">.</span></span>
-        <span class="qj-l">Debut<br/>results</span>
-        <svg class="qj-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
-      <a href="gallery.html" class="qj-tile">
-        <span class="qj-num">30M<span class="u">+</span></span>
-        <span class="qj-l">Stage<br/>gallery</span>
-        <svg class="qj-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
-      <a href="partners.html" class="qj-tile">
-        <span class="qj-num">3</span>
-        <span class="qj-l">Sponsor<br/>tiers</span>
-        <svg class="qj-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
-      <a href="pitch/index.html" class="qj-tile">
-        <span class="qj-num">PDF</span>
-        <span class="qj-l">Pitch<br/>materials</span>
-        <svg class="qj-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>
-    </div>
-  </section>
+  <!-- ===== PROGRESS RAIL (right-side floating dots) ===== -->
+  <nav class="progress-rail" data-progress-rail aria-label="Page sections"></nav>
 
-  <!-- ===== FEATURED STRIP ===== -->
-  <section class="featured-strip" style="padding:18px 0;">
-    <div class="marquee">
-      <strong>JINRC RUNNER-UP · INRC3 P4 · 2025–26</strong><span class="dot">●</span>
-      <span>CALICUT · IIT BOMBAY</span><span class="dot">●</span>
-      <strong>30M+ SOCIAL VIEWS / EVENT</strong><span class="dot">●</span>
-      <span>2M+ NATIONAL TV / EVENT</span><span class="dot">●</span>
-      <strong>VW POLO · #41</strong><span class="dot">●</span>
-      <span>@ABHIII_MANYU</span><span class="dot">●</span>
-      <strong>JINRC RUNNER-UP · INRC3 P4 · 2025–26</strong><span class="dot">●</span>
-      <span>CALICUT · IIT BOMBAY</span><span class="dot">●</span>
-      <strong>30M+ SOCIAL VIEWS / EVENT</strong><span class="dot">●</span>
-      <span>2M+ NATIONAL TV / EVENT</span><span class="dot">●</span>
-      <strong>VW POLO · #41</strong><span class="dot">●</span>
-      <span>@ABHIII_MANYU</span><span class="dot">●</span>
-    </div>
-  </section>
-
-  <!-- ===== IN THE PRESS — Manorama clipping + media tiles ===== -->
-  <section class="press-section" style="padding:72px 0;">
+  <!-- ===== COUNTDOWN STRIP — sponsor urgency hook ===== -->
+  <section class="countdown-strip" aria-label="Sponsorship status">
     <div class="container">
-      <div class="section-head" style="margin-bottom:36px;">
-        <div>
-          <span class="eyebrow">In the Press</span>
-          <h2 style="margin-top:14px;">The story <span class="accent">already in print</span>.</h2>
+      <div class="countdown-inner">
+        <div class="countdown-text">
+          <div class="countdown-pulse" aria-hidden="true"></div>
+          <div class="countdown-label">
+            <strong>Open for INRC 2026–27</strong> · Title, Gold &amp; Silver seats available · Reply within 1–2 hours
+          </div>
         </div>
-        <p>National media is already telling this story. Sponsors don't have to manufacture a narrative — they ride one journalists already want to write.</p>
+        <a href="partners.html" class="countdown-action">
+          See sponsor packages
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 01 — THE STORY (Manorama press clipping) ===== -->
+  <section class="chapter is-light" id="chapter-story" data-chapter="The Story">
+    <div class="container">
+      <div class="chapter-head">
+        <div class="chapter-num reveal">01</div>
+        <div>
+          <div class="chapter-eyebrow reveal">In the press · OnManorama profile</div>
+          <h2 class="chapter-title reveal">The story <span class="accent">already in print</span>.</h2>
+          <p class="chapter-lede reveal">National media is telling this story. Sponsors don't have to manufacture a narrative — they ride one journalists already want to write.</p>
+        </div>
       </div>
 
-      <div class="press-grid">
+      <div class="press-grid reveal reveal-delay-1">
         <!-- Manorama newspaper clipping -->
         <a class="press-clipping" href="https://www.onmanorama.com/sports/motor-sports/2026/03/15/malayali-racer-abhimanyu-sanjeevan-runner-up-junior-indian-national-rally-championship-profile.html" target="_blank" rel="noopener" aria-label="Read the OnManorama profile">
           <div class="pc-masthead">
@@ -223,7 +196,7 @@
             <div class="pt-body">
               <div class="pt-label">National Broadcast</div>
               <div class="pt-title">TV5 News · INRC partner</div>
-              <div class="pt-sub">2M+ national TV viewers per race weekend</div>
+              <div class="pt-sub">2M+ TV viewers per race weekend</div>
             </div>
           </div>
         </div>
@@ -231,20 +204,45 @@
     </div>
   </section>
 
-  <!-- ===== THE DUO (hero photo of both on car) ===== -->
-  <section class="duo-section">
-    <div class="container">
-      <div class="duo-grid">
-        <div class="duo-photo" style="aspect-ratio:3/4;">
-          <img src="assets/images/duo-pitlane.jpg" alt="Abhimanyu &amp; Vijay in race suits — pit lane" loading="lazy" style="object-position:center 25%;"/>
+  <!-- ===== PARALLAX DIVIDER 1 — full-bleed photo break ===== -->
+  <section class="parallax-divider" aria-hidden="true">
+    <div class="parallax-divider-bg" style="background-image:url('assets/images/action-indore.jpg');"></div>
+    <div class="parallax-divider-content">
+      <div class="parallax-divider-eyebrow reveal">Indore · January 2026</div>
+      <h3 class="parallax-divider-text reveal reveal-delay-1">Won both legs.<br/>One weekend.<br/>Most dominant round of the season.</h3>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 02 — THE NUMBERS (sticky stats) ===== -->
+  <section class="sticky-stats" id="chapter-numbers" data-chapter="The Numbers">
+    <div class="sticky-stats-inner">
+      <div class="sticky-stats-display">
+        <div class="ss-eyebrow">02 · The Numbers</div>
+        <div class="ss-num">30M<span class="u">+</span></div>
+        <div class="ss-label">Reasons your<br/>brand belongs<br/>on this car.</div>
+      </div>
+      <div class="sticky-stats-stories">
+        <div class="sticky-stats-story">
+          <span class="ss-tag">Reach</span>
+          <h3>30M+ social views per event.</h3>
+          <p>The INRC's social viewership is up <strong style="color:var(--accent);">15× in three years</strong> — from 2M+ in 2022 to 30M+ in 2024. Every reel from the #41 lands inside that wave.</p>
         </div>
-        <div class="duo-text">
-          <span class="eyebrow">The Duo</span>
-          <h2 style="margin-top:12px;">Two kids from <span class="accent">Calicut</span>.<br/>One shot at history.</h2>
-          <p>Same city. Same obsession. <strong>Abhimanyu</strong> drives — IIT Bombay mechanical engineer, finance professional, trained by multiple-time INRC champion <strong>Fabid Ahmer</strong> of Vision 4 Motorsport Solutions. <strong>Vijay Anand</strong> calls the notes from the right seat — coached in co-driving by <strong>Raghuram S</strong>, also of Vision 4 Motorsport Solutions.</p>
-          <p>In one season they went from unknowns to JINRC runners-up. They're the first rally crew from Calicut on the national podium — and the story Indian motorsport is about to start writing.</p>
-          <div class="hero-cta" style="margin-top:28px;">
-            <a href="about.html" class="btn btn-ghost">Meet the crew
+        <div class="sticky-stats-story">
+          <span class="ss-tag">Broadcast</span>
+          <h3>2M+ national TV viewers per race weekend.</h3>
+          <p>TV5 News is the exclusive national broadcast partner of the INRC — full coverage across all six 2026–27 race weekends. Your logo on the livery is your logo on prime-time sports TV.</p>
+        </div>
+        <div class="sticky-stats-story">
+          <span class="ss-tag">Result · Debut</span>
+          <h3>P2 JINRC. P4 INRC3 overall. Year one.</h3>
+          <p>Five of six rounds contested. Three leg wins, five podiums, a missed opener and a mechanical failure in the finale — and the runner-up title still sealed. The story sponsors want to attach to.</p>
+        </div>
+        <div class="sticky-stats-story">
+          <span class="ss-tag">2026–27</span>
+          <h3>Six race weekends. Six Indian cities.</h3>
+          <p>Nashik · Indore · Chennai · Coimbatore · Coorg · Bengaluru K1000. FMSCI-sanctioned. The full INRC step-up. Title, Gold and Silver sponsor seats are open right now.</p>
+          <div style="margin-top:24px;">
+            <a href="partners.html" class="btn btn-primary">See sponsor packages
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
           </div>
@@ -253,17 +251,123 @@
     </div>
   </section>
 
-  <!-- ===== REEL WALL ===== -->
-  <section class="reel-wall">
+  <!-- ===== PULL QUOTE ===== -->
+  <section class="pull-quote">
     <div class="container">
-      <div class="section-head">
+      <p class="pull-quote-text reveal">After the first jump in my car, <em>I knew this was my place</em>.</p>
+      <div class="pull-quote-attr reveal reveal-delay-1">Abhimanyu Sajeevan · Driver · #41</div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 03 — THE CREW ===== -->
+  <section class="chapter" id="chapter-crew" data-chapter="The Crew">
+    <div class="container">
+      <div class="chapter-head">
+        <div class="chapter-num reveal">03</div>
         <div>
-          <span class="eyebrow">Live from the stages</span>
-          <h2 style="margin-top:16px;">Three reels. <span class="accent">One car.</span></h2>
+          <div class="chapter-eyebrow reveal">The duo · the team behind the car</div>
+          <h2 class="chapter-title reveal">Two kids from <span class="accent">Calicut</span>.<br/>One shot at history.</h2>
+          <p class="chapter-lede reveal">Same city. Same obsession. The first rally crew from Calicut on the national podium — and the story Indian motorsport is starting to write.</p>
         </div>
-        <p>30M+ social views per event, up close. Hover or tap any reel to play.</p>
       </div>
-      <div class="reel-wall-grid">
+
+      <div class="duo-grid reveal reveal-delay-1">
+        <div class="duo-photo" style="aspect-ratio:3/4;">
+          <img src="assets/images/duo-pitlane.jpg" alt="Abhimanyu &amp; Vijay in race suits — pit lane" loading="lazy" style="object-position:center 25%;"/>
+        </div>
+        <div class="duo-text">
+          <p style="font-size:18px;"><strong>Abhimanyu Sajeevan</strong> drives — IIT Bombay Mechanical Engineering '17, finance professional in Bengaluru, trained by multiple-time INRC champion <strong>Fabid Ahmer</strong> of Vision 4 Motorsport Solutions.</p>
+          <p style="font-size:18px;"><strong>Vijay Anand</strong> calls the notes from the right seat — coached in co-driving by <strong>Raghuram S</strong>, also of Vision 4 Motorsport Solutions. The voice between Abhimanyu and every blind corner in India.</p>
+          <p style="font-size:18px; color:var(--text-mute);">In one season they went from unknowns to JINRC runners-up. Now they're stepping up to the full INRC 2026–27.</p>
+          <div class="hero-cta" style="margin-top:32px;">
+            <a href="about.html" class="btn btn-primary">Meet the crew
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="contact.html" class="btn btn-ghost">Talk to us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PARALLAX DIVIDER 2 ===== -->
+  <section class="parallax-divider" aria-hidden="true">
+    <div class="parallax-divider-bg" style="background-image:url('assets/images/team-celebrate-car.jpg'); background-position:center 30%;"></div>
+    <div class="parallax-divider-content">
+      <div class="parallax-divider-eyebrow reveal">Bengaluru K1000 · 2025</div>
+      <h3 class="parallax-divider-text reveal reveal-delay-1">"100% chaos.<br/>Stages changing minute to minute.<br/>Still the fastest car."</h3>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 04 — THE SEASON AHEAD (3 feature cards) ===== -->
+  <section class="chapter is-dim" id="chapter-season" data-chapter="The Season">
+    <div class="container">
+      <div class="chapter-head">
+        <div class="chapter-num reveal">04</div>
+        <div>
+          <div class="chapter-eyebrow reveal">The season ahead · INRC 2026–27</div>
+          <h2 class="chapter-title reveal">Six race weekends.<br/><span class="accent">Six chances</span> to own the story.</h2>
+          <p class="chapter-lede reveal">Spin the season on the interactive map. Read the round-by-round 2025–26 results. See your brand in the gallery. Three places to start.</p>
+        </div>
+      </div>
+
+      <div class="feature-row reveal reveal-delay-1">
+        <a href="season.html" class="feature-card">
+          <div class="fc-img" style="background-image:url('assets/images/action-dust.jpg');">
+            <span class="fc-tag">Interactive</span>
+          </div>
+          <div class="fc-body">
+            <div class="fc-eyebrow">2026–27 · 6 weekends</div>
+            <h3 class="fc-title">Spin the season</h3>
+            <p class="fc-desc">An interactive globe showing the six 2026–27 race weekends across India — Nashik, Indore, Chennai, Coimbatore, Coorg, Bengaluru K1000.</p>
+            <span class="fc-cta">Open the map
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+        <a href="results.html" class="feature-card">
+          <div class="fc-img" style="background-image:url('assets/images/action-indore.jpg');">
+            <span class="fc-tag">P2 JINRC</span>
+          </div>
+          <div class="fc-body">
+            <div class="fc-eyebrow">2025–26 · debut season</div>
+            <h3 class="fc-title">Round by round</h3>
+            <p class="fc-desc">The full debut season — Coimbatore podium, Coorg P3, Bengaluru leg win, Indore double, Nashik recovery. Five of six rounds, runner-up sealed.</p>
+            <span class="fc-cta">See the results
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+        <a href="gallery.html" class="feature-card">
+          <div class="fc-img" style="background-image:url('assets/images/rally-04.jpg');">
+            <span class="fc-tag">30M+ views</span>
+          </div>
+          <div class="fc-body">
+            <div class="fc-eyebrow">Photos · Videos · Reels</div>
+            <h3 class="fc-title">From the stages</h3>
+            <p class="fc-desc">Stage clips, action photography, and the raw footage from the inside of 30M+ social views per event. Everything sponsors can co-brand.</p>
+            <span class="fc-cta">Open the gallery
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 05 — LIVE REELS ===== -->
+  <section class="chapter" id="chapter-reels" data-chapter="The Reels">
+    <div class="container">
+      <div class="chapter-head">
+        <div class="chapter-num reveal">05</div>
+        <div>
+          <div class="chapter-eyebrow reveal">Live from the stages</div>
+          <h2 class="chapter-title reveal">Three reels.<br/><span class="accent">One car.</span></h2>
+          <p class="chapter-lede reveal">30M+ social views per event, up close. Hover or tap any reel to play.</p>
+        </div>
+      </div>
+
+      <div class="reel-wall-grid reveal reveal-delay-1">
         <div class="reel-item">
           <span class="reel-badge">Day 2</span>
           <video src="assets/videos/day2-reel.mp4" muted loop playsinline preload="metadata" poster="assets/images/rally-01.jpg"></video>
@@ -282,112 +386,6 @@
           <div class="reel-overlay"><span class="reel-label">Stage Highlights</span></div>
           <div class="reel-play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== KEY NUMBERS ===== -->
-  <section class="stat-strip" style="padding:72px 0;">
-    <div class="container">
-      <div class="section-head" style="margin-bottom:32px;">
-        <div>
-          <span class="eyebrow">Why it matters</span>
-          <h2 style="margin-top:16px;">The numbers, <span class="accent">in plain English</span>.</h2>
-        </div>
-        <p>New to rally? Here's the scoreboard that matters for a brand deciding where to put its money.</p>
-      </div>
-      <div class="stat-strip-grid">
-        <div class="stat-item">
-          <div class="n">P2<span class="u">.</span></div>
-          <div class="l">Runner-up · Junior INRC<br/>debut season 2025–26</div>
-        </div>
-        <div class="stat-item">
-          <div class="n">30M<span class="u">+</span></div>
-          <div class="l">Social media views<br/>per rally round</div>
-        </div>
-        <div class="stat-item">
-          <div class="n">2M<span class="u">+</span></div>
-          <div class="l">National TV5 viewers<br/>per rally round</div>
-        </div>
-        <div class="stat-item">
-          <div class="n">6<span class="u">×</span></div>
-          <div class="l">Race weekends · INRC 2026–27<br/>six cities across India</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== WHY THIS STORY ===== -->
-  <section>
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">The short version</span>
-          <h2 style="margin-top:16px;">Making a mark in <span class="accent">Indian motorsport</span>.</h2>
-        </div>
-        <p>Rally is India's fastest-growing motorsport. This is the crew writing its next chapter — from a city that's never had one.</p>
-      </div>
-
-      <div class="about-grid">
-        <div class="about-text">
-          <p><strong>Abhimanyu</strong>, 27, from Calicut. IIT Bombay Mechanical Engineering '17. Finance professional in Bengaluru. A karting session in June 2024 turned into a national rally seat thirteen months later — and a runner-up trophy five months after that.</p>
-          <p><strong>Vijay Anand</strong>, co-driver, also from Calicut. The reason #41 takes the right line at 140 km/h in the blind. Engineer on the intercom, friend in the seat.</p>
-          <div class="about-quote">"After the first jump in my car, I knew this was my place."</div>
-          <div class="hero-cta" style="margin-top:32px;">
-            <a href="about.html" class="btn btn-ghost">Full Bio
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="about-card">
-          <div class="about-card-head">At a glance</div>
-          <table>
-            <tr><td>Driver</td><td>Abhimanyu Sajeevan · 27</td></tr>
-            <tr><td>Co-driver</td><td>Vijay Anand</td></tr>
-            <tr><td>From</td><td>Calicut, Kerala</td></tr>
-            <tr><td>Education</td><td>IIT Bombay · Mech '17</td></tr>
-            <tr><td>Car</td><td>VW Polo #41 · White/Green</td></tr>
-            <tr><td>Team</td><td>Garage Snap Racing</td></tr>
-            <tr><td>Driver coach</td><td>Fabid Ahmer · Multiple-time INRC champion · Vision 4 Motorsport Solutions</td></tr>
-            <tr><td>Co-driver coach</td><td>Raghuram S · Vision 4 Motorsport Solutions</td></tr>
-            <tr><td>Instagram</td><td><a href="https://instagram.com/abhiii_manyu" target="_blank" rel="noopener" class="text-accent">@abhiii_manyu</a></td></tr>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== RESULTS PREVIEW ===== -->
-  <section style="background:#080808; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">Debut season</span>
-          <h2 style="margin-top:16px;">Podium in <span class="accent">year one</span>.</h2>
-        </div>
-        <p>Missed the opener. Won a leg in the Bengaluru chaos. Dominated Indore — both legs. Broke a rear beam in the finale. Still runner-up.</p>
-      </div>
-
-      <div class="moments-grid" style="margin-top:0;">
-        <div class="moment">
-          <h4>Indore · Jan '26</h4>
-          <p>Won both legs back-to-back. The most dominant single round of the season.</p>
-        </div>
-        <div class="moment">
-          <h4>Bengaluru K1000</h4>
-          <p>First leg win in total chaos. Stages changing minute-to-minute — still the fastest car out there.</p>
-        </div>
-        <div class="moment">
-          <h4>Nashik · Grit</h4>
-          <p>Bent rear beam. DNF Leg 1. Came back P3 Leg 2 — sealed the runner-up title anyway.</p>
-        </div>
-      </div>
-
-      <div class="hero-cta" style="justify-content:center; margin-top:48px;">
-        <a href="results.html" class="btn btn-primary">Full season results
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
       </div>
     </div>
   </section>
