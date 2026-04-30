@@ -458,4 +458,104 @@
     });
   })();
 
+  // ---------- Scroll reveal — fade-up on enter ----------
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(function (el) {
+        el.classList.add('is-visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    document.querySelectorAll('.reveal, .chapter-num').forEach(function (el) {
+      io.observe(el);
+    });
+  })();
+
+  // ---------- Progress rail — chapter dots on the right ----------
+  (function () {
+    var rail = document.querySelector('[data-progress-rail]');
+    if (!rail) return;
+    var chapters = document.querySelectorAll('[data-chapter]');
+    if (!chapters.length) {
+      rail.style.display = 'none';
+      return;
+    }
+
+    chapters.forEach(function (chapter) {
+      var id = chapter.id || ('chapter-' + Math.random().toString(36).slice(2, 7));
+      chapter.id = id;
+      var label = chapter.getAttribute('data-chapter') || '';
+      var a = document.createElement('a');
+      a.href = '#' + id;
+      a.setAttribute('aria-label', label);
+      a.innerHTML = '<span class="rail-label">' + label + '</span>';
+      a.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        var y = chapter.getBoundingClientRect().top + window.pageYOffset - 60;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      });
+      rail.appendChild(a);
+    });
+
+    var links = rail.querySelectorAll('a');
+
+    // Show rail after scrolling past hero
+    var showAfter = window.innerHeight * 0.6;
+    function maybeShow() {
+      if (window.scrollY > showAfter) rail.classList.add('is-visible');
+      else rail.classList.remove('is-visible');
+    }
+    maybeShow();
+    window.addEventListener('scroll', maybeShow, { passive: true });
+
+    // Active dot
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var idx = Array.prototype.indexOf.call(chapters, entry.target);
+            links.forEach(function (l, i) {
+              l.classList.toggle('is-active', i === idx);
+            });
+          }
+        });
+      }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+      chapters.forEach(function (c) { io.observe(c); });
+    }
+  })();
+
+  // ---------- Parallax on dividers ----------
+  (function () {
+    var dividers = document.querySelectorAll('.parallax-divider-bg');
+    if (!dividers.length) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var ticking = false;
+    function update() {
+      dividers.forEach(function (bg) {
+        var rect = bg.parentElement.getBoundingClientRect();
+        var winH = window.innerHeight;
+        if (rect.bottom < 0 || rect.top > winH) return;
+        var progress = (rect.top - winH) / (rect.height + winH);
+        bg.style.transform = 'translateY(' + (progress * 60) + 'px)';
+      });
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
+  })();
+
 })();
