@@ -467,9 +467,12 @@
       .placement-grid { grid-template-columns: 1fr; gap: 32px; }
       .placement-img { display: none; }
     }
-    @media (max-width: 768px) {
-      .globe-wrap { display: none; }
-      .mobile-season-strip { display: block; }
+    /* Hide globe on any touch device OR viewport ≤900px (covers landscape iPhones) */
+    @media (max-width: 900px), (pointer: coarse) {
+      .globe-wrap { display: none !important; }
+      .mobile-season-strip { display: block !important; }
+    }
+    @media (max-width: 900px) {
       .season-reach-strip { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 600px) {
@@ -502,8 +505,18 @@
     </div>
   </nav>
 
+  <!-- ===== STICKY SUB-NAV ===== -->
+  <nav class="subnav" data-subnav aria-label="In-page navigation">
+    <div class="subnav-inner">
+      <a href="#overview" class="is-active">Overview</a>
+      <a href="#map">Season map</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#placement">Brand placement</a>
+    </div>
+  </nav>
+
   <!-- ===== SPONSOR HERO ===== -->
-  <section class="season-hero">
+  <section id="overview" class="season-hero" style="scroll-margin-top:120px;">
     <div class="container">
       <div class="season-hero-inner">
         <div class="season-hero-text">
@@ -546,7 +559,8 @@
     </div>
   </section>
 
-  <!-- ===== GLOBE (desktop ≥769px) ===== -->
+  <!-- ===== GLOBE (desktop) / MOBILE STRIP ===== -->
+  <div id="map" style="scroll-margin-top:120px;"></div>
   <div class="globe-wrap">
     <div id="globe-container"></div>
     <div class="globe-label-bar">
@@ -581,7 +595,7 @@
   </div>
 
   <!-- ===== SEASON DETAIL CARDS ===== -->
-  <section>
+  <section id="calendar" style="scroll-margin-top:120px;">
     <div class="container">
       <div class="section-head">
         <div>
@@ -598,7 +612,7 @@
   </section>
 
   <!-- ===== SPONSOR PLACEMENT SECTION ===== -->
-  <section class="placement-section">
+  <section id="placement" class="placement-section" style="scroll-margin-top:120px;">
     <div class="container">
       <div class="placement-grid">
         <div class="placement-img">
@@ -947,7 +961,8 @@
     }
 
     function loadGlobe() {
-      if (window.innerWidth <= 768) return; /* mobile — no globe */
+      var isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      if (window.innerWidth <= 900 || isTouch) return; /* phones/tablets — no globe */
       var s = document.createElement('script');
       s.src = 'https://unpkg.com/globe.gl@2/dist/globe.gl.min.js';
       s.onload  = buildGlobe;

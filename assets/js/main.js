@@ -409,4 +409,52 @@
     });
   }
 
+  // ---------- Sticky sub-nav: active state on scroll ----------
+  // Looks for a [data-subnav] container with anchor links pointing at #ids in the page.
+  // Highlights the link whose section is currently in view.
+  (function () {
+    var subnav = document.querySelector('[data-subnav]');
+    if (!subnav) return;
+    var links = subnav.querySelectorAll('a[href^="#"]');
+    if (!links.length) return;
+
+    var sectionMap = [];
+    links.forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) sectionMap.push({ link: a, el: el });
+    });
+    if (!sectionMap.length) return;
+
+    function setActive(link) {
+      links.forEach(function (l) { l.classList.remove('is-active'); });
+      if (link) link.classList.add('is-active');
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var match = sectionMap.find(function (s) { return s.el === entry.target; });
+            if (match) setActive(match.link);
+          }
+        });
+      }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+      sectionMap.forEach(function (s) { io.observe(s.el); });
+    }
+
+    // Click handler — smooth scroll with offset for sticky bars
+    sectionMap.forEach(function (s) {
+      s.link.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        var topNav = document.querySelector('.nav');
+        var navH = topNav ? topNav.offsetHeight : 0;
+        var subH = subnav.offsetHeight;
+        var y = s.el.getBoundingClientRect().top + window.pageYOffset - (navH + subH - 1);
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        setActive(s.link);
+      });
+    });
+  })();
+
 })();
