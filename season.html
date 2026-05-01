@@ -39,27 +39,27 @@
     }
     .season-hero-text .hero-eyebrow {
       font-family: var(--font-sub);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.32em;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
     .season-hero-text h1 {
       font-family: var(--font-display);
-      font-size: clamp(40px, 5vw, 68px);
-      line-height: 1.0;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      margin: 0 0 20px;
+      font-size: clamp(40px, 5.5vw, 76px);
+      line-height: 1.04;
+      letter-spacing: -0.025em;
+      font-weight: 600;
+      margin: 0 0 24px;
     }
     .season-hero-text p {
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1.6;
       color: var(--text-mute);
-      max-width: 440px;
-      margin: 0 0 32px;
+      max-width: 52ch;
+      margin: 0 0 36px;
     }
     .season-reach-strip {
       display: grid;
@@ -120,8 +120,263 @@
       color: var(--accent);
     }
 
-    /* ── Globe (desktop only) ─────────────────────────────── */
+    /* ── Atlas — editorial route + active city detail ───── */
+    .atlas { padding: 96px 0 128px; border-top: 1px solid var(--line); }
+    .atlas-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) 1.6fr;
+      gap: 56px;
+      align-items: start;
+      margin-top: 24px;
+    }
+    .atlas-route {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-left: 0;
+    }
+    .atlas-track {
+      position: absolute;
+      left: 65px;
+      top: 28px;
+      bottom: 28px;
+      width: 1px;
+      background: linear-gradient(180deg,
+        var(--accent) 0%,
+        var(--accent) calc(var(--rail-progress, 0%) - 1%),
+        var(--line) calc(var(--rail-progress, 0%) + 1%),
+        var(--line) 100%);
+      transition: background 0.6s var(--ease);
+    }
+    .atlas-stop {
+      position: relative;
+      display: grid;
+      grid-template-columns: 56px 16px 1fr;
+      gap: 8px 16px;
+      align-items: center;
+      padding: 16px 0;
+      background: none;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      font-family: inherit;
+      transition: opacity var(--dur) var(--ease);
+      opacity: 0.55;
+    }
+    .atlas-stop:hover { opacity: 0.92; }
+    .atlas-stop.is-active { opacity: 1; }
+    .atlas-stop:focus-visible { outline: none; }
+    .atlas-stop:focus-visible .as-meta {
+      outline: 2px solid var(--accent);
+      outline-offset: 6px;
+      border-radius: 4px;
+    }
+
+    .as-rd {
+      font-family: var(--font-sub);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      font-weight: 600;
+      transition: color var(--dur) var(--ease);
+    }
+    .atlas-stop.is-active .as-rd { color: var(--accent); }
+
+    .as-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1.5px solid var(--line-2);
+      transition: background var(--dur) var(--ease),
+                  border-color var(--dur) var(--ease),
+                  box-shadow var(--dur) var(--ease),
+                  transform var(--dur) var(--ease);
+      justify-self: center;
+    }
+    .atlas-stop:hover .as-dot { border-color: var(--accent); }
+    .atlas-stop.is-active .as-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(61,214,140,0.18);
+      transform: scale(1.05);
+    }
+
+    .as-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .as-city {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+      color: var(--text);
+    }
+    .as-state {
+      font-family: var(--font-sub);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      font-weight: 500;
+    }
+
+    .atlas-detail {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      position: sticky;
+      top: 96px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.40), 0 0 0 1px rgba(255,255,255,0.02);
+    }
+    .atlas-image {
+      aspect-ratio: 16/9;
+      background-size: cover;
+      background-position: center 40%;
+      background-color: var(--bg-2);
+      position: relative;
+      transition: background-image 0.5s var(--ease);
+    }
+    .atlas-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(17,23,27,0.65) 100%);
+    }
+    .atlas-content { padding: 32px 36px 36px; }
+    .atlas-meta {
+      font-family: var(--font-sub);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .atlas-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      margin: 0 0 16px;
+      max-width: 22ch;
+      color: var(--text);
+    }
+    .atlas-desc {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-mute);
+      margin: 0 0 28px;
+      max-width: 56ch;
+    }
+    .atlas-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .atlas-stats .as-stat {
+      background: var(--bg-2);
+      padding: 18px 20px;
+    }
+    .atlas-stats .as-stat .n {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+    }
+    .atlas-stats .as-stat .l {
+      font-family: var(--font-sub);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      font-weight: 500;
+      margin-top: 8px;
+      display: block;
+    }
+    .atlas-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+    .atlas-tag {
+      font-family: var(--font-sub);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--warm);
+      padding: 6px 12px;
+      background: var(--warm-soft);
+      border: 1px solid rgba(232,201,122,0.25);
+      border-radius: 999px;
+    }
+    .atlas-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent);
+      font-family: var(--font-sub);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: color var(--dur) var(--ease);
+    }
+    .atlas-link svg { transition: transform var(--dur) var(--ease); }
+    .atlas-link:hover { color: var(--text); }
+    .atlas-link:hover svg { transform: translateX(3px); }
+
+    /* Atlas — fade-in detail card on city switch */
+    .atlas-detail.is-changing .atlas-content,
+    .atlas-detail.is-changing .atlas-image {
+      opacity: 0.5;
+      transition: opacity 0.18s var(--ease-out);
+    }
+
+    /* Mobile — stack vertically */
+    @media (max-width: 900px) {
+      .atlas { padding: 64px 0 80px; }
+      .atlas-grid { grid-template-columns: 1fr; gap: 32px; }
+      .atlas-detail { position: static; }
+      .atlas-track {
+        left: 65px;
+        top: 24px;
+        bottom: 24px;
+      }
+    }
+    @media (max-width: 540px) {
+      .atlas-stop { grid-template-columns: 48px 16px 1fr; gap: 8px 12px; }
+      .atlas-track { left: 56px; }
+      .as-city { font-size: 17px; }
+      .atlas-content { padding: 24px 22px 28px; }
+      .atlas-stats .as-stat .n { font-size: 24px; }
+    }
+
+    /* ── Globe (desktop only) — KEPT for compatibility, hidden ─ */
     .globe-wrap {
+      display: none !important;
+    }
+    .globe-wrap-keep {
       position: relative;
       width: 100%;
       height: clamp(440px, 60vh, 620px);
@@ -531,9 +786,9 @@
     <div class="container">
       <div class="season-hero-inner">
         <div class="season-hero-text">
-          <div class="hero-eyebrow">INRC 2026–27 · Season calendar</div>
-          <h1>Six stages.<br/><span class="accent">Your brand</span><br/>everywhere.</h1>
-          <p>Six race weekends across India's premier rally championship — national TV, 30M+ social views per event, and a car sponsors already back. Pick a city below and see what your brand would be part of.</p>
+          <div class="hero-eyebrow">INRC 2026–27 · Season atlas</div>
+          <h1>Six cities.<br/><span class="accent">One rolling</span><br/>brand activation.</h1>
+          <p>Six race weekends across India's premier rally championship — national TV, 30M+ social views per event, and a livery sponsors already back. Click any city in the atlas below to see exactly what you'd own.</p>
           <div class="hero-cta">
             <a href="partners.html" class="btn btn-primary">See sponsor packages
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -570,54 +825,70 @@
     </div>
   </section>
 
-  <!-- ===== GLOBE (desktop) / MOBILE STRIP ===== -->
-  <div id="map" style="scroll-margin-top:120px;"></div>
-  <div class="globe-wrap">
-    <div id="globe-container"></div>
-    <div class="globe-label-bar">
-      <div class="dot"></div>
-      <span id="globe-status-text">Loading globe&hellip;</span>
-    </div>
-    <div class="globe-hint-corner">Drag · Click a pin</div>
-
-    <div class="race-panel" id="race-panel">
-      <button class="rp-close" id="rp-close" aria-label="Close">&times;</button>
-      <div class="rp-rd"  id="rp-rd"></div>
-      <div class="rp-city" id="rp-city"></div>
-      <div class="rp-row" id="rp-stats"></div>
-      <p class="rp-desc"  id="rp-desc"></p>
-    </div>
-  </div>
-
-  <!-- ===== MOBILE CITY STRIP (mobile ≤768px) ===== -->
-  <div class="mobile-season-strip">
+  <!-- ===== ATLAS — editorial route + active city detail ===== -->
+  <section class="atlas chapter" id="map" data-chapter="The Atlas">
     <div class="container">
-      <div class="section-head" style="padding-top:56px; margin-bottom:0;">
+      <div class="chapter-head">
+        <div class="chapter-num">01</div>
         <div>
-          <span class="eyebrow">The calendar</span>
-          <h2 style="margin-top:12px;">Six weekends. <span class="accent">Every stage.</span></h2>
+          <div class="chapter-eyebrow">INRC 2026–27 · Calendar atlas</div>
+          <h2 class="chapter-title">Where your brand <span class="accent">will be seen.</span></h2>
+          <p class="chapter-lede">Six race weekends. Six Indian cities. Each one a national-broadcast brand activation. Pick any stop on the route to see its story.</p>
         </div>
-        <p>Tap any city to see what your brand would be part of.</p>
-      </div>
-      <div class="mss-inner" id="mss-grid">
-        <!-- cards injected by JS so data stays in one place -->
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== SEASON DETAIL CARDS ===== -->
-  <section id="calendar" data-chapter="Calendar" style="scroll-margin-top:80px;">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <span class="eyebrow">Round by round</span>
-          <h2 style="margin-top:16px;">The <span class="accent">2026–27 calendar</span>.</h2>
-        </div>
-        <p>FMSCI-sanctioned · Calendar TBC · Each weekend is a brand activation at India's most-watched rally event.</p>
       </div>
 
-      <div class="stage-cards" id="stage-cards">
-        <!-- injected by JS -->
+      <div class="atlas-grid">
+        <!-- Left: vertical route diagram -->
+        <div class="atlas-route" role="tablist" aria-label="Race weekends">
+          <div class="atlas-track" aria-hidden="true"></div>
+          <button class="atlas-stop is-active" data-city="nashik" role="tab" aria-selected="true">
+            <span class="as-rd">RD 01</span>
+            <span class="as-dot" aria-hidden="true"></span>
+            <span class="as-meta"><span class="as-city">Nashik</span><span class="as-state">Maharashtra</span></span>
+          </button>
+          <button class="atlas-stop" data-city="indore" role="tab">
+            <span class="as-rd">RD 02</span>
+            <span class="as-dot" aria-hidden="true"></span>
+            <span class="as-meta"><span class="as-city">Indore</span><span class="as-state">Madhya Pradesh</span></span>
+          </button>
+          <button class="atlas-stop" data-city="chennai" role="tab">
+            <span class="as-rd">RD 03</span>
+            <span class="as-dot" aria-hidden="true"></span>
+            <span class="as-meta"><span class="as-city">Chennai</span><span class="as-state">Tamil Nadu</span></span>
+          </button>
+          <button class="atlas-stop" data-city="coimbatore" role="tab">
+            <span class="as-rd">RD 04</span>
+            <span class="as-dot" aria-hidden="true"></span>
+            <span class="as-meta"><span class="as-city">Coimbatore</span><span class="as-state">Tamil Nadu</span></span>
+          </button>
+          <button class="atlas-stop" data-city="coorg" role="tab">
+            <span class="as-rd">RD 05</span>
+            <span class="as-dot" aria-hidden="true"></span>
+            <span class="as-meta"><span class="as-city">Coorg</span><span class="as-state">Karnataka</span></span>
+          </button>
+          <button class="atlas-stop" data-city="bengaluru" role="tab">
+            <span class="as-rd">RD 06</span>
+            <span class="as-dot" aria-hidden="true"></span>
+            <span class="as-meta"><span class="as-city">Bengaluru K1000</span><span class="as-state">Karnataka</span></span>
+          </button>
+        </div>
+
+        <!-- Right: active city detail (panel updated by JS) -->
+        <div class="atlas-detail" role="tabpanel">
+          <div class="atlas-image" id="atlas-image"></div>
+          <div class="atlas-content">
+            <div class="atlas-meta" id="atlas-meta"></div>
+            <h3 class="atlas-title" id="atlas-title"></h3>
+            <p class="atlas-desc" id="atlas-desc"></p>
+            <div class="atlas-stats" id="atlas-stats"></div>
+            <div class="atlas-foot">
+              <span class="atlas-tag">TBC · FMSCI 2026–27</span>
+              <a href="partners.html" class="atlas-link">Put your brand here
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -717,273 +988,118 @@
     'use strict';
 
     /* ── Race data ─────────────────────────────────────────── */
-    var RACES = [
-      {
-        id: 'nashik', rd: 'RD 1', name: 'Nashik', state: 'Maharashtra',
-        lat: 20.006, lng: 73.790,
-        result2526: 'Rear-beam failure Leg 1 · P3 Leg 2 · Runner-up title sealed',
-        stat1n: 'P2', stat1l: 'Season finish',
-        stat2n: '30M+', stat2l: 'Social views',
-        desc: 'Maharashtra gravel stages. The 2025–26 finale — a mechanical in Leg 1, P3 in Leg 2, and still the runner-up title. Grit is the story a sponsor wants next to its logo.'
+    var RACES = {
+      nashik: {
+        rd: 'RD 01', name: 'Nashik', state: 'Maharashtra',
+        photo: 'assets/images/action-dust.jpg',
+        title: 'Maharashtra gravel — finale grit.',
+        desc: 'The 2025–26 finale: a rear-beam failure in Leg 1, a P3 recovery in Leg 2, and the runner-up title sealed anyway. Sponsors don\'t buy podiums — they buy proof of grit. This weekend is that proof.',
+        s1n: 'P2', s1l: 'Final standing',
+        s2n: '30M+', s2l: 'Social views / event'
       },
-      {
-        id: 'indore', rd: 'RD 2', name: 'Indore', state: 'Madhya Pradesh',
-        lat: 22.720, lng: 75.858,
-        result2526: 'Won both legs back-to-back — most dominant round of the season',
-        stat1n: '2×', stat1l: 'Leg wins',
-        stat2n: '30M+', stat2l: 'Social views',
-        desc: 'The standout weekend of 2025–26 — won both legs. Most dominant single-round performance of the debut season. Brands carried here got maximum exposure when the story broke nationally.'
+      indore: {
+        rd: 'RD 02', name: 'Indore', state: 'Madhya Pradesh',
+        photo: 'assets/images/action-indore.jpg',
+        title: 'Both legs won. One weekend.',
+        desc: 'The standout round of the debut season — won Leg 1 and Leg 2 back-to-back. Most dominant single-weekend performance of 2025–26. The race weekend the national press picked up first.',
+        s1n: '2×', s1l: 'Leg wins',
+        s2n: '30M+', s2l: 'Social views / event'
       },
-      {
-        id: 'chennai', rd: 'RD 3', name: 'Chennai', state: 'Tamil Nadu',
-        lat: 13.083, lng: 80.271,
-        result2526: 'DNS 2025–26 — pre-season commitment · Full campaign in 2026–27',
-        stat1n: 'RD 1', stat1l: '2025–26 opener',
-        stat2n: '2M+', stat2l: 'National TV',
-        desc: 'Missed the 2025–26 opener. Coming back in 2026–27 with a full campaign and something to prove. A Tamil Nadu audience, national TV coverage, and redemption as the narrative.'
+      chennai: {
+        rd: 'RD 03', name: 'Chennai', state: 'Tamil Nadu',
+        photo: 'assets/images/rally-04.jpg',
+        title: 'Returning. Full campaign. Something to prove.',
+        desc: 'Missed the 2025–26 opener due to a pre-season commitment. The 2026–27 calendar puts Chennai back on the schedule with a full campaign — Tamil Nadu audience, national TV coverage, and redemption as the narrative.',
+        s1n: '2M+', s1l: 'National TV / event',
+        s2n: 'TBC', s2l: '2026–27 calendar'
       },
-      {
-        id: 'coimbatore', rd: 'RD 4', name: 'Coimbatore', state: 'Tamil Nadu',
-        lat: 11.017, lng: 76.956,
-        result2526: 'Debut podium — P2 JINRC · P4 INRC3 overall',
-        stat1n: 'P2', stat1l: 'Debut podium',
-        stat2n: '30M+', stat2l: 'Social views',
-        desc: 'The debut weekend. P2 JINRC, P4 INRC3 overall — the round that put the #41 on India\'s motorsport radar. Sponsors on the car for this one were in the debut story.'
+      coimbatore: {
+        rd: 'RD 04', name: 'Coimbatore', state: 'Tamil Nadu',
+        photo: 'assets/images/rally-01.jpg',
+        title: 'The debut podium weekend.',
+        desc: 'The round that put the #41 on India\'s motorsport radar — P2 JINRC, P4 INRC3 overall on debut. Sponsors carried here in 2025–26 are in the origin story. Re-running the same circuit in 2026–27.',
+        s1n: 'P2', s1l: 'Debut podium',
+        s2n: '30M+', s2l: 'Social views / event'
       },
-      {
-        id: 'coorg', rd: 'RD 5', name: 'Coorg', state: 'Karnataka',
-        lat: 12.338, lng: 75.807,
-        result2526: 'P3 overall · Leg 1 P3 · Leg 2 P2',
-        stat1n: 'P3', stat1l: 'Round finish',
-        stat2n: '30M+', stat2l: 'Social views',
-        desc: 'Western Ghats forest stages — visually the most photogenic weekend on the INRC calendar. P3 overall in 2025–26. Logos on the car here look great in every piece of media content.'
+      coorg: {
+        rd: 'RD 05', name: 'Coorg', state: 'Karnataka',
+        photo: 'assets/images/rally-03.jpg',
+        title: 'Western Ghats. Forest stages. Best frames of the season.',
+        desc: 'Visually the most photogenic weekend on the INRC calendar — coffee-country switchbacks, red earth, dense canopy. Logos on the livery here look great in every piece of broadcast and social content.',
+        s1n: 'P3', s1l: '2025–26 finish',
+        s2n: '30M+', s2l: 'Social views / event'
       },
-      {
-        id: 'bengaluru', rd: 'RD 6', name: 'Bengaluru K1000', state: 'Karnataka',
-        lat: 12.972, lng: 77.595,
-        result2526: 'P1 Leg 1 — first stage win · P2 overall',
-        stat1n: 'P1', stat1l: 'Leg 1 win',
-        stat2n: '2M+', stat2l: 'National TV',
-        desc: '"100% chaos. Stages changing minute to minute. Still the fastest car." First-ever stage win. The city Abhimanyu lives and works in — a home crowd, a home win, and a sponsor\'s brand in the frame.'
+      bengaluru: {
+        rd: 'RD 06', name: 'Bengaluru K1000', state: 'Karnataka',
+        photo: 'assets/images/team-celebrate-car.jpg',
+        title: 'Home weekend. First stage win. India\'s biggest rally crowd.',
+        desc: '"100% chaos. Stages changing minute to minute. Still the fastest car." The first-ever stage win — Leg 1 of K1000, India\'s flagship rally weekend. The driver\'s home city. The brand moment everyone watches.',
+        s1n: 'P1', s1l: 'Leg 1 · K1000',
+        s2n: '2M+', s2l: 'National TV / event'
       }
-    ];
+    };
 
-    var visited = {};
-    var globeInst = null;
-    var activeMssId = null;
+    /* ── Atlas state ───────────────────────────────────────── */
+    var stops      = document.querySelectorAll('.atlas-stop');
+    var detailEl   = document.querySelector('.atlas-detail');
+    var imageEl    = document.getElementById('atlas-image');
+    var metaEl     = document.getElementById('atlas-meta');
+    var titleEl    = document.getElementById('atlas-title');
+    var descEl     = document.getElementById('atlas-desc');
+    var statsEl    = document.getElementById('atlas-stats');
+    var routeEl    = document.querySelector('.atlas-route');
 
-    /* ── Confetti ──────────────────────────────────────────── */
-    function launchConfetti() {
-      var cvs = document.getElementById('confetti-canvas');
-      cvs.width = window.innerWidth; cvs.height = window.innerHeight;
-      var ctx = cvs.getContext('2d');
-      var colors = ['#22e66b','#38a9ff','#f4f8ff','#ffd700','#ff6b6b'];
-      var parts = [];
-      for (var i = 0; i < 150; i++) {
-        parts.push({
-          x: Math.random() * cvs.width, y: -20,
-          vx: (Math.random()-0.5)*4, vy: 2+Math.random()*4,
-          r: 4+Math.random()*5, color: colors[i%colors.length],
-          rot: Math.random()*360, vr: (Math.random()-0.5)*8
-        });
-      }
-      var f=0;
-      (function tick(){
-        ctx.clearRect(0,0,cvs.width,cvs.height);
-        parts.forEach(function(p){
-          ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
-          ctx.fillStyle=p.color; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.55);
-          ctx.restore();
-          p.x+=p.vx; p.y+=p.vy; p.vy+=0.07; p.rot+=p.vr;
-        });
-        if(++f<200) requestAnimationFrame(tick);
-        else ctx.clearRect(0,0,cvs.width,cvs.height);
-      }());
-    }
-
-    function markVisited(id) {
-      if (visited[id]) return;
-      visited[id] = true;
-      /* highlight stage card */
-      var sc = document.querySelector('.stage-card[data-race="'+id+'"]');
-      if (sc) sc.style.borderTopColor = 'var(--accent)';
-      /* achievement */
-      if (Object.keys(visited).length >= RACES.length) {
-        var toast = document.getElementById('achievement-toast');
-        toast.classList.add('show');
-        launchConfetti();
-        setTimeout(function(){ toast.classList.remove('show'); }, 5000);
-      }
-    }
-
-    /* ── Globe panel ───────────────────────────────────────── */
-    var racePanel = document.getElementById('race-panel');
-    function showGlobePanel(race) {
-      markVisited(race.id);
-      document.getElementById('rp-rd').textContent   = race.rd + ' · INRC 2026–27 · TBC';
-      document.getElementById('rp-city').textContent = race.name + ', ' + race.state;
-      document.getElementById('rp-stats').innerHTML =
-        '<div class="rp-stat"><div class="n">'+race.stat1n+'</div><div class="l">'+race.stat1l+'</div></div>' +
-        '<div class="rp-stat"><div class="n">'+race.stat2n+'</div><div class="l">'+race.stat2l+'</div></div>';
-      document.getElementById('rp-desc').textContent = race.desc;
-      racePanel.classList.add('is-open');
-    }
-    document.getElementById('rp-close').addEventListener('click', function(){
-      racePanel.classList.remove('is-open');
+    /* Preload race images so transitions are smooth */
+    Object.keys(RACES).forEach(function (id) {
+      var img = new Image();
+      img.src = RACES[id].photo;
     });
 
-    /* ── Stage cards (desktop detail grid) ────────────────── */
-    var stageCardsEl = document.getElementById('stage-cards');
-    RACES.forEach(function(r) {
-      var el = document.createElement('div');
-      el.className = 'stage-card';
-      el.setAttribute('data-race', r.id);
-      el.innerHTML =
-        '<div class="sc-rd">'+r.rd+'</div>' +
-        '<div class="sc-city">'+r.name+'<br/><span style="font-size:0.65em;color:var(--text-mute);letter-spacing:0.08em;">'+r.state.toUpperCase()+'</span></div>' +
-        '<div class="sc-result"><strong>2025–26:</strong> '+r.result2526+'</div>' +
-        '<div class="sc-reach">' +
-          '<span class="sc-reach-tag">'+r.stat1n+' '+r.stat1l+'</span>' +
-          '<span class="sc-reach-tag">'+r.stat2n+' '+r.stat2l+'</span>' +
-        '</div>' +
-        '<div class="sc-tbc">TBC · FMSCI</div>';
-      el.addEventListener('click', function() {
-        markVisited(r.id);
-        if (globeInst) {
-          globeInst.pointOfView({ lat: r.lat, lng: r.lng, altitude: 1.8 }, 900);
-          showGlobePanel(r);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+    function setActive(idx) {
+      var stop = stops[idx];
+      if (!stop) return;
+      var id = stop.getAttribute('data-city');
+      var race = RACES[id];
+      if (!race) return;
+
+      stops.forEach(function (s, i) {
+        s.classList.toggle('is-active', i === idx);
+        s.setAttribute('aria-selected', i === idx ? 'true' : 'false');
       });
-      stageCardsEl.appendChild(el);
-    });
 
-    /* ── Mobile city strip ─────────────────────────────────── */
-    var mssGrid = document.getElementById('mss-grid');
-    var mssDrawer = null;
+      /* Rail progress: how far down the rail the active dot sits */
+      var progress = stops.length > 1 ? (idx / (stops.length - 1)) * 100 : 0;
+      if (routeEl) routeEl.style.setProperty('--rail-progress', progress + '%');
 
-    RACES.forEach(function(r, i) {
-      var card = document.createElement('div');
-      card.className = 'mss-card';
-      card.setAttribute('data-race', r.id);
-      card.innerHTML =
-        '<div class="mss-rd">'+r.rd+'</div>' +
-        '<div class="mss-city">'+r.name+'</div>' +
-        '<div class="mss-note">'+r.result2526+'</div>' +
-        '<div class="mss-badge">TBC · FMSCI</div>';
+      /* Cross-fade the detail card */
+      detailEl.classList.add('is-changing');
+      setTimeout(function () {
+        imageEl.style.backgroundImage = 'url(' + race.photo + ')';
+        metaEl.textContent  = race.rd + ' · ' + race.name + ', ' + race.state;
+        titleEl.textContent = race.title;
+        descEl.textContent  = race.desc;
+        statsEl.innerHTML =
+          '<div class="as-stat"><span class="n">' + race.s1n + '</span><span class="l">' + race.s1l + '</span></div>' +
+          '<div class="as-stat"><span class="n">' + race.s2n + '</span><span class="l">' + race.s2l + '</span></div>';
+        detailEl.classList.remove('is-changing');
+      }, 180);
+    }
 
-      /* drawer: insert after every 2nd card (or at end of row) */
-      mssGrid.appendChild(card);
-
-      /* insert a drawer slot after pairs */
-      if (i % 2 === 1 || i === RACES.length - 1) {
-        var drawer = document.createElement('div');
-        drawer.className = 'mss-drawer';
-        drawer.setAttribute('data-drawer-after', i);
-        mssGrid.appendChild(drawer);
-      }
-
-      card.addEventListener('click', function() {
-        markVisited(r.id);
-        /* toggle active state */
-        var isAlreadyActive = card.classList.contains('active');
-        document.querySelectorAll('.mss-card').forEach(function(c){ c.classList.remove('active'); });
-        document.querySelectorAll('.mss-drawer').forEach(function(d){ d.classList.remove('open'); });
-
-        if (isAlreadyActive) { activeMssId = null; return; }
-
-        card.classList.add('active');
-        activeMssId = r.id;
-
-        /* find the drawer after this card's row */
-        var rowEnd = (i % 2 === 0) ? i + 1 : i;
-        var targetDrawer = mssGrid.querySelector('.mss-drawer[data-drawer-after="'+rowEnd+'"]');
-        if (!targetDrawer) {
-          /* last item fallback */
-          var drawers = mssGrid.querySelectorAll('.mss-drawer');
-          targetDrawer = drawers[drawers.length - 1];
-        }
-
-        targetDrawer.innerHTML =
-          '<div class="drawer-rd">'+r.rd+' · INRC 2026–27 · TBC</div>' +
-          '<div class="drawer-city">'+r.name+', <span style="font-size:0.7em;color:var(--text-mute);">'+r.state+'</span></div>' +
-          '<div class="drawer-stats">' +
-            '<div class="ds"><div class="n">'+r.stat1n+'</div><div class="l">'+r.stat1l+'</div></div>' +
-            '<div class="ds"><div class="n">'+r.stat2n+'</div><div class="l">'+r.stat2l+'</div></div>' +
-          '</div>' +
-          '<p class="drawer-desc">'+r.desc+'</p>';
-        targetDrawer.classList.add('open');
+    stops.forEach(function (stop, i) {
+      stop.addEventListener('click', function () { setActive(i); });
+      stop.addEventListener('keydown', function (e) {
+        var nextIdx = i;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') nextIdx = (i + 1) % stops.length;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') nextIdx = (i - 1 + stops.length) % stops.length;
+        else return;
+        e.preventDefault();
+        setActive(nextIdx);
+        stops[nextIdx].focus();
       });
     });
 
-    /* ── Globe (desktop only) ──────────────────────────────── */
-    function buildGlobe() {
-      var container = document.getElementById('globe-container');
-      var statusEl  = document.getElementById('globe-status-text');
-      var sz = { w: container.clientWidth, h: container.clientHeight };
-
-      var arcs = RACES.map(function(r, i) {
-        var n = RACES[(i+1) % RACES.length];
-        return { sLat: r.lat, sLng: r.lng, eLat: n.lat, eLng: n.lng };
-      });
-
-      /* eslint-disable no-undef */
-      globeInst = Globe()
-        .width(sz.w).height(sz.h)
-        .backgroundColor('rgba(0,0,0,0)')
-        .atmosphereColor('#38a9ff')
-        .atmosphereAltitude(0.15)
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-        .pointsData(RACES)
-        .pointLat('lat').pointLng('lng')
-        .pointColor(function() { return '#22e66b'; })
-        .pointAltitude(0.02)
-        .pointRadius(0.55)
-        .pointLabel(function(r) {
-          return '<div style="font-family:sans-serif;background:rgba(8,14,22,0.95);border:1px solid rgba(34,230,107,0.55);border-radius:7px;padding:7px 13px;font-size:12px;color:#f4f8ff;white-space:nowrap;">'
-            +'<strong style="color:#22e66b;">'+r.rd+'</strong> &nbsp;'+r.name+'</div>';
-        })
-        .onPointClick(function(race) {
-          showGlobePanel(race);
-          globeInst.pointOfView({ lat: race.lat, lng: race.lng, altitude: 1.8 }, 900);
-        })
-        .arcsData(arcs)
-        .arcStartLat('sLat').arcStartLng('sLng')
-        .arcEndLat('eLat').arcEndLng('eLng')
-        .arcColor(function() {
-          return ['rgba(56,169,255,0)','rgba(56,169,255,0.7)','rgba(56,169,255,0)'];
-        })
-        .arcAltitude(0.22).arcStroke(0.5)
-        .arcDashLength(0.38).arcDashGap(0.18).arcDashAnimateTime(2400)
-        (container);
-      /* eslint-enable no-undef */
-
-      globeInst.pointOfView({ lat: 17, lng: 78, altitude: 2.4 }, 0);
-      statusEl.innerHTML = '<em>6 race weekends</em> · click a pin';
-
-      var t;
-      window.addEventListener('resize', function() {
-        clearTimeout(t);
-        t = setTimeout(function() {
-          globeInst.width(container.clientWidth).height(container.clientHeight);
-        }, 150);
-      });
-    }
-
-    function loadGlobe() {
-      var isTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-      if (window.innerWidth <= 900 || isTouch) return; /* phones/tablets — no globe */
-      var s = document.createElement('script');
-      s.src = 'https://unpkg.com/globe.gl@2/dist/globe.gl.min.js';
-      s.onload  = buildGlobe;
-      s.onerror = function() {
-        document.getElementById('globe-status-text').textContent = 'OFFLINE';
-      };
-      document.head.appendChild(s);
-    }
-
-    loadGlobe();
+    /* Initial render */
+    setActive(0);
 
   }());
   </script>
