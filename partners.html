@@ -90,9 +90,9 @@
         <div class="reach-item"><div class="big">3–5L</div><div class="lbl">Print Readers / Rally</div></div>
       </div>
 
-      <div style="margin-top:28px; color:var(--text-mute); font-size:14px;">
+      <p class="partners-footnote" style="margin-top:28px; color:var(--text-mute);">
         <strong style="color:var(--text);">BlueBand Sports (INRC Digital):</strong> 200K+ Instagram followers · 75+ lakh reach/month during rally season · 100M+ cumulative Reels plays — co-branded on all INRC video content.
-      </div>
+      </p>
     </div>
   </section>
 
@@ -206,7 +206,7 @@
         <div class="category-card">
           <h5>Luxury / HNW</h5>
           <div class="brands">Private banking · Wealth mgmt · Luxury auto</div>
-          <p class="why">IIT background + INRC competition positions Abhimanyu perfectly with ultra-HNW and premium lifestyle brands.</p>
+          <p class="why">IIT background + INRC competition positions Abhimanyu &amp; Vijay perfectly with ultra-HNW and premium lifestyle brands.</p>
         </div>
       </div>
     </div>
@@ -218,61 +218,102 @@
       <div class="section-head">
         <div>
           <span class="eyebrow">Sponsorship packages</span>
-          <h2 style="margin-top:16px;">Three <span class="accent">tiers</span>.<br/>Custom welcome.</h2>
+          <h2 style="margin-top:16px;">Find your <span class="accent">fit</span>.</h2>
         </div>
-        <p>All packages cover the full 2026–27 INRC season. Custom structures and in-kind arrangements are welcome. Talk to us about what matters most.</p>
+        <p>Three tiers. Custom structures welcome. All packages cover the full 2026–27 INRC season — six race weekends with Abhimanyu &amp; Vijay.</p>
+      </div>
+
+      <!-- ===== PACKAGE PICKER — sponsor decision helper ===== -->
+      <div class="picker" data-picker>
+        <div class="picker-head">
+          <span class="eyebrow">Help me find my fit</span>
+          <h3>What matters most to your brand?</h3>
+          <p>Pick the goal closest to yours. We'll suggest the tier that fits — and you can talk to us about a custom shape from there.</p>
+        </div>
+        <div class="picker-questions">
+          <button class="picker-q" data-pick="reach">Maximum reach &amp; naming rights</button>
+          <button class="picker-q" data-pick="brand">Strong brand presence on the car</button>
+          <button class="picker-q" data-pick="kerala">Kerala &amp; IIT-alumni audience</button>
+          <button class="picker-q" data-pick="kind">In-kind support (tyres / lubricants / kit)</button>
+          <button class="picker-q" data-pick="trial">First-time motorsport sponsorship</button>
+        </div>
+        <div class="picker-result" data-picker-result>
+          <div class="picker-result-tag" data-pr-tag></div>
+          <h4 data-pr-title></h4>
+          <p data-pr-desc></p>
+          <a href="#title-card" data-pr-link>See the package details
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
       </div>
 
       <div class="packages">
-        <div class="package title-pkg">
+        <div class="package title-pkg" id="title-card">
           <div class="package-head">
             <div class="tier">Premier · Custom</div>
             <h3>TITLE</h3>
+            <span class="package-price">Bespoke · call to discuss</span>
           </div>
           <div class="package-body">
             <ul>
-              <li>Naming rights: "[Brand] Abhimanyu Sajeevan INRC Team"</li>
+              <li>Title naming rights — your brand on the team name, car livery, all team kit, every press release, every social handle. Example: <em>"&lt;Your Brand&gt; Abhimanyu &amp; Vijay INRC Team."</em></li>
               <li>Primary logo on car bonnet, roof, and doors</li>
-              <li>Logo on race suit, helmet, and all team kit</li>
-              <li>Dedicated Instagram Reels + Stories at every round</li>
+              <li>Logo on both race suits, helmets, and all team kit</li>
+              <li>Dedicated Instagram Reels + Stories at every race weekend</li>
               <li>Brand integration in all media interviews &amp; press releases</li>
               <li>Exclusive BTS content and garage access rights</li>
-              <li>Co-branded content for brand's own channels</li>
+              <li>Co-branded content for your own channels</li>
               <li>Right of first refusal on all media opportunities</li>
               <li>End-of-season brand highlight reel</li>
             </ul>
+            <div class="package-soft-note">
+              Best for category leaders making a multi-year statement.
+              <strong>Talk to us</strong> about pricing — title sponsorship is always custom-shaped to the brand.
+            </div>
           </div>
         </div>
 
-        <div class="package gold-pkg">
+        <div class="package gold-pkg" id="gold-card">
+          <span class="tier-flag">Most chosen</span>
           <div class="package-head">
             <div class="tier">Major Partnership</div>
             <h3 style="color:var(--accent);">GOLD</h3>
+            <span class="package-price">From ₹ — / season · indicative</span>
           </div>
           <div class="package-body">
             <ul>
               <li>Prominent logo on car door and rear wing</li>
-              <li>Logo on race suit and team polo shirts</li>
-              <li>2 dedicated Instagram posts per round (Reels or Stories)</li>
+              <li>Logo on both race suits and team polo shirts</li>
+              <li>2 dedicated Instagram posts per race weekend (Reels or Stories)</li>
               <li>Mentioned in all press releases and media features</li>
-              <li>One race-weekend experience per season</li>
-              <li>Seasonal brand highlight reel</li>
+              <li>One race-weekend hospitality experience for your team</li>
+              <li>Seasonal brand highlight reel — yours to use across channels</li>
             </ul>
+            <div class="package-soft-note">
+              The sweet spot for brand partners — strong on-car visibility and steady social presence,
+              without committing to title rights. <strong>Most-picked tier</strong> in 2025–26.
+            </div>
           </div>
         </div>
 
-        <div class="package silver-pkg">
+        <div class="package silver-pkg" id="silver-card">
           <div class="package-head">
-            <div class="tier">Supporting · In-Kind</div>
+            <div class="tier">Supporting · In-Kind welcome</div>
             <h3 style="color:#cfcfcf;">SILVER</h3>
+            <span class="package-price">Cash or in-kind · flexible</span>
           </div>
           <div class="package-body">
             <ul>
               <li>Logo on car bumper and team kit</li>
-              <li>1 brand mention post per round on Instagram</li>
+              <li>1 brand mention post per race weekend on Instagram</li>
               <li>Listed in all press releases</li>
-              <li>In-kind: tyres, lubricants, equipment, hospitality — value-matched placement</li>
+              <li>Tag in race-day social posts and email newsletters</li>
+              <li>In-kind welcome — tyres, lubricants, equipment, hospitality at value-matched placement</li>
             </ul>
+            <div class="package-soft-note">
+              Best for first-time motorsport sponsors and product-in-kind partners.
+              <strong>Custom in-kind arrangements welcome</strong> — tell us what you can offer and we'll shape the placement around it.
+            </div>
           </div>
         </div>
       </div>
@@ -287,13 +328,13 @@
           <span class="eyebrow">Target audience</span>
           <h2 style="margin-top:16px;">Who you <span class="accent">reach</span>.</h2>
         </div>
-        <p>Motorsport fans overlap directly with the Ultra-HNW and premium lifestyle audience — and Abhimanyu's specific profile adds a second, highly targeted Kerala &amp; IIT alumni demographic.</p>
+        <p>Motorsport fans overlap directly with the Ultra-HNW and premium lifestyle audience — and Abhimanyu &amp; Vijay's specific profile adds a second, highly targeted Kerala &amp; IIT alumni demographic.</p>
       </div>
 
       <div class="why-grid">
         <div class="why-card">
           <h4>Ultra-HNW</h4>
-          <p>Motorsport speaks directly to the ultra-high-net-worth community — a world of luxury, precision engineering, and risk appetite. Abhimanyu's IIT background and finance career resonate with self-made HNWIs and family offices looking for authentic story alignment.</p>
+          <p>Motorsport speaks directly to the ultra-high-net-worth community — a world of luxury, precision engineering, and risk appetite. Abhimanyu &amp; Vijay's IIT background and finance careers resonate with self-made HNWIs and family offices looking for authentic story alignment.</p>
         </div>
         <div class="why-card">
           <h4>INRC Core</h4>
@@ -331,8 +372,8 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
-          <h5>Driver</h5>
-          <div class="tag">ABHIMANYU<br/>SAJEEVAN</div>
+          <h5>Crew</h5>
+          <div class="tag">ABHIMANYU<br/>&amp; VIJAY</div>
           <p>Rally Driver · JINRC Runner-Up · INRC3 P4 · INRC 2026–27. Competing with India's best — and raising the bar.</p>
         </div>
         <div>
@@ -356,12 +397,73 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 Abhimanyu Sajeevan</span>
+        <span>© 2026 Abhimanyu Sajeevan &amp; Vijay Anand</span>
         <span>Garage Snap Racing · Mentored by Fabid Ahmer · VW Polo #41</span>
       </div>
     </div>
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script>
+  /* Package picker — sponsor decision helper */
+  (function () {
+    var picker = document.querySelector('[data-picker]');
+    if (!picker) return;
+    var qs       = picker.querySelectorAll('.picker-q');
+    var resultEl = picker.querySelector('[data-picker-result]');
+    var tagEl    = picker.querySelector('[data-pr-tag]');
+    var titleEl  = picker.querySelector('[data-pr-title]');
+    var descEl   = picker.querySelector('[data-pr-desc]');
+    var linkEl   = picker.querySelector('[data-pr-link]');
+
+    var ANSWERS = {
+      reach: {
+        tag: 'Recommended · TITLE',
+        title: 'Title sponsorship is the right shape.',
+        desc: 'Naming rights, primary livery, and right of first refusal on every media moment. Built for category leaders who want exclusive narrative ownership of the season.',
+        href: '#title-card'
+      },
+      brand: {
+        tag: 'Recommended · GOLD',
+        title: 'Gold gives you strong brand presence without title rights.',
+        desc: 'Prominent on-car logo, kit branding, two dedicated reels per race weekend, and a seasonal highlight reel. The most-picked tier in 2025–26 — the sweet spot between visibility and budget.',
+        href: '#gold-card'
+      },
+      kerala: {
+        tag: 'Recommended · GOLD or TITLE',
+        title: 'Both tiers fit — start with Gold, upgrade to Title.',
+        desc: 'Abhimanyu is from Calicut and Bengaluru-based; Vijay is from Calicut. The story has a strong Kerala & Karnataka audience, plus the IIT alumni network. Gold gets you steady presence; Title makes you the story.',
+        href: '#gold-card'
+      },
+      kind: {
+        tag: 'Recommended · SILVER (in-kind)',
+        title: 'In-kind partnerships fit Silver perfectly.',
+        desc: 'Bring tyres, lubricants, equipment or hospitality, and we shape value-matched on-car placement and social presence around it. New to motorsport? This is the no-friction way in.',
+        href: '#silver-card'
+      },
+      trial: {
+        tag: 'Recommended · SILVER',
+        title: 'Silver is the right way to start.',
+        desc: 'Lower commitment, real on-car visibility, race-day social posts, press release inclusion. A clean way to test motorsport sponsorship before scaling up to Gold or Title in 2027–28.',
+        href: '#silver-card'
+      }
+    };
+
+    qs.forEach(function (q) {
+      q.addEventListener('click', function () {
+        qs.forEach(function (x) { x.classList.remove('is-active'); });
+        q.classList.add('is-active');
+        var key = q.getAttribute('data-pick');
+        var a   = ANSWERS[key];
+        if (!a) return;
+        tagEl.textContent   = a.tag;
+        titleEl.textContent = a.title;
+        descEl.textContent  = a.desc;
+        linkEl.setAttribute('href', a.href);
+        resultEl.classList.add('is-shown');
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

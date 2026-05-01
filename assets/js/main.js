@@ -473,7 +473,7 @@
           io.unobserve(entry.target);
         }
       });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.15 });
     document.querySelectorAll('.reveal, .chapter-num').forEach(function (el) {
       io.observe(el);
     });

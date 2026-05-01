@@ -3076,3 +3076,359 @@ html.is-loading { overflow: hidden; }
   .countdown-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
   .countdown-label { font-size: 12px; }
 }
+
+/* =========================================================
+   AUDIT FIXES — mobile, type, hierarchy, density
+   ========================================================= */
+
+/* #2 — kill any horizontal overflow site-wide */
+html, body { overflow-x: hidden; max-width: 100%; }
+img, video { max-width: 100%; height: auto; }
+
+/* #1 — fluid hero / page-head titles, never blow horizontally */
+.hero-title { font-size: clamp(2.6rem, 9vw, 8.5rem); }
+.page-head h1 {
+  font-size: clamp(2rem, 8vw, 6rem);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  word-wrap: break-word;
+}
+
+/* #3 — nav brand subtitle hidden below 560px */
+@media (max-width: 560px) {
+  .brand-sub { display: none !important; }
+  .brand { font-size: 13px !important; letter-spacing: 0.14em !important; }
+}
+
+/* #4 + #13 — floating CTAs: compact pills on mobile, offset on desktop */
+@media (min-width: 1100px) {
+  /* leave a 200px right gutter on chapter content so the floater never overlaps */
+  .chapter > .container,
+  .placement-section > .container,
+  .about-grid,
+  .moments-grid,
+  .why-grid {
+    padding-right: 0;
+  }
+  body.has-floater { padding-right: 0; }
+  .floater { right: 28px; bottom: 28px; }
+}
+@media (max-width: 640px) {
+  .floater {
+    left: auto !important;
+    right: 14px !important;
+    bottom: 14px !important;
+    flex-direction: row !important;
+    width: auto !important;
+    gap: 8px !important;
+  }
+  .floater-btn {
+    flex: 0 0 auto !important;
+    padding: 11px 16px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.14em !important;
+    border-radius: 999px !important;
+  }
+  .floater-btn.is-primary {
+    padding: 12px 18px !important;
+    font-size: 12px !important;
+  }
+  .floater-btn .label-long { display: none; }
+  .floater-btn .floater-label-mobile { display: inline; }
+}
+@media (min-width: 641px) {
+  .floater-btn .floater-label-mobile { display: none; }
+}
+
+/* #8 — eyebrow / section label text bumped 12 → 13 */
+.eyebrow { font-size: 13px; letter-spacing: 0.14em; }
+.chapter-eyebrow { font-size: 13px; letter-spacing: 0.14em; }
+.section-head .eyebrow { font-size: 13px; }
+
+/* #9 — marquee strip readable, not shrunk */
+.marquee strong { font-size: 13px; letter-spacing: 0.16em; font-weight: 700; }
+.marquee span { font-size: 13px; letter-spacing: 0.12em; }
+@media (max-width: 640px) {
+  .marquee strong, .marquee span { font-size: 12px; }
+}
+
+/* #10 — long footnote lines capped */
+.partners-footnote,
+[data-footnote] {
+  max-width: 700px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* #6 — package cards align to content top, not stretch */
+.packages, .package-grid {
+  align-items: stretch;
+}
+.package {
+  display: flex;
+  flex-direction: column;
+}
+/* Soft CTA used to fill silver tier's lower half */
+.package-soft-note {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px dashed var(--line);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-mute);
+  font-style: italic;
+}
+.package-soft-note strong { color: var(--accent); font-style: normal; font-weight: 600; }
+
+/* #14 — pricing signal pill on each tier card */
+.package-price {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 4px 10px;
+  font-family: var(--font-sub);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--warm);
+  background: var(--warm-soft);
+  border: 1px solid rgba(232,201,122,0.3);
+  border-radius: 999px;
+  width: fit-content;
+}
+
+/* #11 — partners final primary CTA: solid filled, not ghost */
+.cta-banner .btn-primary,
+.contact-cta .btn-primary {
+  background: var(--accent);
+  color: #0a0a0a;
+  border-color: var(--accent);
+  box-shadow: 0 14px 32px rgba(61,214,140,0.25);
+}
+
+/* #12 — countdown / announcement bar mobile reflow */
+@media (max-width: 640px) {
+  .countdown-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    text-align: left;
+  }
+  .countdown-label { font-size: 11px; line-height: 1.5; }
+  .countdown-action { font-size: 11px; }
+}
+
+/* #16 — section index numbers — slightly more present, but still subdued */
+.chapter-num { color: var(--accent); opacity: 0.55; }
+.chapter-num.is-visible { opacity: 1; }
+
+/* #17 — hero secondary CTA: text-only ghost, not full button */
+.hero-cta .btn-link {
+  background: transparent;
+  border: 0;
+  color: var(--text-mute);
+  padding: 14px 6px;
+  font-weight: 600;
+}
+.hero-cta .btn-link:hover { color: var(--accent); }
+.hero-cta .btn-link::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  margin-top: 4px;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform var(--dur) var(--ease);
+}
+.hero-cta .btn-link:hover::after { transform: scaleX(1); }
+
+/* #18 — scroll cue more present */
+.scroll-hint { opacity: 0.65; }
+.scroll-hint .line {
+  position: relative;
+  overflow: hidden;
+}
+.scroll-hint .line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, var(--accent), transparent);
+  background-size: 100% 200%;
+  animation: scroll-pulse 2.4s ease-in-out infinite;
+}
+@keyframes scroll-pulse {
+  0%, 100% { background-position: 50% 100%; opacity: 0; }
+  50% { background-position: 50% 0%; opacity: 1; }
+}
+
+/* #19 — bio at-a-glance label readability */
+.about-card td:first-child {
+  color: #8C99A8;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* #20 — footer credit line wraps cleanly, never truncates */
+.footer-bottom {
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+.footer-bottom > * { white-space: normal; }
+
+/* #15 — article mockup body is more readable (single column on small screens) */
+@media (max-width: 720px) {
+  .press-clipping .pc-columns {
+    column-count: 1;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+/* =========================================================
+   PACKAGE PICKER — sponsor decision helper on partners.html
+   "Help me find my fit" interactive guide
+   ========================================================= */
+.picker {
+  background: linear-gradient(180deg, var(--surface), var(--bg-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  margin-bottom: 56px;
+  position: relative;
+  overflow: hidden;
+}
+.picker::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(61,214,140,0.10), transparent 70%);
+  pointer-events: none;
+}
+.picker-head { position: relative; z-index: 1; margin-bottom: 28px; }
+.picker-head h3 {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 8px 0 12px;
+}
+.picker-head p {
+  color: var(--text-mute);
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 60ch;
+  margin: 0;
+}
+.picker-questions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.picker-q {
+  flex: 0 0 auto;
+  background: var(--bg-2);
+  border: 1px solid var(--line-2);
+  color: var(--text);
+  font-family: var(--font-sub);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 12px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+}
+.picker-q:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.picker-q.is-active {
+  background: var(--accent);
+  color: #0a0a0a;
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.picker-result {
+  margin-top: 28px;
+  padding: 24px 28px;
+  background: var(--bg);
+  border: 1px solid rgba(61,214,140,0.3);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  display: none;
+  position: relative;
+  z-index: 1;
+}
+.picker-result.is-shown { display: block; animation: pickerIn 0.45s var(--ease); }
+@keyframes pickerIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.picker-result-tag {
+  display: inline-block;
+  font-family: var(--font-sub);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.picker-result h4 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0 0 6px;
+}
+.picker-result p {
+  color: var(--text-mute);
+  font-size: 15px;
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+.picker-result a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sub);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+.picker-result a:hover { color: var(--text); }
+
+/* "Most chosen" badge on Gold tier */
+.tier-flag {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--warm);
+  color: #2a1f08;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-family: var(--font-sub);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(232,201,122,0.25);
+  z-index: 2;
+}
+.package { position: relative; }
+@media (max-width: 720px) {
+  .picker { padding: 24px 20px; }
+}
