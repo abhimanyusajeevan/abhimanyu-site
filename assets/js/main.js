@@ -479,6 +479,47 @@
     });
   })();
 
+  // ---------- Count-up animation for [data-counter] number ----------
+  (function () {
+    var containers = document.querySelectorAll('[data-counter]');
+    if (!containers.length) return;
+
+    function animate(target, el) {
+      var dur = 1600;
+      var t0 = performance.now();
+      function tick(now) {
+        var p = Math.min(1, (now - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3); /* ease-out cubic */
+        el.textContent = String(Math.round(target * eased));
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = String(target);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function fireAll(container) {
+      var nums = container.querySelectorAll('[data-target]');
+      nums.forEach(function (el) {
+        var t = parseFloat(el.getAttribute('data-target')) || 0;
+        animate(t, el);
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            fireAll(entry.target);
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+      containers.forEach(function (c) { io.observe(c); });
+    } else {
+      containers.forEach(fireAll);
+    }
+  })();
+
   // ---------- Progress rail — chapter dots on the right ----------
   (function () {
     var rail = document.querySelector('[data-progress-rail]');
