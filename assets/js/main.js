@@ -487,12 +487,13 @@
     function animate(target, el) {
       var dur = 1600;
       var t0 = performance.now();
+      var suffix = el.getAttribute('data-suffix') || '';
       function tick(now) {
         var p = Math.min(1, (now - t0) / dur);
         var eased = 1 - Math.pow(1 - p, 3); /* ease-out cubic */
-        el.textContent = String(Math.round(target * eased));
+        el.textContent = String(Math.round(target * eased)) + suffix;
         if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = String(target);
+        else el.textContent = String(target) + suffix;
       }
       requestAnimationFrame(tick);
     }
@@ -571,6 +572,169 @@
       }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
       chapters.forEach(function (c) { io.observe(c); });
     }
+  })();
+
+  // ---------- Hero card city rotator ----------
+  (function () {
+    var rotator = document.querySelector('[data-city-rotator]');
+    if (!rotator || prefersReducedMotion) return;
+    var cities = rotator.querySelectorAll('.hcc-city');
+    if (cities.length < 2) return;
+    var idx = 0;
+    setInterval(function () {
+      var current = cities[idx];
+      idx = (idx + 1) % cities.length;
+      var next = cities[idx];
+      current.classList.remove('is-active');
+      current.classList.add('is-out');
+      next.classList.remove('is-out');
+      next.classList.add('is-active');
+      setTimeout(function () { current.classList.remove('is-out'); }, 500);
+    }, 2400);
+  })();
+
+  // ---------- Reach trajectory: draw line + count up axis values ----------
+  (function () {
+    var trajectory = document.querySelector('[data-trajectory]');
+    if (!trajectory) return;
+
+    function fire() {
+      trajectory.classList.add('is-drawn');
+      var nums = trajectory.querySelectorAll('[data-rt-counter]');
+      nums.forEach(function (el) {
+        var target = parseFloat(el.getAttribute('data-target')) || 0;
+        var dur = 1400;
+        var t0 = performance.now();
+        function tick(now) {
+          var p = Math.min(1, (now - t0) / dur);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = String(Math.round(target * eased));
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = String(target);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            fire();
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.25 });
+      io.observe(trajectory);
+    } else {
+      fire();
+    }
+  })();
+
+  // ---------- Pick your spot: interactive placement visualizer ----------
+  (function () {
+    var grid = document.querySelector('[data-placement]');
+    if (!grid) return;
+    var panel = grid.querySelector('[data-placement-panel]');
+    if (!panel) return;
+
+    var ZONES = {
+      bonnet: {
+        tier: 'TITLE',
+        name: 'Bonnet',
+        desc: 'The surface every TV cut and every front-quarter action photo features. The first thing every camera sees as the #41 launches off the line. Title-tier territory.',
+        stats: [['30M+', 'Impressions / weekend'], ['100%', 'Front-on TV cuts']],
+        availability: '<strong>1 spot</strong> left'
+      },
+      roof: {
+        tier: 'TITLE',
+        name: 'Roof',
+        desc: 'The drone-cut and overhead-cam frame. The shot every Reels editor reaches for. Top-down visibility no other surface delivers — and a Title-tier surface for category leaders.',
+        stats: [['25M+', 'Drone-cam frames'], ['Top', 'Reels editor pick']],
+        availability: '<strong>1 spot</strong> left'
+      },
+      doors: {
+        tier: 'TITLE / GOLD',
+        name: 'Driver & co-driver doors',
+        desc: 'Every side-on stage shot, every parc-fermé photo, every podium frame. Where the camera lingers when the car is still. Title or Gold territory — the most-photographed surface on the car.',
+        stats: [['28M+', 'Side-on cuts'], ['100%', 'Podium frames']],
+        availability: '<strong>2 spots</strong> left'
+      },
+      rear: {
+        tier: 'GOLD',
+        name: 'Rear wing & tailgate',
+        desc: 'Chase-cam and overtake shots — the moments that score 100K+ Reels plays. Where the action happens behind the car, not in front of it. Gold tier and the most viral surface of 2025–26.',
+        stats: [['100K+', 'Reels plays / clip'], ['Chase', 'Cam slot priority']],
+        availability: '<strong>2 spots</strong> left'
+      },
+      bumper: {
+        tier: 'SILVER',
+        name: 'Bumper & team kit',
+        desc: 'High frequency in close-cuts and crew-on-car shots. Available across all three tiers — and the surface that carries on-car presence into the team kit at every stage and every hospitality moment.',
+        stats: [['18M+', 'Close-cut frames'], ['All', 'Tiers eligible']],
+        availability: '<strong>Multiple</strong> spots'
+      }
+    };
+
+    var hotspots = grid.querySelectorAll('.ph');
+    var current = 'bonnet';
+    var swapTimer = null;
+
+    function setActive(zoneKey) {
+      var zone = ZONES[zoneKey];
+      if (!zone) return;
+      current = zoneKey;
+
+      // Update grid class for SVG overlay highlight
+      Object.keys(ZONES).forEach(function (k) {
+        grid.classList.remove('is-active-' + k);
+      });
+      grid.classList.add('is-active-' + zoneKey);
+
+      // Update hotspot active state
+      hotspots.forEach(function (h) {
+        h.classList.toggle('is-active', h.getAttribute('data-zone') === zoneKey);
+      });
+
+      // Swap panel content with subtle fade
+      panel.classList.add('is-swapping');
+      if (swapTimer) clearTimeout(swapTimer);
+      swapTimer = setTimeout(function () {
+        var tierEl = panel.querySelector('[data-pp-tier]');
+        var zoneEl = panel.querySelector('[data-pp-zone]');
+        var descEl = panel.querySelector('[data-pp-desc]');
+        var statsEl = panel.querySelector('[data-pp-stats]');
+        var availEl = panel.querySelector('[data-pp-availability]');
+        if (tierEl) {
+          tierEl.textContent = zone.tier;
+          tierEl.setAttribute('data-pp-tier', zone.tier);
+        }
+        if (zoneEl) zoneEl.textContent = zone.name;
+        if (descEl) descEl.textContent = zone.desc;
+        if (statsEl) {
+          statsEl.innerHTML = zone.stats.map(function (s) {
+            return '<div class="pp-stat"><div class="n">' + s[0] + '</div><div class="l">' + s[1] + '</div></div>';
+          }).join('');
+        }
+        if (availEl) {
+          availEl.innerHTML = '<span class="pp-availability-dot"></span>' + zone.availability;
+        }
+        panel.classList.remove('is-swapping');
+      }, 200);
+    }
+
+    hotspots.forEach(function (h) {
+      var zoneKey = h.getAttribute('data-zone');
+      h.addEventListener('mouseenter', function () { setActive(zoneKey); });
+      h.addEventListener('focus',      function () { setActive(zoneKey); });
+      h.addEventListener('click',      function (e) {
+        e.preventDefault();
+        setActive(zoneKey);
+      });
+    });
+
+    // Initial state — bonnet active
+    setActive('bonnet');
   })();
 
   // ---------- Parallax on dividers ----------
