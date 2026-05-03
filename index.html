@@ -401,79 +401,41 @@
             <span class="placement-meta-tag">VW Polo · #41 · Side profile</span>
             <span class="placement-meta-hint">Tap a zone</span>
           </div>
-          <svg class="placement-car" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Side profile of the VW Polo number 41 with five clickable sponsor placement zones">
-            <!-- Ground shadow -->
-            <ellipse cx="420" cy="282" rx="340" ry="9" fill="#000" opacity="0.55"/>
-            <!-- Body silhouette -->
-            <path class="pc-body" d="M 60 222 L 70 200 L 95 192 L 115 188 L 140 186 L 250 186 L 285 162 L 320 138 L 360 108 L 400 100 L 530 100 L 560 105 L 600 130 L 625 152 L 660 174 L 690 188 L 720 188 L 745 192 L 760 200 L 765 222 Z"/>
-            <!-- Window glass -->
-            <path class="pc-glass" d="M 305 145 L 360 115 L 400 108 L 530 108 L 555 113 L 590 138 L 590 152 L 305 152 Z"/>
-            <!-- A / B / C pillars -->
-            <line class="pc-pillar" x1="365" y1="150" x2="370" y2="113"/>
-            <line class="pc-pillar" x1="445" y1="150" x2="445" y2="105"/>
-            <line class="pc-pillar" x1="535" y1="150" x2="540" y2="108"/>
-            <!-- Beltline -->
-            <path class="pc-belt" d="M 95 192 L 760 192"/>
-            <!-- Livery stripe -->
-            <path class="pc-stripe" d="M 100 178 L 760 178"/>
-            <!-- Door cut -->
-            <path class="pc-door" d="M 365 152 L 365 218 M 445 152 L 445 218"/>
-            <!-- Rocker -->
-            <path class="pc-rocker" d="M 110 222 L 720 222"/>
-            <!-- Number 41 -->
-            <text class="pc-number" x="405" y="208" text-anchor="middle">41</text>
-            <!-- Door handles -->
-            <rect class="pc-handle" x="392" y="172" width="14" height="3" rx="1.5"/>
-            <rect class="pc-handle" x="478" y="172" width="14" height="3" rx="1.5"/>
-            <!-- Headlight -->
-            <path class="pc-light" d="M 70 196 L 90 192 L 90 200 L 72 204 Z"/>
-            <!-- Taillight -->
-            <path class="pc-tail" d="M 750 192 L 762 192 L 762 204 L 745 200 Z"/>
-            <!-- Front splitter -->
-            <path class="pc-splitter" d="M 60 222 L 80 230 L 95 230 L 95 222 Z"/>
-            <!-- Rear bumper detail -->
-            <path class="pc-splitter" d="M 760 222 L 745 230 L 730 230 L 730 222 Z"/>
-            <!-- Wheels -->
-            <g class="pc-wheel">
-              <circle cx="175" cy="222" r="42" class="pc-tire"/>
-              <circle cx="175" cy="222" r="22" class="pc-rim"/>
-              <circle cx="175" cy="222" r="9" class="pc-hub"/>
-            </g>
-            <g class="pc-wheel">
-              <circle cx="625" cy="222" r="42" class="pc-tire"/>
-              <circle cx="625" cy="222" r="22" class="pc-rim"/>
-              <circle cx="625" cy="222" r="9" class="pc-hub"/>
-            </g>
+          <div class="placement-car-container">
+            <img
+              src="assets/images/action-indore.jpg"
+              class="placement-car-photo"
+              alt="VW Polo #41 — Abhimanyu Sajeevan in action at the Rally of the Highlands, Indore"
+            >
+            <!-- Sponsor zone highlight overlays — revealed by JS adding is-active-* on parent .placement-grid -->
+            <div class="pz-overlay" data-zone-overlay="bonnet" style="left:4%;  top:24%; width:26%; height:46%;"></div>
+            <div class="pz-overlay" data-zone-overlay="roof"   style="left:28%; top:6%;  width:43%; height:30%;"></div>
+            <div class="pz-overlay" data-zone-overlay="doors"  style="left:29%; top:34%; width:39%; height:46%;"></div>
+            <div class="pz-overlay" data-zone-overlay="rear"   style="left:67%; top:15%; width:29%; height:63%;"></div>
+            <div class="pz-overlay" data-zone-overlay="bumper" style="left:2%;  top:53%; width:8%;  height:28%;"></div>
 
-            <!-- Highlight overlays per zone (revealed via JS / CSS when active) -->
-            <path class="pz-overlay" data-zone-overlay="bonnet" d="M 95 192 L 250 186 L 285 162 L 250 192 L 200 192 Z"/>
-            <path class="pz-overlay" data-zone-overlay="roof"   d="M 360 108 L 530 100 L 530 108 L 405 108 Z"/>
-            <path class="pz-overlay" data-zone-overlay="doors"  d="M 285 152 L 555 152 L 555 192 L 285 192 Z"/>
-            <path class="pz-overlay" data-zone-overlay="rear"   d="M 555 152 L 600 130 L 690 188 L 555 192 Z"/>
-            <path class="pz-overlay" data-zone-overlay="bumper" d="M 60 192 L 95 192 L 95 222 L 60 222 Z M 720 188 L 765 192 L 765 222 L 720 222 Z"/>
-          </svg>
-
-          <div class="placement-hotspots">
-            <button class="ph" data-zone="bonnet" type="button" style="left:21.5%; top:60%;" aria-label="Bonnet — Title tier">
-              <span class="ph-dot"></span>
-              <span class="ph-pill"><span class="ph-tier">TITLE</span>Bonnet</span>
-            </button>
-            <button class="ph" data-zone="roof" type="button" style="left:55.5%; top:33%;" aria-label="Roof — Title tier">
-              <span class="ph-dot"></span>
-              <span class="ph-pill"><span class="ph-tier">TITLE</span>Roof</span>
-            </button>
-            <button class="ph" data-zone="doors" type="button" style="left:52.5%; top:58%;" aria-label="Doors — Title or Gold">
-              <span class="ph-dot"></span>
-              <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Doors</span>
-            </button>
-            <button class="ph" data-zone="rear" type="button" style="left:78%; top:50%;" aria-label="Rear wing & tailgate — Gold">
-              <span class="ph-dot"></span>
-              <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Rear wing</span>
-            </button>
-            <button class="ph" data-zone="bumper" type="button" style="left:94%; top:67%;" aria-label="Bumper & team kit — Silver">
-              <span class="ph-dot"></span>
-              <span class="ph-pill"><span class="ph-tier ph-tier-silver">SILVER</span>Bumper</span>
-            </button>
+            <div class="placement-hotspots">
+              <button class="ph" data-zone="bonnet" type="button" style="left:17%; top:52%;" aria-label="Bonnet — Title tier">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier">TITLE</span>Bonnet</span>
+              </button>
+              <button class="ph" data-zone="roof" type="button" style="left:49%; top:21%;" aria-label="Roof — Title tier">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier">TITLE</span>Roof</span>
+              </button>
+              <button class="ph" data-zone="doors" type="button" style="left:49%; top:60%;" aria-label="Doors — Gold tier">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Doors</span>
+              </button>
+              <button class="ph" data-zone="rear" type="button" style="left:82%; top:46%;" aria-label="Rear wing & tailgate — Gold">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Rear wing</span>
+              </button>
+              <button class="ph" data-zone="bumper" type="button" style="left:6%; top:70%;" aria-label="Bumper & team kit — Silver">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier ph-tier-silver">SILVER</span>Bumper</span>
+              </button>
+            </div>
           </div>
         </div>
 

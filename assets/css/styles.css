@@ -4216,59 +4216,41 @@ img, video { max-width: 100%; height: auto; }
 .placement-meta-tag  { color: var(--accent); font-weight: 600; }
 .placement-meta-hint { color: var(--text-dim); }
 
-.placement-car {
+/* Actual car photo container — replaces SVG stick figure */
+.placement-car-container {
   position: relative;
   width: 100%;
-  height: auto;
-  display: block;
   margin-top: 32px;
+  border-radius: 10px;
+  overflow: hidden;
   z-index: 1;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.45);
 }
-.pc-body {
-  fill: var(--surface-2);
-  stroke: var(--line-2);
-  stroke-width: 1.5;
-  stroke-linejoin: round;
+.placement-car-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
 }
-.pc-glass {
-  fill: rgba(91,168,255,0.18);
-  stroke: var(--line-2);
-  stroke-width: 1.2;
-}
-.pc-pillar  { stroke: var(--surface-2); stroke-width: 4; }
-.pc-belt    { stroke: var(--line-2);    stroke-width: 1; opacity: 0.7; }
-.pc-stripe  { stroke: var(--accent);    stroke-width: 5; opacity: 0.85; }
-.pc-door    { stroke: rgba(0,0,0,0.45); stroke-width: 1.2; }
-.pc-rocker  { stroke: rgba(0,0,0,0.5);  stroke-width: 4; }
-.pc-number {
-  fill: var(--accent);
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 30px;
-  font-weight: 700;
-}
-.pc-handle    { fill: rgba(0,0,0,0.6); }
-.pc-light     { fill: #fff; opacity: 0.85; stroke: var(--accent); stroke-width: 0.8; }
-.pc-tail      { fill: #ff5b5b; opacity: 0.85; }
-.pc-splitter  { fill: rgba(0,0,0,0.55); }
-.pc-tire      { fill: #0a0a0a; }
-.pc-rim       { fill: var(--accent); opacity: 0.9; }
-.pc-hub       { fill: var(--surface-2); }
 
+/* Zone highlight overlays — positioned divs over the real car photo */
 .pz-overlay {
-  fill: rgba(61,214,140,0);
-  stroke: rgba(61,214,140,0);
-  stroke-width: 2;
+  position: absolute;
+  background: rgba(61,214,140,0);
+  border: 2px solid rgba(61,214,140,0);
+  border-radius: 8px;
   pointer-events: none;
-  transition: fill 0.35s var(--ease), stroke 0.35s var(--ease), filter 0.35s var(--ease);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  z-index: 2;
 }
 .placement-grid.is-active-bonnet [data-zone-overlay="bonnet"],
 .placement-grid.is-active-roof   [data-zone-overlay="roof"],
 .placement-grid.is-active-doors  [data-zone-overlay="doors"],
 .placement-grid.is-active-rear   [data-zone-overlay="rear"],
 .placement-grid.is-active-bumper [data-zone-overlay="bumper"] {
-  fill: rgba(61,214,140,0.3);
-  stroke: var(--accent);
-  filter: drop-shadow(0 0 14px rgba(61,214,140,0.55));
+  background: rgba(61,214,140,0.22);
+  border-color: rgba(61,214,140,0.9);
+  box-shadow: 0 0 22px rgba(61,214,140,0.5), inset 0 0 14px rgba(61,214,140,0.12);
 }
 
 .placement-hotspots {
