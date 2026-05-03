@@ -83,14 +83,30 @@
         </div>
       </div>
 
-      <aside class="hero-card">
-        <span class="hero-card-label">Debut season · By the numbers</span>
+      <aside class="hero-card" data-counter>
+        <div class="hero-card-live">
+          <span class="hcl-dot" aria-hidden="true"></span>
+          <span class="hcl-text">LIVE</span>
+          <span class="hcl-sep">·</span>
+          <span class="hcl-status">Open for INRC 2026–27</span>
+        </div>
         <h3>The year-one scoreboard.</h3>
         <div class="mini-stats">
           <div class="mini-stat"><div class="n">P2</div><div class="l">JINRC final · debut</div></div>
           <div class="mini-stat"><div class="n">P4</div><div class="l">INRC3 overall</div></div>
-          <div class="mini-stat"><div class="n">30M+</div><div class="l">Social views / event</div></div>
-          <div class="mini-stat"><div class="n">3×</div><div class="l">Leg wins · 5 podiums</div></div>
+          <div class="mini-stat"><div class="n"><span data-target="30" data-format="suffix" data-suffix="M+">0</span></div><div class="l">Social views / event</div></div>
+          <div class="mini-stat"><div class="n"><span data-target="3" data-format="suffix" data-suffix="×">0</span></div><div class="l">Leg wins · 5 podiums</div></div>
+        </div>
+        <div class="hero-card-cities" aria-hidden="true">
+          <span class="hcc-label">Race weekends 2026–27</span>
+          <span class="hcc-rotator" data-city-rotator>
+            <span class="hcc-city is-active">NASHIK</span>
+            <span class="hcc-city">INDORE</span>
+            <span class="hcc-city">CHENNAI</span>
+            <span class="hcc-city">COIMBATORE</span>
+            <span class="hcc-city">COORG</span>
+            <span class="hcc-city">BENGALURU K1000</span>
+          </span>
         </div>
       </aside>
     </div>
@@ -270,6 +286,64 @@
         </div>
       </div>
 
+      <!-- Growth trajectory chart -->
+      <div class="reach-trajectory reveal reveal-delay-1" data-trajectory>
+        <div class="rt-header">
+          <div>
+            <div class="rt-eyebrow">Trajectory · INRC reach per race weekend</div>
+            <div class="rt-title">From <strong>2M</strong> to <strong style="color:var(--accent);">30M+</strong> in three years.</div>
+          </div>
+          <div class="rt-legend">
+            <span class="rt-dot rt-dot-past"></span>Behind us
+            <span class="rt-dot rt-dot-now"></span>2025–26
+            <span class="rt-dot rt-dot-future"></span>2026–27
+          </div>
+        </div>
+        <svg class="rt-svg" viewBox="0 0 800 220" preserveAspectRatio="none" aria-hidden="true">
+          <!-- Grid lines -->
+          <line class="rt-grid" x1="0" y1="50"  x2="800" y2="50"/>
+          <line class="rt-grid" x1="0" y1="100" x2="800" y2="100"/>
+          <line class="rt-grid" x1="0" y1="150" x2="800" y2="150"/>
+          <!-- Area fill -->
+          <path class="rt-area" data-rt-area d="M 70 200 C 220 200, 240 195, 400 130 S 580 65, 730 30 L 730 200 L 70 200 Z"/>
+          <!-- Trajectory line -->
+          <path class="rt-line" data-rt-line d="M 70 200 C 220 200, 240 195, 400 130 S 580 65, 730 30"/>
+          <!-- Data points -->
+          <g class="rt-points">
+            <g class="rt-point rt-point-past" data-rt-point="0" style="--cx:70px; --cy:200px;">
+              <circle cx="70"  cy="200" r="6"  class="rt-dot-bg"/>
+              <circle cx="70"  cy="200" r="3"  class="rt-dot-fg"/>
+            </g>
+            <g class="rt-point rt-point-mid"  data-rt-point="1" style="--cx:400px; --cy:130px;">
+              <circle cx="400" cy="130" r="6"  class="rt-dot-bg"/>
+              <circle cx="400" cy="130" r="3"  class="rt-dot-fg"/>
+            </g>
+            <g class="rt-point rt-point-now"  data-rt-point="2" style="--cx:730px; --cy:30px;">
+              <circle cx="730" cy="30"  r="9"  class="rt-dot-bg"/>
+              <circle cx="730" cy="30"  r="4"  class="rt-dot-fg"/>
+              <circle cx="730" cy="30"  r="14" class="rt-dot-pulse"/>
+            </g>
+          </g>
+        </svg>
+        <div class="rt-axis">
+          <div class="rt-axis-step" data-rt-label="0">
+            <div class="rt-year">2022</div>
+            <div class="rt-val"><span data-target="2" data-rt-counter>0</span>M</div>
+            <div class="rt-tag">First INRC season we tracked</div>
+          </div>
+          <div class="rt-axis-step" data-rt-label="1">
+            <div class="rt-year">2024</div>
+            <div class="rt-val"><span data-target="15" data-rt-counter>0</span>M+</div>
+            <div class="rt-tag">Reels era kicks in</div>
+          </div>
+          <div class="rt-axis-step rt-axis-step-now" data-rt-label="2">
+            <div class="rt-year">2025–26</div>
+            <div class="rt-val"><span data-target="30" data-rt-counter>0</span>M+</div>
+            <div class="rt-tag">Where the #41 sits today</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Channel breakdown -->
       <div class="reach-channels" style="margin-top:48px;">
         <div class="reach-channel reveal" style="--share: 60%;">
@@ -304,8 +378,126 @@
 
       <!-- Anchor + CTA to deep-dive -->
       <p class="reach-anchor reveal" style="margin-top:48px;">
-        <strong>For context:</strong> 30 million is roughly the population of the entire Delhi NCR — every race weekend, six times in 2026–27. <a href="partners.html" style="color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px;">See where your logo sits on the car →</a>
+        <strong>For context:</strong> 30 million is roughly the population of the entire Delhi NCR — every race weekend, six times in 2026–27. <a href="#chapter-spot" style="color:var(--accent); font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); padding-bottom:1px;">Pick your spot on the car ↓</a>
       </p>
+    </div>
+  </section>
+
+  <!-- ===== CHAPTER 04 — PICK YOUR SPOT (interactive sponsor placement) ===== -->
+  <section class="chapter pick-spot" id="chapter-spot" data-chapter="Pick your spot">
+    <div class="container">
+      <div class="chapter-head">
+        <div class="chapter-num reveal">04</div>
+        <div>
+          <div class="chapter-eyebrow reveal">Pick your spot · live placement preview</div>
+          <h2 class="chapter-title reveal">See your logo on the <span class="accent">#41</span>.</h2>
+          <p class="chapter-lede reveal">Hover any panel of the car. Each surface is a sponsor tier — every race weekend, in front of the cameras, on national TV. Pick yours before the next brand does.</p>
+        </div>
+      </div>
+
+      <div class="placement-grid reveal reveal-delay-1" data-placement>
+        <div class="placement-stage" data-placement-stage>
+          <div class="placement-meta">
+            <span class="placement-meta-tag">VW Polo · #41 · Side profile</span>
+            <span class="placement-meta-hint">Tap a zone</span>
+          </div>
+          <svg class="placement-car" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Side profile of the VW Polo number 41 with five clickable sponsor placement zones">
+            <!-- Ground shadow -->
+            <ellipse cx="420" cy="282" rx="340" ry="9" fill="#000" opacity="0.55"/>
+            <!-- Body silhouette -->
+            <path class="pc-body" d="M 60 222 L 70 200 L 95 192 L 115 188 L 140 186 L 250 186 L 285 162 L 320 138 L 360 108 L 400 100 L 530 100 L 560 105 L 600 130 L 625 152 L 660 174 L 690 188 L 720 188 L 745 192 L 760 200 L 765 222 Z"/>
+            <!-- Window glass -->
+            <path class="pc-glass" d="M 305 145 L 360 115 L 400 108 L 530 108 L 555 113 L 590 138 L 590 152 L 305 152 Z"/>
+            <!-- A / B / C pillars -->
+            <line class="pc-pillar" x1="365" y1="150" x2="370" y2="113"/>
+            <line class="pc-pillar" x1="445" y1="150" x2="445" y2="105"/>
+            <line class="pc-pillar" x1="535" y1="150" x2="540" y2="108"/>
+            <!-- Beltline -->
+            <path class="pc-belt" d="M 95 192 L 760 192"/>
+            <!-- Livery stripe -->
+            <path class="pc-stripe" d="M 100 178 L 760 178"/>
+            <!-- Door cut -->
+            <path class="pc-door" d="M 365 152 L 365 218 M 445 152 L 445 218"/>
+            <!-- Rocker -->
+            <path class="pc-rocker" d="M 110 222 L 720 222"/>
+            <!-- Number 41 -->
+            <text class="pc-number" x="405" y="208" text-anchor="middle">41</text>
+            <!-- Door handles -->
+            <rect class="pc-handle" x="392" y="172" width="14" height="3" rx="1.5"/>
+            <rect class="pc-handle" x="478" y="172" width="14" height="3" rx="1.5"/>
+            <!-- Headlight -->
+            <path class="pc-light" d="M 70 196 L 90 192 L 90 200 L 72 204 Z"/>
+            <!-- Taillight -->
+            <path class="pc-tail" d="M 750 192 L 762 192 L 762 204 L 745 200 Z"/>
+            <!-- Front splitter -->
+            <path class="pc-splitter" d="M 60 222 L 80 230 L 95 230 L 95 222 Z"/>
+            <!-- Rear bumper detail -->
+            <path class="pc-splitter" d="M 760 222 L 745 230 L 730 230 L 730 222 Z"/>
+            <!-- Wheels -->
+            <g class="pc-wheel">
+              <circle cx="175" cy="222" r="42" class="pc-tire"/>
+              <circle cx="175" cy="222" r="22" class="pc-rim"/>
+              <circle cx="175" cy="222" r="9" class="pc-hub"/>
+            </g>
+            <g class="pc-wheel">
+              <circle cx="625" cy="222" r="42" class="pc-tire"/>
+              <circle cx="625" cy="222" r="22" class="pc-rim"/>
+              <circle cx="625" cy="222" r="9" class="pc-hub"/>
+            </g>
+
+            <!-- Highlight overlays per zone (revealed via JS / CSS when active) -->
+            <path class="pz-overlay" data-zone-overlay="bonnet" d="M 95 192 L 250 186 L 285 162 L 250 192 L 200 192 Z"/>
+            <path class="pz-overlay" data-zone-overlay="roof"   d="M 360 108 L 530 100 L 530 108 L 405 108 Z"/>
+            <path class="pz-overlay" data-zone-overlay="doors"  d="M 285 152 L 555 152 L 555 192 L 285 192 Z"/>
+            <path class="pz-overlay" data-zone-overlay="rear"   d="M 555 152 L 600 130 L 690 188 L 555 192 Z"/>
+            <path class="pz-overlay" data-zone-overlay="bumper" d="M 60 192 L 95 192 L 95 222 L 60 222 Z M 720 188 L 765 192 L 765 222 L 720 222 Z"/>
+          </svg>
+
+          <div class="placement-hotspots">
+            <button class="ph" data-zone="bonnet" type="button" style="left:21.5%; top:60%;" aria-label="Bonnet — Title tier">
+              <span class="ph-dot"></span>
+              <span class="ph-pill"><span class="ph-tier">TITLE</span>Bonnet</span>
+            </button>
+            <button class="ph" data-zone="roof" type="button" style="left:55.5%; top:33%;" aria-label="Roof — Title tier">
+              <span class="ph-dot"></span>
+              <span class="ph-pill"><span class="ph-tier">TITLE</span>Roof</span>
+            </button>
+            <button class="ph" data-zone="doors" type="button" style="left:52.5%; top:58%;" aria-label="Doors — Title or Gold">
+              <span class="ph-dot"></span>
+              <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Doors</span>
+            </button>
+            <button class="ph" data-zone="rear" type="button" style="left:78%; top:50%;" aria-label="Rear wing & tailgate — Gold">
+              <span class="ph-dot"></span>
+              <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Rear wing</span>
+            </button>
+            <button class="ph" data-zone="bumper" type="button" style="left:94%; top:67%;" aria-label="Bumper & team kit — Silver">
+              <span class="ph-dot"></span>
+              <span class="ph-pill"><span class="ph-tier ph-tier-silver">SILVER</span>Bumper</span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="placement-panel" data-placement-panel>
+          <div class="pp-tier-row">
+            <span class="pp-tier" data-pp-tier>TITLE</span>
+            <span class="pp-availability" data-pp-availability>
+              <span class="pp-availability-dot"></span>1 spot left
+            </span>
+          </div>
+          <h3 class="pp-zone" data-pp-zone>Bonnet</h3>
+          <p class="pp-desc" data-pp-desc>The surface every TV cut and every front-quarter action photo features. The first thing every camera sees as the #41 launches off the line. Title-tier territory.</p>
+          <div class="pp-stats" data-pp-stats>
+            <div class="pp-stat"><div class="n">30M+</div><div class="l">Impressions / weekend</div></div>
+            <div class="pp-stat"><div class="n">100%</div><div class="l">Front-on TV cuts</div></div>
+          </div>
+          <div class="pp-cta-row">
+            <a href="contact.html" class="btn btn-primary pp-cta">Reserve this spot
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="partners.html" class="btn btn-link pp-cta-link">See full deliverables →</a>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
@@ -317,11 +509,11 @@
     </div>
   </section>
 
-  <!-- ===== CHAPTER 04 — THE CREW ===== -->
+  <!-- ===== CHAPTER 05 — THE CREW ===== -->
   <section class="chapter" id="chapter-crew" data-chapter="The Crew">
     <div class="container">
       <div class="chapter-head">
-        <div class="chapter-num reveal">04</div>
+        <div class="chapter-num reveal">05</div>
         <div>
           <div class="chapter-eyebrow reveal">The duo · the team behind the car</div>
           <h2 class="chapter-title reveal">Two kids from <span class="accent">Calicut</span>.<br/>One shot at history.</h2>
@@ -357,11 +549,11 @@
     </div>
   </section>
 
-  <!-- ===== CHAPTER 05 — THE SEASON AHEAD (3 feature cards) ===== -->
+  <!-- ===== CHAPTER 06 — THE SEASON AHEAD (3 feature cards) ===== -->
   <section class="chapter is-dim" id="chapter-season" data-chapter="The Season">
     <div class="container">
       <div class="chapter-head">
-        <div class="chapter-num reveal">05</div>
+        <div class="chapter-num reveal">06</div>
         <div>
           <div class="chapter-eyebrow reveal">The season ahead · INRC 2026–27</div>
           <h2 class="chapter-title reveal">Six race weekends.<br/><span class="accent">Six chances</span> to own the story.</h2>
