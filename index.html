@@ -401,21 +401,27 @@
             <span class="placement-meta-tag">VW Polo · #41 · Side profile</span>
             <span class="placement-meta-hint">Tap a zone</span>
           </div>
-          <div class="placement-car-container">
+          <!-- View toggle tabs -->
+          <div class="car-view-tabs">
+            <button class="car-tab is-active" data-car-tab="0" type="button">Rally of the Highlands</button>
+            <button class="car-tab" data-car-tab="1" type="button">Robusta Rally · Kodagu</button>
+          </div>
+
+          <!-- View 1: action-indore.jpg — front of car on RIGHT -->
+          <div class="placement-car-container" data-car-pane="0">
             <img
               src="assets/images/action-indore.jpg"
               class="placement-car-photo"
               alt="VW Polo #41 — Abhimanyu Sajeevan in action at the Rally of the Highlands, Indore"
             >
-            <!-- Sponsor zone highlight overlays — revealed by JS adding is-active-* on parent .placement-grid -->
-            <div class="pz-overlay" data-zone-overlay="bonnet" style="left:4%;  top:24%; width:26%; height:46%;"></div>
+            <!-- Zones: front (bonnet, bumper) on RIGHT; rear on LEFT -->
+            <div class="pz-overlay" data-zone-overlay="bonnet" style="left:66%; top:20%; width:26%; height:48%;"></div>
             <div class="pz-overlay" data-zone-overlay="roof"   style="left:28%; top:6%;  width:43%; height:30%;"></div>
             <div class="pz-overlay" data-zone-overlay="doors"  style="left:29%; top:34%; width:39%; height:46%;"></div>
-            <div class="pz-overlay" data-zone-overlay="rear"   style="left:67%; top:15%; width:29%; height:63%;"></div>
-            <div class="pz-overlay" data-zone-overlay="bumper" style="left:2%;  top:53%; width:8%;  height:28%;"></div>
-
+            <div class="pz-overlay" data-zone-overlay="rear"   style="left:4%;  top:24%; width:26%; height:46%;"></div>
+            <div class="pz-overlay" data-zone-overlay="bumper" style="left:88%; top:52%; width:8%;  height:28%;"></div>
             <div class="placement-hotspots">
-              <button class="ph" data-zone="bonnet" type="button" style="left:17%; top:52%;" aria-label="Bonnet — Title tier">
+              <button class="ph" data-zone="bonnet" type="button" style="left:79%; top:48%;" aria-label="Bonnet — Title tier">
                 <span class="ph-dot"></span>
                 <span class="ph-pill"><span class="ph-tier">TITLE</span>Bonnet</span>
               </button>
@@ -427,11 +433,48 @@
                 <span class="ph-dot"></span>
                 <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Doors</span>
               </button>
-              <button class="ph" data-zone="rear" type="button" style="left:82%; top:46%;" aria-label="Rear wing & tailgate — Gold">
+              <button class="ph" data-zone="rear" type="button" style="left:17%; top:52%;" aria-label="Rear wing & tailgate — Gold">
                 <span class="ph-dot"></span>
                 <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Rear wing</span>
               </button>
-              <button class="ph" data-zone="bumper" type="button" style="left:6%; top:70%;" aria-label="Bumper & team kit — Silver">
+              <button class="ph" data-zone="bumper" type="button" style="left:93%; top:68%;" aria-label="Bumper — Silver">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier ph-tier-silver">SILVER</span>Bumper</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- View 2: rally-04.jpg — front of car on LEFT -->
+          <div class="placement-car-container" data-car-pane="1" style="display:none;">
+            <img
+              src="assets/images/rally-04.jpg"
+              class="placement-car-photo"
+              alt="VW Polo #41 — Abhimanyu Sajeevan at the Robusta Rally, Kodagu"
+            >
+            <!-- Zones: front (bonnet, bumper) on LEFT; rear on RIGHT -->
+            <div class="pz-overlay" data-zone-overlay="bonnet" style="left:8%;  top:20%; width:26%; height:48%;"></div>
+            <div class="pz-overlay" data-zone-overlay="roof"   style="left:29%; top:6%;  width:43%; height:30%;"></div>
+            <div class="pz-overlay" data-zone-overlay="doors"  style="left:32%; top:34%; width:39%; height:46%;"></div>
+            <div class="pz-overlay" data-zone-overlay="rear"   style="left:70%; top:24%; width:26%; height:46%;"></div>
+            <div class="pz-overlay" data-zone-overlay="bumper" style="left:4%;  top:52%; width:8%;  height:28%;"></div>
+            <div class="placement-hotspots">
+              <button class="ph" data-zone="bonnet" type="button" style="left:21%; top:48%;" aria-label="Bonnet — Title tier">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier">TITLE</span>Bonnet</span>
+              </button>
+              <button class="ph" data-zone="roof" type="button" style="left:51%; top:21%;" aria-label="Roof — Title tier">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier">TITLE</span>Roof</span>
+              </button>
+              <button class="ph" data-zone="doors" type="button" style="left:51%; top:60%;" aria-label="Doors — Gold tier">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Doors</span>
+              </button>
+              <button class="ph" data-zone="rear" type="button" style="left:83%; top:52%;" aria-label="Rear wing & tailgate — Gold">
+                <span class="ph-dot"></span>
+                <span class="ph-pill"><span class="ph-tier ph-tier-gold">GOLD</span>Rear wing</span>
+              </button>
+              <button class="ph" data-zone="bumper" type="button" style="left:7%; top:68%;" aria-label="Bumper — Silver">
                 <span class="ph-dot"></span>
                 <span class="ph-pill"><span class="ph-tier ph-tier-silver">SILVER</span>Bumper</span>
               </button>
