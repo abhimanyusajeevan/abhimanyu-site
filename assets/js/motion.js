@@ -277,13 +277,46 @@
     if (isMobile) {
       // Mark every card no-anim so its title/text show immediately.
       cards.forEach(function (c) { c.classList.add('no-anim'); });
-      // Update progress as the user swipes.
-      track.addEventListener('scroll', function () {
-        var max = track.scrollWidth - track.clientWidth;
-        if (max <= 0) return;
-        setProgress(track.scrollLeft / max);
-      }, { passive: true });
-      setProgress(0.001);
+
+      // Pick whichever card's center is closest to the viewport center.
+      // We listen on BOTH the track (horizontal swipe) and the window
+      // (vertical scroll shifts the section under-foot too). Computing
+      // from getBoundingClientRect avoids depending on track.scrollLeft,
+      // which iOS Safari sometimes throttles or zeroes during snap.
+      function updateMobileProgress() {
+        var viewCenter = window.innerWidth / 2;
+        var bestIdx = 0;
+        var bestDist = Infinity;
+        for (var i = 0; i < cards.length; i++) {
+          var r = cards[i].getBoundingClientRect();
+          var c = r.left + r.width / 2;
+          var d = Math.abs(c - viewCenter);
+          if (d < bestDist) { bestDist = d; bestIdx = i; }
+        }
+        // Map the active card index 1..total onto a smooth 0..1 fill so
+        // the bar moves between cards too.
+        var pct = (bestIdx + 0.5) / total;
+        setProgress(pct);
+        // Also flash the actual round number directly to bypass the
+        // ceil() rounding (which can lag the visible card by one).
+        if (progressNum) progressNum.textContent = bestIdx + 1;
+      }
+
+      var rafId = null;
+      function scheduleMobileUpdate() {
+        if (rafId) return;
+        rafId = requestAnimationFrame(function () {
+          rafId = null;
+          updateMobileProgress();
+        });
+      }
+
+      track.addEventListener('scroll',  scheduleMobileUpdate, { passive: true });
+      window.addEventListener('scroll', scheduleMobileUpdate, { passive: true });
+      window.addEventListener('resize', scheduleMobileUpdate, { passive: true });
+
+      // First paint
+      updateMobileProgress();
       return;
     }
 
