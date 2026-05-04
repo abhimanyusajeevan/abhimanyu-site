@@ -334,14 +334,19 @@
       return Math.max(0, track.scrollWidth - section.clientWidth + 60);
     }
 
+    // Trigger on the pin element (not the section) so 'top top' means the
+    // PIN's top hits the viewport top — otherwise the head pushes the
+    // pin halfway down the screen at the moment of pinning and the
+    // bottom of the cards gets clipped by the viewport.
+    var pinEl = section.querySelector('.round-rail-pin');
     var tween = gsap.to(track, {
       x: function () { return -getScrollDistance(); },
       ease: 'none',
       scrollTrigger: {
-        trigger: section,
+        trigger: pinEl,
         start: 'top top',
         end: function () { return '+=' + getScrollDistance(); },
-        pin: '.round-rail-pin',
+        pin: true,
         scrub: 0.5,
         invalidateOnRefresh: true,
         anticipatePin: 1,

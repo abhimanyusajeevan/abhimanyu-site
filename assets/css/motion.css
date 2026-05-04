@@ -356,8 +356,8 @@
 /* The pinned wrapper — given viewport-height bounds for the pin */
 .round-rail-pin {
   position: relative;
-  height: 88vh;
-  min-height: 580px;
+  height: 100vh;
+  min-height: 600px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -374,8 +374,9 @@
 .round-card {
   flex: 0 0 var(--rail-card-width);
   max-width: var(--rail-card-max);
-  height: 70vh;
-  min-height: 520px;
+  height: 78vh;
+  max-height: 720px;
+  min-height: 480px;
   position: relative;
   border-radius: 16px;
   overflow: hidden;
@@ -431,10 +432,10 @@
 .round-card .rc-body {
   position: relative;
   z-index: 2;
-  padding: 36px 36px 32px;
+  padding: 44px 40px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   background: linear-gradient(170deg, rgba(15,23,34,0.75) 0%, rgba(10,16,24,0.96) 70%);
 }
 .round-card .rc-meta {

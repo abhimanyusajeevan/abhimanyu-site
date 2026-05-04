@@ -2537,7 +2537,7 @@ html.is-loading { overflow: hidden; }
    ========================================================= */
 .chapter {
   position: relative;
-  padding: var(--space-9) 0 var(--space-8);
+  padding: var(--space-7) 0 var(--space-7);
   border-top: 1px solid var(--line);
   scroll-margin-top: 80px;
 }
@@ -2551,20 +2551,20 @@ html.is-loading { overflow: hidden; }
 
 .chapter-head {
   display: grid;
-  grid-template-columns: 96px 1fr;
-  gap: 48px;
-  margin-bottom: var(--space-6);
+  grid-template-columns: 120px 1fr;
+  gap: 56px;
+  margin-bottom: var(--space-5);
   align-items: start;
 }
 .chapter-num {
   font-family: var(--font-display);
-  font-size: clamp(28px, 2.4vw, 36px);
+  font-size: clamp(40px, 3.4vw, 56px);
   letter-spacing: 0.02em;
   line-height: 1;
   color: var(--accent);
   font-weight: 500;
   position: relative;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 .chapter-num::after {
   content: '';
@@ -2580,21 +2580,21 @@ html.is-loading { overflow: hidden; }
 
 .chapter-eyebrow {
   font-family: var(--font-sub);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--text-mute);
-  margin-bottom: 20px;
+  color: var(--accent);
+  margin-bottom: 16px;
 }
 .chapter-title {
   font-family: var(--font-display);
-  font-size: clamp(40px, 6vw, 84px);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
+  font-size: clamp(48px, 7vw, 104px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
   font-weight: 600;
-  margin: 0 0 24px;
-  max-width: 22ch;
+  margin: 0 0 22px;
+  max-width: 30ch;
 }
 .chapter-title .accent { color: var(--accent); }
 .chapter-lede {
