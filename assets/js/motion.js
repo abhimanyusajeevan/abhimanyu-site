@@ -33,6 +33,124 @@
   // Touch devices skip cursor-driven effects (no hover model)
   var isTouchOnly = window.matchMedia && window.matchMedia('(hover: none)').matches;
 
+  /* ===== 0. Lenis smooth-scroll =======================================
+     Native momentum kept on touch (smoothTouch:false). Hooked into
+     ScrollTrigger.update so scroll-driven GSAP timelines stay synced.
+     Native window.scrollY still updates correctly, so main.js's
+     existing scroll handlers (nav shadow, floater, parallax) all work.
+  ====================================================================== */
+  var lenis = null;
+  if (typeof Lenis === 'function' && !isTouchOnly) {
+    try {
+      lenis = new Lenis({
+        duration: 1.05,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothWheel: true,
+        smoothTouch: false,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.5
+      });
+      if (hasScrollTrigger) {
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+        gsap.ticker.lagSmoothing(0);
+      } else {
+        function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+      }
+      // Make all in-page anchor clicks use Lenis so they feel consistent
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!a) return;
+        var id = a.getAttribute('href');
+        if (id.length < 2) return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+      });
+    } catch (e) {
+      console.warn('[motion] Lenis init failed; falling back to native scroll', e);
+      lenis = null;
+    }
+  }
+
+  /* ===== 0b. Magnetic CTAs ===========================================
+     Auto-applies to .btn-primary so we don't have to tag every button,
+     plus any element with [data-magnetic]. Skipped on touch.
+  ====================================================================== */
+  var magneticTargets = document.querySelectorAll('.btn-primary, [data-magnetic]');
+  magneticTargets.forEach(function (el) {
+    if (isTouchOnly) return;
+    if (el.dataset.magneticOff === 'true') return;
+    var rect = null;
+    var strength = parseFloat(el.dataset.magneticStrength) || 0.18;
+    if (hasGSAP) {
+      var qX = gsap.quickTo(el, 'x', { duration: 0.5, ease: 'power3.out' });
+      var qY = gsap.quickTo(el, 'y', { duration: 0.5, ease: 'power3.out' });
+      el.addEventListener('mouseenter', function () { rect = el.getBoundingClientRect(); });
+      el.addEventListener('mousemove', function (e) {
+        if (!rect) rect = el.getBoundingClientRect();
+        qX((e.clientX - rect.left - rect.width / 2) * strength);
+        qY((e.clientY - rect.top - rect.height / 2) * strength);
+      });
+      el.addEventListener('mouseleave', function () {
+        gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+      });
+    } else {
+      var raf = null, x = 0, y = 0, tx = 0, ty = 0;
+      function step() {
+        x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+        el.style.transform = 'translate(' + x.toFixed(2) + 'px, ' + y.toFixed(2) + 'px)';
+        if (Math.abs(tx - x) > 0.05 || Math.abs(ty - y) > 0.05) raf = requestAnimationFrame(step);
+        else raf = null;
+      }
+      el.addEventListener('mouseenter', function () { rect = el.getBoundingClientRect(); });
+      el.addEventListener('mousemove', function (e) {
+        if (!rect) rect = el.getBoundingClientRect();
+        tx = (e.clientX - rect.left - rect.width / 2) * strength;
+        ty = (e.clientY - rect.top - rect.height / 2) * strength;
+        if (!raf) raf = requestAnimationFrame(step);
+      });
+      el.addEventListener('mouseleave', function () { tx = 0; ty = 0; if (!raf) raf = requestAnimationFrame(step); });
+    }
+  });
+
+  /* ===== 0c. Section-head auto-reveal ================================
+     Skipped if the section-head children already use the existing
+     .reveal class (so we never double-fire against main.js). Otherwise
+     applies a soft staggered reveal via IntersectionObserver.
+  ====================================================================== */
+  document.querySelectorAll('section .section-head').forEach(function (head) {
+    var children = head.querySelectorAll('.eyebrow, h1, h2, h3, p, .btn');
+    if (!children.length) return;
+    // If ANY child already has .reveal, leave the whole head alone —
+    // main.js's IntersectionObserver will animate them.
+    var alreadyManaged = Array.prototype.some.call(children, function (c) {
+      return c.classList.contains('reveal') ||
+             c.classList.contains('reveal-left') ||
+             c.classList.contains('reveal-right') ||
+             c.classList.contains('reveal-scale');
+    });
+    if (alreadyManaged) return;
+
+    children.forEach(function (c, i) {
+      c.style.opacity = '0';
+      c.style.transform = 'translateY(28px)';
+      c.style.transition = 'opacity 0.8s cubic-bezier(0.2,0.8,0.2,1), transform 0.8s cubic-bezier(0.2,0.8,0.2,1)';
+      c.style.transitionDelay = (i * 0.08) + 's';
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          children.forEach(function (c) { c.style.opacity = '1'; c.style.transform = 'none'; });
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+    io.observe(head);
+  });
+
   /* ===== 1. Tilt cards =============================================== */
   document.querySelectorAll('[data-tilt]').forEach(function (card) {
     if (isTouchOnly) return;

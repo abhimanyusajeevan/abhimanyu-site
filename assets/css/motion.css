@@ -214,6 +214,98 @@
   .sticky-frames > * { min-height: auto; }
 }
 
+/* ===== Round-story — narrative variant of sticky-story =============
+   Used on results.html. Six rounds presented as scrollable frames
+   with a sticky rail. Each frame is a hero-card-grade story with a
+   numbered eyebrow, city headline, result tag, narrative, and a
+   round photo at right.
+====================================================================== */
+.round-story { padding-top: 16px; }
+.round-story .sticky-rail li {
+  border-radius: 6px;
+  align-items: baseline;
+}
+.round-frame {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  padding: 60px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.round-frame:first-child { border-top: 0; padding-top: 30px; }
+.round-frame .rf-eyebrow {
+  display: inline-block;
+  font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--accent, #22e66b);
+  margin-bottom: 14px;
+}
+.round-frame.is-dns .rf-eyebrow { color: var(--text-mute, #9ba9c0); }
+.round-frame h3 {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(48px, 6vw, 84px);
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  margin: 0 0 16px;
+  color: var(--text, #f4f8ff);
+}
+.round-frame .rf-result {
+  display: inline-block;
+  font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(34,230,107,0.14);
+  color: var(--accent, #22e66b);
+  border: 1px solid rgba(34,230,107,0.4);
+  margin-bottom: 18px;
+}
+.round-frame.is-dns .rf-result {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-mute, #9ba9c0);
+  border-color: rgba(255,255,255,0.12);
+}
+.round-frame.is-win .rf-result {
+  background: var(--accent, #22e66b);
+  color: #0a0a0a;
+}
+.round-frame .rf-narrative {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text, #f4f8ff);
+  max-width: 50ch;
+  margin: 0;
+}
+.round-frame .rf-image {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.round-frame .rf-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.round-frame:hover .rf-image img { transform: scale(1.04); }
+@media (max-width: 860px) {
+  .round-frame {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 36px 0;
+  }
+  .round-frame .rf-image { aspect-ratio: 16 / 10; }
+}
+
 /* ===== Reduced motion ================================================ */
 @media (prefers-reduced-motion: reduce) {
   .reveal.reveal-mask,
