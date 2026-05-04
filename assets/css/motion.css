@@ -306,6 +306,315 @@
   .round-frame .rf-image { aspect-ratio: 16 / 10; }
 }
 
+/* ===== Round-rail — horizontal pinned scroll (cinematic) ============
+   Used on results.html. The whole section pins on desktop while the
+   user scrolls; six round cards glide horizontally underneath. On
+   mobile (<=860px) the pin is disabled — the track becomes a native
+   scroll-snap row so swipe feels natural and we don't fight the OS.
+====================================================================== */
+.round-rail-section {
+  position: relative;
+  background: #06090f;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+  --rail-card-width: 80vw;
+  --rail-card-max: 1100px;
+  --rail-gap: 32px;
+}
+.round-rail-head {
+  text-align: center;
+  padding: 96px 24px 40px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.round-rail-head .eyebrow {
+  display: inline-block;
+  font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--accent, #22e66b);
+  margin-bottom: 18px;
+}
+.round-rail-head h2 {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(40px, 6vw, 72px);
+  letter-spacing: 0.02em;
+  line-height: 1.0;
+  margin: 0 0 14px;
+  color: var(--text, #f4f8ff);
+}
+.round-rail-head p {
+  color: var(--text-mute, #9ba9c0);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* The pinned wrapper — given viewport-height bounds for the pin */
+.round-rail-pin {
+  position: relative;
+  height: 88vh;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.round-rail-track {
+  display: flex;
+  gap: var(--rail-gap);
+  padding: 0 calc(50vw - var(--rail-card-width) / 2);
+  align-items: center;
+  will-change: transform;
+}
+
+/* ---------- Round card ---------- */
+.round-card {
+  flex: 0 0 var(--rail-card-width);
+  max-width: var(--rail-card-max);
+  height: 70vh;
+  min-height: 520px;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0c1320;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.round-card .rc-image {
+  position: relative;
+  overflow: hidden;
+}
+.round-card .rc-image::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 0%, transparent 50%, rgba(12,19,32,0.88) 100%);
+}
+.round-card .rc-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+  transition: transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.round-card.is-active .rc-image img { transform: scale(1.10); }
+.round-card .rc-num {
+  position: absolute;
+  top: 28px; left: 28px;
+  z-index: 2;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+}
+.round-card .rc-num-prefix {
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  color: var(--accent, #22e66b);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.round-card .rc-num-digit {
+  font-size: clamp(80px, 9vw, 140px);
+  color: rgba(255,255,255,0.92);
+  letter-spacing: -0.01em;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+.round-card.is-dns .rc-num-digit  { color: rgba(255,255,255,0.55); }
+.round-card.is-win .rc-num-prefix { color: #ffd23f; }
+.round-card.is-win .rc-num-digit  { color: #fff; }
+
+.round-card .rc-body {
+  position: relative;
+  z-index: 2;
+  padding: 36px 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(170deg, rgba(15,23,34,0.75) 0%, rgba(10,16,24,0.96) 70%);
+}
+.round-card .rc-meta {
+  font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-mute, #9ba9c0);
+  margin-bottom: 10px;
+}
+.round-card .rc-city {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin: 0 0 16px;
+  color: var(--text, #f4f8ff);
+  /* clip-path mask, animated on .is-active */
+  clip-path: inset(0 100% 0 0);
+  -webkit-clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.0s 0.15s cubic-bezier(0.77, 0, 0.18, 1),
+              -webkit-clip-path 1.0s 0.15s cubic-bezier(0.77, 0, 0.18, 1);
+}
+.round-card.is-active .rc-city,
+.round-card.no-anim .rc-city {
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
+}
+.round-card .rc-result {
+  display: inline-block;
+  font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(34,230,107,0.14);
+  color: var(--accent, #22e66b);
+  border: 1px solid rgba(34,230,107,0.4);
+  margin-bottom: 18px;
+  width: fit-content;
+}
+.round-card.is-dns .rc-result {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-mute, #9ba9c0);
+  border-color: rgba(255,255,255,0.14);
+}
+.round-card.is-win .rc-result {
+  background: var(--accent, #22e66b);
+  color: #0a0a0a;
+  border-color: var(--accent, #22e66b);
+}
+.round-card.is-finale .rc-result {
+  background: rgba(255,210,63,0.14);
+  color: #ffd23f;
+  border-color: rgba(255,210,63,0.5);
+}
+.round-card .rc-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text, #f4f8ff);
+  margin: 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s 0.25s cubic-bezier(0.2,0.8,0.2,1),
+              transform 0.7s 0.25s cubic-bezier(0.2,0.8,0.2,1);
+}
+.round-card.is-active .rc-text,
+.round-card.no-anim .rc-text { opacity: 0.92; transform: none; }
+
+/* ---------- Progress indicator (bottom-right) ---------- */
+.round-rail-progress {
+  position: absolute;
+  bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 5;
+  background: rgba(10,16,24,0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  pointer-events: none;
+}
+.round-rail-progress .rrp-label {
+  font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-mute, #9ba9c0);
+}
+.round-rail-progress .rrp-num {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  color: var(--accent, #22e66b);
+}
+.round-rail-progress .rrp-of {
+  color: var(--text-mute, #9ba9c0);
+  margin-left: 4px;
+}
+.round-rail-progress .rrp-bar {
+  width: 120px;
+  height: 2px;
+  background: rgba(255,255,255,0.10);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.round-rail-progress .rrp-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent, #22e66b), #38a9ff);
+  transition: width 0.2s linear;
+}
+
+.round-rail-hint {
+  position: absolute;
+  top: 50%; right: 28px;
+  transform: translateY(-50%);
+  z-index: 5;
+  font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  background: rgba(10,16,24,0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.round-rail-section.is-pinning .round-rail-hint { opacity: 0.85; }
+
+/* ---------- Mobile: native scroll-snap, no pin ---------- */
+@media (max-width: 860px) {
+  .round-rail-section {
+    --rail-card-width: 86vw;
+  }
+  .round-rail-pin {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .round-rail-track {
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 8px 7vw 32px;
+    transform: none !important;  /* override any GSAP transform */
+  }
+  .round-rail-track::-webkit-scrollbar { display: none; }
+  .round-rail-track > * { scroll-snap-align: center; }
+  .round-card {
+    height: auto;
+    min-height: 480px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 220px 1fr;
+  }
+  /* On mobile we don't run the IntersectionObserver enter/active flow,
+     so make every card visible immediately. */
+  .round-card {
+    /* trigger the activated state via class added by JS; falls back fine */
+  }
+  .round-rail-hint { display: none; }
+  .round-rail-progress { bottom: 8px; }
+}
+
 /* ===== Reduced motion ================================================ */
 @media (prefers-reduced-motion: reduce) {
   .reveal.reveal-mask,

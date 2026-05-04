@@ -252,6 +252,97 @@
     });
   });
 
+  /* ===== 2b. Round-rail — horizontal pinned scroll =================
+     A section that pins on desktop while the user scrolls vertically;
+     six round cards translate horizontally underneath. Mobile bypasses
+     pin and uses native scroll-snap (set up in motion.css).
+  ====================================================================== */
+  document.querySelectorAll('.round-rail-section').forEach(function (section) {
+    var track = section.querySelector('[data-round-track]');
+    var cards = track ? track.querySelectorAll('[data-round-card]') : [];
+    if (!track || !cards.length) return;
+
+    var progressNum = section.querySelector('[data-progress-num]');
+    var progressFill = section.querySelector('[data-progress-fill]');
+    var total = cards.length;
+
+    function setProgress(pct) {
+      var idx = Math.min(total, Math.max(1, Math.ceil(pct * total)));
+      if (progressNum) progressNum.textContent = idx;
+      if (progressFill) progressFill.style.width = (pct * 100).toFixed(1) + '%';
+    }
+
+    // ---- Mobile: native scroll-snap path -----------------------------
+    var isMobile = window.matchMedia('(max-width: 860px)').matches;
+    if (isMobile) {
+      // Mark every card no-anim so its title/text show immediately.
+      cards.forEach(function (c) { c.classList.add('no-anim'); });
+      // Update progress as the user swipes.
+      track.addEventListener('scroll', function () {
+        var max = track.scrollWidth - track.clientWidth;
+        if (max <= 0) return;
+        setProgress(track.scrollLeft / max);
+      }, { passive: true });
+      setProgress(0.001);
+      return;
+    }
+
+    // ---- Desktop: GSAP pin path -------------------------------------
+    if (!hasScrollTrigger) {
+      // GSAP missing — give every card the activated state so the user
+      // still sees the card content (no horizontal pin available).
+      cards.forEach(function (c) { c.classList.add('no-anim'); });
+      return;
+    }
+
+    // Compute the scroll distance: track width minus what's already
+    // visible (allow a small tail so the last card breathes at the edge).
+    function getScrollDistance() {
+      return Math.max(0, track.scrollWidth - section.clientWidth + 60);
+    }
+
+    var tween = gsap.to(track, {
+      x: function () { return -getScrollDistance(); },
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: function () { return '+=' + getScrollDistance(); },
+        pin: '.round-rail-pin',
+        scrub: 0.5,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+        onEnter: function () { section.classList.add('is-pinning'); },
+        onLeave: function () { section.classList.remove('is-pinning'); },
+        onEnterBack: function () { section.classList.add('is-pinning'); },
+        onLeaveBack: function () { section.classList.remove('is-pinning'); },
+        onUpdate: function (self) {
+          setProgress(self.progress);
+          // Activate the card whose center is closest to the viewport
+          // center, accounting for the live transform on the track.
+          var trackRect = track.getBoundingClientRect();
+          var viewCenter = window.innerWidth / 2;
+          var nearest = 0;
+          var nearestDist = Infinity;
+          for (var i = 0; i < cards.length; i++) {
+            var r = cards[i].getBoundingClientRect();
+            var c = r.left + r.width / 2;
+            var d = Math.abs(c - viewCenter);
+            if (d < nearestDist) { nearestDist = d; nearest = i; }
+          }
+          for (var j = 0; j < cards.length; j++) {
+            cards[j].classList.toggle('is-active', j === nearest);
+          }
+        }
+      }
+    });
+
+    // Pre-activate the first card so it's not blank during the brief
+    // moment before the user starts scrolling.
+    cards[0].classList.add('is-active');
+    setProgress(0.001);
+  });
+
   /* ===== 3. Hero scrub — subtle scroll-zoom on tagged hero img/video = */
   document.querySelectorAll('[data-hero-scrub]').forEach(function (el) {
     var trigger = el.closest('section, header') || el;

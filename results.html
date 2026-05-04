@@ -97,85 +97,17 @@
   </section>
 
   <!-- ===== RESULTS TABLE ===== -->
-  <section id="rounds" data-chapter="Round by Round" style="padding-top:72px; scroll-margin-top:80px;">
+  <section id="rounds" data-chapter="Scoreboard" style="padding-top:72px; scroll-margin-top:80px;">
     <div class="container">
       <div class="section-head">
         <div>
-          <span class="eyebrow">Round by round</span>
-          <h2 style="margin-top:16px;">The <span class="accent">Debut Season</span>.</h2>
+          <span class="eyebrow">Results · debut season</span>
+          <h2 style="margin-top:16px;">The <span class="accent">scoreboard</span>.</h2>
         </div>
         <p>Five of six rounds contested — missed the Chennai opener. Coimbatore, Coorg, Bengaluru, Indore, Nashik. Gravel stages and a mechanical finale. A runner-up title earned the hard way.</p>
       </div>
 
-      <!-- Narrative round-by-round: sticky rail + scrolling frames -->
-      <div class="sticky-story round-story" aria-label="Round by round narrative">
-        <ul class="sticky-rail" role="navigation" aria-label="Jump to round">
-          <li data-rail-id="r1" data-active="true"><span class="sr-num">RD 1</span>Chennai</li>
-          <li data-rail-id="r2"><span class="sr-num">RD 2</span>Coimbatore</li>
-          <li data-rail-id="r3"><span class="sr-num">RD 3</span>Coorg</li>
-          <li data-rail-id="r4"><span class="sr-num">RD 4</span>K1000</li>
-          <li data-rail-id="r5"><span class="sr-num">RD 5</span>Indore</li>
-          <li data-rail-id="r6"><span class="sr-num">RD 6</span>Nashik</li>
-        </ul>
-        <div class="sticky-frames">
-          <article data-frame-id="r1" class="round-frame is-dns">
-            <div>
-              <div class="rf-eyebrow">Round 01 · April 2025</div>
-              <h3>Chennai</h3>
-              <div class="rf-result">DNS — pre-season commitment</div>
-              <p class="rf-narrative">Missed the season opener. The campaign would start fresh in Coimbatore in June — and inside one round, deliver a debut podium.</p>
-            </div>
-            <div class="rf-image"><img src="assets/images/duo-pitlane.jpg" alt="Abhimanyu &amp; Vijay in race suits — pit lane" loading="lazy"/></div>
-          </article>
-          <article data-frame-id="r2" class="round-frame">
-            <div>
-              <div class="rf-eyebrow">Round 02 · June 2025</div>
-              <h3>Coimbatore</h3>
-              <div class="rf-result">P2 JINRC · P4 INRC3 · Both legs P2 · Debut</div>
-              <p class="rf-narrative">First INRC start. P2 in JINRC, P4 INRC3 overall — going time-for-time with India's most experienced rally crews. Set the tone for the season.</p>
-            </div>
-            <div class="rf-image"><img src="assets/images/team-snap-trophies.jpg" alt="Garage Snap Racing trophy moment" loading="lazy"/></div>
-          </article>
-          <article data-frame-id="r3" class="round-frame">
-            <div>
-              <div class="rf-eyebrow">Round 03 · September 2025</div>
-              <h3>Coorg</h3>
-              <div class="rf-result">P3 overall · L1: P3 · L2: P2</div>
-              <p class="rf-narrative">Forest twisties, plantation roads, narrow lines. Closed Leg 2 in P2 to finish on the overall podium — a result earned in the kind of stages that separate drivers from passengers.</p>
-            </div>
-            <div class="rf-image"><img src="assets/images/action-dust.jpg" alt="VW Polo #41 in dust on a forest stage" loading="lazy"/></div>
-          </article>
-          <article data-frame-id="r4" class="round-frame is-win">
-            <div>
-              <div class="rf-eyebrow">Round 04 · August 2025 · Bengaluru K1000</div>
-              <h3>K1000</h3>
-              <div class="rf-result">P1 Leg 1 · P2 overall · First win</div>
-              <p class="rf-narrative">First stage win in INRC, on the flagship round. Took Leg 1 outright and held P2 across the weekend. The week the season turned from "promising debutant" to "real contender".</p>
-            </div>
-            <div class="rf-image"><img src="assets/images/duo-trophies.jpg" alt="Abhimanyu &amp; Vijay with K1000 trophies" loading="lazy"/></div>
-          </article>
-          <article data-frame-id="r5" class="round-frame is-win">
-            <div>
-              <div class="rf-eyebrow">Round 05 · January 2026</div>
-              <h3>Indore</h3>
-              <div class="rf-result">Won both legs · 2× wins · Most dominant round</div>
-              <p class="rf-narrative">Different car. Different line. Different driver. Won both legs back-to-back on Madhya Pradesh gravel — the most dominant single-round performance of the season.</p>
-            </div>
-            <div class="rf-image"><img src="assets/images/action-indore.jpg" alt="VW Polo #41 in action at the Indore round" loading="lazy"/></div>
-          </article>
-          <article data-frame-id="r6" class="round-frame">
-            <div>
-              <div class="rf-eyebrow">Round 06 · February 2026 · Nashik</div>
-              <h3>Nashik</h3>
-              <div class="rf-result">Rear beam failure L1 · P3 L2 · Sealed runner-up</div>
-              <p class="rf-narrative">Mechanical failure on Leg 1. Rebuilt overnight, returned Leg 2, brought it home in P3. Salvaged enough points to seal the JINRC runner-up trophy — the hard way.</p>
-            </div>
-            <div class="rf-image"><img src="assets/images/team-thumbsup.jpg" alt="Crew thumbs up after recovery — Nashik" loading="lazy"/></div>
-          </article>
-        </div>
-      </div>
-
-      <div class="results-wrap" style="margin-top:48px;">
+      <div class="results-wrap">
         <table class="results-table">
           <thead>
             <tr>
@@ -226,6 +158,108 @@
         </table>
         <div class="final-standing">FINAL STANDING · P2 JINRC · P4 INRC3 OVERALL · DEBUT SEASON</div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== ROUND BY ROUND — horizontal pinned scroll ===== -->
+  <section class="round-rail-section" id="round-rail" data-chapter="Round by round" style="scroll-margin-top:80px;" data-anim="off">
+    <div class="round-rail-head">
+      <span class="eyebrow">Round by round · the story</span>
+      <h2>Six races. <span class="accent">One season.</span></h2>
+      <p>Scroll through the season — one round at a time. Each panel is a chapter: the city, the result, and what made it the round it was.</p>
+    </div>
+    <div class="round-rail-pin">
+      <div class="round-rail-track" data-round-track>
+        <article class="round-card is-dns" data-round-card>
+          <div class="rc-image"><img src="assets/images/duo-pitlane.jpg" alt="Abhimanyu &amp; Vijay in race suits — pit lane" loading="lazy"/></div>
+          <div class="rc-num">
+            <span class="rc-num-prefix">Round</span>
+            <span class="rc-num-digit">01</span>
+          </div>
+          <div class="rc-body">
+            <div class="rc-meta">April 2025 · Tamil Nadu</div>
+            <h3 class="rc-city">Chennai</h3>
+            <div class="rc-result">DNS · pre-season commitment</div>
+            <p class="rc-text">Missed the season opener. The campaign would start fresh in Coimbatore in June — and inside one round, deliver a debut podium. Sometimes the best chapter is the one that didn't happen.</p>
+          </div>
+        </article>
+
+        <article class="round-card" data-round-card>
+          <div class="rc-image"><img src="assets/images/team-snap-trophies.jpg" alt="Garage Snap Racing trophy moment" loading="lazy"/></div>
+          <div class="rc-num">
+            <span class="rc-num-prefix">Round</span>
+            <span class="rc-num-digit">02</span>
+          </div>
+          <div class="rc-body">
+            <div class="rc-meta">June 2025 · Tamil Nadu</div>
+            <h3 class="rc-city">Coimbatore</h3>
+            <div class="rc-result">P2 JINRC · P4 INRC3 · Both legs P2 · Debut podium</div>
+            <p class="rc-text">First INRC start. Trading times with India's most experienced rally crews — and walking off the stage with a P2 in JINRC, P4 overall in INRC3. The whole season turned on this weekend.</p>
+          </div>
+        </article>
+
+        <article class="round-card" data-round-card>
+          <div class="rc-image"><img src="assets/images/action-dust.jpg" alt="VW Polo #41 in dust on a forest stage" loading="lazy"/></div>
+          <div class="rc-num">
+            <span class="rc-num-prefix">Round</span>
+            <span class="rc-num-digit">03</span>
+          </div>
+          <div class="rc-body">
+            <div class="rc-meta">September 2025 · Karnataka</div>
+            <h3 class="rc-city">Coorg</h3>
+            <div class="rc-result">P3 overall · L1: P3 · L2: P2</div>
+            <p class="rc-text">Forest twisties, plantation roads, narrow lines. Closed Leg 2 in P2 to finish on the overall podium — a result earned in exactly the kind of stages that separate drivers from passengers.</p>
+          </div>
+        </article>
+
+        <article class="round-card is-win" data-round-card>
+          <div class="rc-image"><img src="assets/images/duo-trophies.jpg" alt="Abhimanyu &amp; Vijay with K1000 trophies" loading="lazy"/></div>
+          <div class="rc-num">
+            <span class="rc-num-prefix">Round</span>
+            <span class="rc-num-digit">04</span>
+          </div>
+          <div class="rc-body">
+            <div class="rc-meta">August 2025 · Bengaluru K1000</div>
+            <h3 class="rc-city">K1000</h3>
+            <div class="rc-result">P1 Leg 1 · P2 overall · First INRC win</div>
+            <p class="rc-text">First stage win, on the flagship round. Took Leg 1 outright; held P2 across the weekend. The week the season turned from "promising debutant" to "real contender".</p>
+          </div>
+        </article>
+
+        <article class="round-card is-win" data-round-card>
+          <div class="rc-image"><img src="assets/images/action-indore.jpg" alt="VW Polo #41 in action at the Indore round" loading="lazy"/></div>
+          <div class="rc-num">
+            <span class="rc-num-prefix">Round</span>
+            <span class="rc-num-digit">05</span>
+          </div>
+          <div class="rc-body">
+            <div class="rc-meta">January 2026 · Madhya Pradesh</div>
+            <h3 class="rc-city">Indore</h3>
+            <div class="rc-result">Won both legs · 2× wins · Most dominant round</div>
+            <p class="rc-text">Different car. Different line. Different driver. Won both legs back-to-back on Madhya Pradesh gravel — the most dominant single-round performance of the season.</p>
+          </div>
+        </article>
+
+        <article class="round-card is-finale" data-round-card>
+          <div class="rc-image"><img src="assets/images/team-thumbsup.jpg" alt="Crew thumbs up after recovery — Nashik" loading="lazy"/></div>
+          <div class="rc-num">
+            <span class="rc-num-prefix">Finale</span>
+            <span class="rc-num-digit">06</span>
+          </div>
+          <div class="rc-body">
+            <div class="rc-meta">February 2026 · Maharashtra</div>
+            <h3 class="rc-city">Nashik</h3>
+            <div class="rc-result">Rear beam failure L1 · P3 L2 · Sealed runner-up</div>
+            <p class="rc-text">Mechanical failure on Leg 1. Rebuilt overnight, returned Leg 2, brought it home in P3 — salvaging enough points to seal the JINRC runner-up trophy. Earned the hard way.</p>
+          </div>
+        </article>
+      </div>
+      <div class="round-rail-progress" aria-hidden="true">
+        <span class="rrp-label">Round</span>
+        <span class="rrp-num"><span data-progress-num>1</span><span class="rrp-of"> / 6</span></span>
+        <div class="rrp-bar"><div class="rrp-fill" data-progress-fill></div></div>
+      </div>
+      <div class="round-rail-hint">Keep scrolling →</div>
     </div>
   </section>
 
