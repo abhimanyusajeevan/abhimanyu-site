@@ -2553,18 +2553,18 @@ html.is-loading { overflow: hidden; }
   display: grid;
   grid-template-columns: 120px 1fr;
   gap: 56px;
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
   align-items: start;
 }
 .chapter-num {
   font-family: var(--font-display);
-  font-size: clamp(40px, 3.4vw, 56px);
+  font-size: clamp(48px, 4.4vw, 72px);
   letter-spacing: 0.02em;
   line-height: 1;
   color: var(--accent);
   font-weight: 500;
   position: relative;
-  padding-top: 8px;
+  padding-top: 10px;
 }
 .chapter-num::after {
   content: '';
@@ -2585,15 +2585,15 @@ html.is-loading { overflow: hidden; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .chapter-title {
   font-family: var(--font-display);
-  font-size: clamp(48px, 7vw, 104px);
-  line-height: 0.98;
+  font-size: clamp(56px, 8vw, 128px);
+  line-height: 0.95;
   letter-spacing: -0.02em;
   font-weight: 600;
-  margin: 0 0 22px;
+  margin: 0 0 14px;
   max-width: 30ch;
 }
 .chapter-title .accent { color: var(--accent); }
