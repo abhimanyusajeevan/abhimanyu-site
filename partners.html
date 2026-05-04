@@ -24,6 +24,7 @@
   <meta name="twitter:image" content="https://abhimanyusajeevan.github.io/abhimanyu-site/assets/images/action-indore.jpg" />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/motion.css" />
 </head>
 <body>
 
@@ -249,12 +250,12 @@
       </div>
 
       <div class="partner-grid" style="margin-top:32px;">
-        <div class="partner-card confirmed">
+        <div class="partner-card confirmed" data-tilt="5">
           <div class="cat">Commercial · Returning</div>
           <h4>JK Tyre &amp; Turbo Tonic</h4>
           <p>Year-one personal sponsors, both returning. JK Tyre on the technical side, Turbo Tonic on media &amp; podcast. New brands plug into a roster — they don't bootstrap one.</p>
         </div>
-        <div class="partner-card confirmed">
+        <div class="partner-card confirmed" data-tilt="5">
           <div class="cat">Team · Garage &amp; Mentors</div>
           <h4>Snap Racing + Vision 4 + Fabid Ahmer</h4>
           <p>Garage Snap Racing handles workshop, build, and full-time service crew. Driver coach <strong>Fabid Ahmer</strong> (multiple-time INRC champion, Vision 4 Motorsport Solutions). Co-driver coach <strong>Raghuram S</strong> (Vision 4 Motorsport Solutions). Pit crew &amp; spotters travel every race weekend.</p>
@@ -574,6 +575,9 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/motion.js" defer></script>
   <script>
   /* Package picker — sponsor decision helper */
   (function () {

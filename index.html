@@ -24,6 +24,7 @@
   <meta name="twitter:image" content="https://abhimanyusajeevan.github.io/abhimanyu-site/assets/images/action-indore.jpg" />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/motion.css" />
 </head>
 <body>
 
@@ -54,7 +55,8 @@
     <div class="hero-video-bg">
       <video autoplay muted loop playsinline preload="auto"
              poster="assets/images/action-indore.jpg"
-             aria-hidden="true">
+             aria-hidden="true"
+             data-hero-scrub>
         <source src="assets/videos/hero-loop.mp4" type="video/mp4" />
       </video>
     </div>
@@ -145,7 +147,7 @@
         <div class="chapter-num reveal">01</div>
         <div>
           <div class="chapter-eyebrow reveal">Live from the stages · 30M+ views per event</div>
-          <h2 class="chapter-title reveal">Watch the car at <span class="accent">full send.</span></h2>
+          <h2 class="chapter-title reveal reveal-mask">Watch the car at <span class="accent">full send.</span></h2>
           <p class="chapter-lede reveal">Three reels from inside the most-watched debut season in Indian rally. Hover or tap to play with sound — this is what your brand would ride alongside.</p>
         </div>
       </div>
@@ -180,14 +182,14 @@
         <div class="chapter-num reveal">02</div>
         <div>
           <div class="chapter-eyebrow reveal">The duo · the team behind the car</div>
-          <h2 class="chapter-title reveal">Two kids from <span class="accent">Calicut</span>.<br/>One shot at history.</h2>
+          <h2 class="chapter-title reveal reveal-mask">Two kids from <span class="accent">Calicut</span>.<br/>One shot at history.</h2>
           <p class="chapter-lede reveal">Same city. Same obsession. The first rally crew from Calicut on the national podium — and the story Indian motorsport is starting to write.</p>
         </div>
       </div>
 
       <div class="duo-grid reveal reveal-delay-1">
         <div class="duo-photo" style="aspect-ratio:3/4;">
-          <img src="assets/images/duo-pitlane.jpg" alt="Abhimanyu &amp; Vijay in race suits — pit lane" loading="lazy" style="object-position:center 25%;"/>
+          <img src="assets/images/duo-pitlane.jpg" alt="Abhimanyu &amp; Vijay in race suits — pit lane" loading="lazy" style="object-position:center 25%;" data-parallax="0.18"/>
         </div>
         <div class="duo-text">
           <p style="font-size:18px;"><strong>Abhimanyu Sajeevan</strong> drives — IIT Bombay Mechanical Engineering '17, finance professional in Bengaluru, trained by multiple-time INRC champion <strong>Fabid Ahmer</strong> of Vision 4 Motorsport Solutions.</p>
@@ -211,14 +213,14 @@
         <div class="chapter-num reveal">03</div>
         <div>
           <div class="chapter-eyebrow reveal">In the press · OnManorama profile</div>
-          <h2 class="chapter-title reveal">The story <span class="accent">already in print</span>.</h2>
+          <h2 class="chapter-title reveal reveal-mask">The story <span class="accent">already in print</span>.</h2>
           <p class="chapter-lede reveal">National media is telling this story. Sponsors don't have to manufacture a narrative — they ride one journalists already want to write.</p>
         </div>
       </div>
 
       <div class="press-grid reveal reveal-delay-1">
         <!-- Manorama newspaper clipping with photo -->
-        <a class="press-clipping" href="https://www.onmanorama.com/sports/motor-sports/2026/03/15/malayali-racer-abhimanyu-sanjeevan-runner-up-junior-indian-national-rally-championship-profile.html" target="_blank" rel="noopener" aria-label="Read the OnManorama profile">
+        <a class="press-clipping" data-tilt="4" href="https://www.onmanorama.com/sports/motor-sports/2026/03/15/malayali-racer-abhimanyu-sanjeevan-runner-up-junior-indian-national-rally-championship-profile.html" target="_blank" rel="noopener" aria-label="Read the OnManorama profile">
           <div class="pc-masthead">
             <span>Malayāḷa Manōrama</span>
             <span class="pc-edition">Online · Sports Desk</span>
@@ -248,7 +250,7 @@
 
         <!-- Right-column tiles -->
         <div class="press-tiles">
-          <a class="press-tile" href="https://youtube.com/watch?v=Kq-tdhoU5n4" target="_blank" rel="noopener">
+          <a class="press-tile" data-tilt="6" href="https://youtube.com/watch?v=Kq-tdhoU5n4" target="_blank" rel="noopener">
             <div class="pt-icon">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#0a1018"/></svg>
             </div>
@@ -259,7 +261,7 @@
             </div>
             <svg class="pt-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
-          <a class="press-tile" href="https://instagram.com/abhiii_manyu" target="_blank" rel="noopener">
+          <a class="press-tile" data-tilt="6" href="https://instagram.com/abhiii_manyu" target="_blank" rel="noopener">
             <div class="pt-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
             </div>
@@ -270,7 +272,7 @@
             </div>
             <svg class="pt-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
-          <div class="press-tile">
+          <div class="press-tile" data-tilt="6">
             <div class="pt-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
             </div>
@@ -302,7 +304,7 @@
         <div class="chapter-num reveal">04</div>
         <div>
           <div class="chapter-eyebrow reveal">The reach · per race weekend</div>
-          <h2 class="chapter-title reveal">Where 30M+ eyes <span class="accent">already are.</span></h2>
+          <h2 class="chapter-title reveal reveal-mask">Where 30M+ eyes <span class="accent">already are.</span></h2>
           <p class="chapter-lede reveal">National TV, Reels, OnManorama features, regional press. Here's exactly where the eyes come from — and what that means for your brand on the #41.</p>
         </div>
       </div>
@@ -422,7 +424,7 @@
         <div class="chapter-num reveal">05</div>
         <div>
           <div class="chapter-eyebrow reveal">Pick your spot · live placement preview</div>
-          <h2 class="chapter-title reveal">See your logo on the <span class="accent">#41</span>.</h2>
+          <h2 class="chapter-title reveal reveal-mask">See your logo on the <span class="accent">#41</span>.</h2>
           <p class="chapter-lede reveal">Hover any panel of the car. Each surface is a sponsor tier — every race weekend, in front of the cameras, on national TV. Pick yours before the next brand does.</p>
         </div>
       </div>
@@ -562,7 +564,7 @@
         <div class="chapter-num reveal">06</div>
         <div>
           <div class="chapter-eyebrow reveal">The season ahead · INRC 2026–27</div>
-          <h2 class="chapter-title reveal">Six race weekends.<br/><span class="accent">Six chances</span> to own the story.</h2>
+          <h2 class="chapter-title reveal reveal-mask">Six race weekends.<br/><span class="accent">Six chances</span> to own the story.</h2>
           <p class="chapter-lede reveal">Spin the season on the interactive map. Read the round-by-round 2025–26 results. See your brand in the gallery. Three places to start.</p>
         </div>
       </div>
@@ -663,5 +665,8 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/motion.js" defer></script>
 </body>
 </html>
