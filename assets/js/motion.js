@@ -490,4 +490,89 @@
       update();
     }
   });
+
+  /* ===== 4. Chapter page-fold entrance ==============================
+     Each home-page chapter section enters with a subtle rotateX +
+     translateZ as it scrolls into the viewport — a paper-fold reveal
+     that gives the whole page a 3D scrolling feel. Only fires on
+     sections tagged with .chapter (or [data-fold-3d]) and only when
+     ScrollTrigger is available; reduced motion already short-circuits
+     this whole file.
+  ====================================================================== */
+  if (hasScrollTrigger) {
+    var foldTargets = document.querySelectorAll('.chapter, [data-fold-3d]');
+    if (foldTargets.length) {
+      // Give the document an ambient perspective so the rotateX renders
+      // as 3D depth, not flatten. We scope it on body so it only adds
+      // depth where children opt in via transform.
+      document.body.style.perspective = '1800px';
+      document.body.style.perspectiveOrigin = '50% 30%';
+
+      foldTargets.forEach(function (sec) {
+        // Skip if the section already opts out (e.g. round-rail-section
+        // is data-anim="off" — handled by its own pin).
+        if (sec.dataset.anim === 'off') return;
+        if (sec.classList.contains('round-rail-section')) return;
+        gsap.set(sec, { transformPerspective: 1800, transformOrigin: 'center 50%' });
+        gsap.fromTo(sec,
+          { rotateX: -6, z: -80, autoAlpha: 0.65 },
+          {
+            rotateX: 0, z: 0, autoAlpha: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: sec,
+              start: 'top 92%',
+              end: 'top 50%',
+              scrub: 0.6
+            }
+          }
+        );
+        // Mirror exit fold as the section leaves the top of the
+        // viewport — sections fold back into the page on the way out.
+        gsap.fromTo(sec,
+          { rotateX: 0, z: 0 },
+          {
+            rotateX: 4, z: -50,
+            ease: 'power2.in',
+            scrollTrigger: {
+              trigger: sec,
+              start: 'bottom 60%',
+              end: 'bottom 10%',
+              scrub: 0.6
+            }
+          }
+        );
+      });
+    }
+  }
+
+  /* ===== 5. Stat numbers — Z-axis pop ===============================
+     Numbers tagged with [data-target] (the count-up convention used
+     elsewhere on the site) get an entrance from translateZ(-180px)
+     to 0 as they enter view. Combined with the existing count-up,
+     the digits feel like they SNAP forward into focus.
+  ====================================================================== */
+  if (hasScrollTrigger) {
+    document.querySelectorAll('[data-target]').forEach(function (el) {
+      // The count-up logic lives in main.js; we only handle the entrance
+      // transform. Skip if the element is already inside an active hero
+      // parallax (the hero-card already animates on Z).
+      if (el.closest('.hero-card')) return;
+      gsap.set(el, { transformPerspective: 1200, transformOrigin: 'center' });
+      gsap.fromTo(el,
+        { z: -180, autoAlpha: 0, rotateX: 12 },
+        {
+          z: 0, autoAlpha: 1, rotateX: 0,
+          duration: 0.9,
+          ease: 'expo.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            once: true
+          }
+        }
+      );
+    });
+  }
+
 })();
