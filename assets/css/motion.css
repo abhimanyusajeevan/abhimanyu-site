@@ -361,6 +361,8 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
 }
 .round-rail-track {
   display: flex;
@@ -368,6 +370,13 @@
   padding: 0 calc(50vw - var(--rail-card-width) / 2);
   align-items: center;
   will-change: transform;
+  transform-style: preserve-3d;
+}
+.round-card {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: opacity 0.3s ease;
 }
 
 /* ---------- Round card ---------- */

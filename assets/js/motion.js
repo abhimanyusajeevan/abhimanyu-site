@@ -164,11 +164,13 @@
       var qX = gsap.quickTo(card, 'rotationY', { duration: 0.55, ease: 'power3.out' });
       var qY = gsap.quickTo(card, 'rotationX', { duration: 0.55, ease: 'power3.out' });
       var qLift = gsap.quickTo(card, 'y', { duration: 0.55, ease: 'power3.out' });
-      gsap.set(card, { transformPerspective: 900, transformOrigin: 'center' });
+      var qZ = gsap.quickTo(card, 'z', { duration: 0.55, ease: 'power3.out' });
+      gsap.set(card, { transformPerspective: 1100, transformOrigin: 'center', transformStyle: 'preserve-3d' });
 
       card.addEventListener('mouseenter', function () {
         rect = card.getBoundingClientRect();
         card.dataset.tiltActive = 'true';
+        qZ(40); // pull the card forward in 3D space
       });
       card.addEventListener('mousemove', function (e) {
         if (!rect) rect = card.getBoundingClientRect();
@@ -179,7 +181,7 @@
         qLift(-lift);
       });
       card.addEventListener('mouseleave', function () {
-        qX(0); qY(0); qLift(0);
+        qX(0); qY(0); qLift(0); qZ(0);
         card.dataset.tiltActive = 'false';
       });
     } else {
@@ -356,17 +358,33 @@
         onLeaveBack: function () { section.classList.remove('is-pinning'); },
         onUpdate: function (self) {
           setProgress(self.progress);
-          // Activate the card whose center is closest to the viewport
-          // center, accounting for the live transform on the track.
-          var trackRect = track.getBoundingClientRect();
+          // Coverflow + active-card pass: each card rotates around the
+          // viewport's vertical center axis. Cards left of center tip
+          // away to the right, cards right of center tip away to the
+          // left, the centered card sits flat. Builds depth without
+          // any per-frame asset work.
           var viewCenter = window.innerWidth / 2;
           var nearest = 0;
           var nearestDist = Infinity;
+          var maxRot = 28; // degrees at full distance
+          var halfView = window.innerWidth / 2;
           for (var i = 0; i < cards.length; i++) {
             var r = cards[i].getBoundingClientRect();
             var c = r.left + r.width / 2;
-            var d = Math.abs(c - viewCenter);
-            if (d < nearestDist) { nearestDist = d; nearest = i; }
+            var dist = c - viewCenter;
+            // Clamp normalised distance to [-1, 1]
+            var t = Math.max(-1, Math.min(1, dist / halfView));
+            var rotY = t * maxRot;            // -28 .. +28
+            var scale = 1 - Math.abs(t) * 0.06; // 1 .. 0.94
+            var opacity = 1 - Math.abs(t) * 0.35;
+            // Parent has perspective:1400px; card just rotates + scales.
+            cards[i].style.transform =
+              'rotateY(' + rotY.toFixed(2) + 'deg)' +
+              ' scale(' + scale.toFixed(3) + ')';
+            cards[i].style.opacity = opacity.toFixed(3);
+            cards[i].style.zIndex = String(10 - Math.round(Math.abs(t) * 10));
+            var absD = Math.abs(dist);
+            if (absD < nearestDist) { nearestDist = absD; nearest = i; }
           }
           for (var j = 0; j < cards.length; j++) {
             cards[j].classList.toggle('is-active', j === nearest);
@@ -380,6 +398,58 @@
     cards[0].classList.add('is-active');
     setProgress(0.001);
   });
+
+  /* ===== 2c. Hero 3D mouse-parallax ================================
+     Cursor moves the hero video one way, the headline content the
+     other way, building a parallax depth illusion. Only fires on
+     hover-capable viewports.
+  ====================================================================== */
+  if (!isTouchOnly) {
+    document.querySelectorAll('.hero').forEach(function (hero) {
+      var bg = hero.querySelector('.hero-video-bg');
+      var main = hero.querySelector('.hero-main') || hero.querySelector('.hero-inner');
+      var card = hero.querySelector('.hero-card');
+      if (!bg && !main) return;
+      hero.style.perspective = '1400px';
+      hero.style.transformStyle = 'preserve-3d';
+
+      var bgX = 0, bgY = 0, mX = 0, mY = 0, cX = 0, cY = 0;
+      var tBgX = 0, tBgY = 0, tMX = 0, tMY = 0, tCX = 0, tCY = 0;
+      var raf = null;
+
+      function tick() {
+        bgX += (tBgX - bgX) * 0.08;
+        bgY += (tBgY - bgY) * 0.08;
+        mX  += (tMX  - mX)  * 0.10;
+        mY  += (tMY  - mY)  * 0.10;
+        cX  += (tCX  - cX)  * 0.10;
+        cY  += (tCY  - cY)  * 0.10;
+        if (bg)   bg.style.transform   = 'translate3d(' + bgX.toFixed(2) + 'px,' + bgY.toFixed(2) + 'px, -40px)';
+        if (main) main.style.transform = 'translate3d(' + mX.toFixed(2) + 'px,' + mY.toFixed(2) + 'px, 30px)';
+        if (card) card.style.transform = 'translate3d(' + cX.toFixed(2) + 'px,' + cY.toFixed(2) + 'px, 50px)';
+        if (Math.abs(tBgX - bgX) > 0.05 || Math.abs(tMX - mX) > 0.05 || Math.abs(tCX - cX) > 0.05) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+        }
+      }
+      hero.addEventListener('mousemove', function (e) {
+        var rect = hero.getBoundingClientRect();
+        var x = (e.clientX - rect.left) / rect.width - 0.5;  // -0.5..0.5
+        var y = (e.clientY - rect.top) / rect.height - 0.5;
+        // Background moves WITH cursor (closer feel)
+        tBgX = x * 18;  tBgY = y * 12;
+        // Foreground moves OPPOSITE (parallax depth)
+        tMX  = x * -10; tMY  = y * -7;
+        tCX  = x * -16; tCY  = y * -10;
+        if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+      hero.addEventListener('mouseleave', function () {
+        tBgX = 0; tBgY = 0; tMX = 0; tMY = 0; tCX = 0; tCY = 0;
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+    });
+  }
 
   /* ===== 3. Hero scrub — subtle scroll-zoom on tagged hero img/video = */
   document.querySelectorAll('[data-hero-scrub]').forEach(function (el) {
