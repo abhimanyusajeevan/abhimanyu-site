@@ -2854,6 +2854,130 @@ html.is-loading { overflow: hidden; }
   margin: 0;
 }
 
+/* ===== Cinematic variant — full-bleed editorial moment ============= */
+.parallax-divider-cinematic {
+  height: 100vh;
+  min-height: 720px;
+}
+.parallax-divider-cinematic::after {
+  /* Override the default soft gradient — this needs a heavier dark
+     wash on top + bottom so the huge typography reads cleanly. */
+  background:
+    linear-gradient(180deg,
+      rgba(5,8,14,0.72) 0%,
+      rgba(5,8,14,0.30) 28%,
+      rgba(5,8,14,0.30) 60%,
+      rgba(5,8,14,0.92) 100%),
+    radial-gradient(ellipse 80% 60% at 12% 50%, rgba(0,0,0,0.45), transparent 70%);
+}
+.parallax-divider-cinematic .parallax-divider-content {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 0;
+  padding: clamp(40px, 5vh, 72px) clamp(20px, 6vw, 80px);
+  max-width: none;
+  justify-content: stretch;
+}
+.parallax-divider-cinematic .pd-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.parallax-divider-cinematic .pd-mark {
+  color: var(--accent);
+  font-weight: 700;
+}
+.parallax-divider-cinematic .pd-mark::before {
+  /* Tiny pulse dot before the mark — stays in brand-green */
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+  box-shadow: 0 0 0 4px rgba(34,230,107,0.18);
+  animation: pd-dot-pulse 1.6s ease-in-out infinite;
+}
+.parallax-divider-cinematic .pd-place {
+  color: rgba(255,255,255,0.78);
+}
+@keyframes pd-dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(34,230,107,0.18); }
+  50%      { box-shadow: 0 0 0 9px rgba(34,230,107,0); }
+}
+
+.parallax-divider-cinematic .parallax-divider-text {
+  font-size: clamp(64px, 13vw, 220px);
+  line-height: 0.86;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  margin: auto 0;
+  max-width: none;
+  text-shadow: 0 6px 60px rgba(0,0,0,0.55);
+  display: block;
+}
+.parallax-divider-cinematic .pd-l {
+  display: block;
+  white-space: nowrap;
+}
+.parallax-divider-cinematic .pd-l-2 { padding-left: 8vw; color: var(--accent); }
+.parallax-divider-cinematic .pd-l-3 {
+  padding-left: 14vw;
+  font-size: 0.66em;
+  line-height: 1.05;
+  margin-top: 0.06em;
+}
+.parallax-divider-cinematic .pd-l-4 {
+  padding-left: 4vw;
+  font-size: 0.30em;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+  color: rgba(255,255,255,0.78);
+  margin-top: 0.2em;
+  white-space: normal;
+  max-width: 60ch;
+  font-family: var(--font-body);
+}
+
+.parallax-divider-cinematic .pd-prompt {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: rgba(255,255,255,0.78);
+  text-transform: uppercase;
+}
+.parallax-divider-cinematic .pd-arrow {
+  font-size: 20px;
+  color: var(--accent);
+  animation: pd-bounce 2.2s ease-in-out infinite;
+}
+@keyframes pd-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50%      { transform: translateY(8px); opacity: 1; }
+}
+
+@media (max-width: 720px) {
+  .parallax-divider-cinematic { min-height: 560px; height: 86vh; }
+  .parallax-divider-cinematic .parallax-divider-text {
+    font-size: clamp(48px, 14vw, 96px);
+  }
+  .parallax-divider-cinematic .pd-l-2 { padding-left: 6vw; }
+  .parallax-divider-cinematic .pd-l-3 { padding-left: 10vw; }
+  .parallax-divider-cinematic .pd-l-4 { padding-left: 2vw; font-size: 0.34em; }
+  .parallax-divider-cinematic .pd-tag { font-size: 10px; letter-spacing: 0.24em; gap: 10px; }
+  .parallax-divider-cinematic .pd-prompt { font-size: 10px; letter-spacing: 0.24em; }
+}
+
 /* =========================================================
    PROGRESS RAIL — right-side floating chapter indicator
    ========================================================= */
