@@ -636,3 +636,155 @@
   [data-tilt] { transform: none !important; transition: none !important; }
   [data-tilt]:hover { box-shadow: inherit; }
 }
+
+/* =====================================================================
+   GLASS CARD TREATMENT — Active-Theory-flavoured surface vocabulary
+   ---------------------------------------------------------------------
+   Translucent fill + radial top-edge highlight + gradient rim-light
+   border + soft shadow + cast inner glow. Auto-applies to a curated
+   set of card selectors so we don't have to touch markup. Designed
+   to coexist with the existing data-tilt 3D rotation — they layer
+   without fighting (this paints, that transforms).
+   ===================================================================== */
+.partner-card,
+.press-tile,
+.press-clipping,
+.package,
+.reach-channel,
+.fc-card,
+.pp-card,
+[data-glass] {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 100% 70% at 50% 0%, rgba(255,255,255,0.07), transparent 65%),
+    linear-gradient(150deg,
+      rgba(255,255,255,0.04) 0%,
+      rgba(255,255,255,0.01) 45%,
+      rgba(255,255,255,0.03) 100%);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.10);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+}
+
+/* Gradient rim-light — top-left in accent green, bottom-right in blue
+   accent. Drawn as a 1px frame using mask compositing so the inside
+   stays clean. */
+.partner-card::before,
+.press-tile::before,
+.press-clipping::before,
+.package::before,
+.reach-channel::before,
+.fc-card::before,
+.pp-card::before,
+[data-glass]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    rgba(34,230,107,0.55) 0%,
+    rgba(34,230,107,0.10) 22%,
+    transparent 45%,
+    transparent 60%,
+    rgba(56,169,255,0.30) 88%,
+    rgba(56,169,255,0.55) 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.55;
+  transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 2;
+}
+.partner-card:hover::before,
+.press-tile:hover::before,
+.press-clipping:hover::before,
+.package:hover::before,
+.reach-channel:hover::before,
+.fc-card:hover::before,
+.pp-card:hover::before,
+[data-glass]:hover::before {
+  opacity: 1;
+}
+
+/* Inner cast glow — soft accent halo behind the card, layered below
+   the content (z-index:-1) so the rim+content sit on top. */
+.partner-card::after,
+.press-tile::after,
+.press-clipping::after,
+.package::after,
+.reach-channel::after,
+.fc-card::after,
+.pp-card::after,
+[data-glass]::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 0%, rgba(34,230,107,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 100%, rgba(56,169,255,0.14), transparent 55%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: -1;
+  filter: blur(20px);
+}
+.partner-card:hover::after,
+.press-tile:hover::after,
+.press-clipping:hover::after,
+.package:hover::after,
+.reach-channel:hover::after,
+.fc-card:hover::after,
+.pp-card:hover::after,
+[data-glass]:hover::after {
+  opacity: 1;
+}
+
+/* Idle float — opt-in via [data-float] so we don't fight existing
+   data-tilt JS, which is direct-style transform on hover. */
+@keyframes glass-float {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -5px, 0); }
+}
+[data-float]:not([data-tilt-active="true"]) {
+  animation: glass-float 6s ease-in-out infinite;
+}
+[data-float][data-float-delay="1"] { animation-delay: 0.6s; }
+[data-float][data-float-delay="2"] { animation-delay: 1.2s; }
+[data-float][data-float-delay="3"] { animation-delay: 1.8s; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-float] { animation: none !important; }
+}
+
+/* =====================================================================
+   THREE.JS DIVIDER — host element styling for the WebGL parallax-divider
+   ===================================================================== */
+.parallax-divider-three {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #05080e;
+  overflow: hidden;
+}
+.parallax-divider-three canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+.parallax-divider-three[data-loaded="false"] {
+  background:
+    var(--three-fallback-image, url('../images/action-indore.jpg')) center/cover no-repeat,
+    #05080e;
+}

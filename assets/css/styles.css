@@ -2859,6 +2859,16 @@ html.is-loading { overflow: hidden; }
   height: 100vh;
   min-height: 720px;
 }
+/* WebGL variant: scene already has its own atmospheric depth + lights;
+   reduce the CSS dark wash so the rim-lit accents read through. */
+.parallax-divider-webgl::after {
+  background:
+    linear-gradient(180deg,
+      rgba(5,8,14,0.50) 0%,
+      rgba(5,8,14,0.10) 28%,
+      rgba(5,8,14,0.10) 60%,
+      rgba(5,8,14,0.78) 100%) !important;
+}
 .parallax-divider-cinematic::after {
   /* Override the default soft gradient — this needs a heavier dark
      wash on top + bottom so the huge typography reads cleanly. */

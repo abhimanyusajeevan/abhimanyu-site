@@ -288,8 +288,11 @@
   </section>
 
   <!-- ===== PARALLAX DIVIDER 1 — full-bleed photo break ===== -->
-  <section class="parallax-divider parallax-divider-cinematic" aria-hidden="true">
-    <div class="parallax-divider-bg" style="background-image:url('assets/images/action-indore.jpg');"></div>
+  <section class="parallax-divider parallax-divider-cinematic parallax-divider-webgl" aria-hidden="true">
+    <!-- WebGL scene mounted by motion.js; falls back to a static bg
+         image (set via the CSS custom property) if Three.js fails to
+         load or WebGL isn't available. -->
+    <div class="parallax-divider-three" data-three-divider data-image="assets/images/action-indore.jpg" style="--three-fallback-image:url('assets/images/action-indore.jpg');"></div>
     <div class="parallax-divider-content">
       <div class="pd-tag reveal">
         <span class="pd-mark">// 2026</span>
@@ -692,6 +695,8 @@
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <!-- three.js for the WebGL parallax-divider on this page only -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js" defer></script>
   <script src="assets/js/motion.js" defer></script>
 </body>
 </html>

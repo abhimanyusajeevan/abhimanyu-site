@@ -575,4 +575,193 @@
     });
   }
 
+  /* ===== 6. Three.js parallax-divider (one cinematic moment) ========
+     Mounts a WebGL scene inside any [data-three-divider] host on the
+     page. The CSS fallback (data-loaded="false") renders a flat photo
+     bg if Three.js isn't loaded, WebGL isn't supported, or the user
+     prefers reduced motion. Scene contents:
+       - tilted image plane with the round photo texture-mapped
+       - two accent glass panes (green + blue) at the edges, drifting
+       - ~220 floating dust particles
+       - ambient + directional + accent point lights (rim glow)
+       - mouse parallax on the camera (eased)
+     Pause when offscreen via IntersectionObserver to save battery.
+  ====================================================================== */
+  if (!isTouchOnly && typeof THREE !== 'undefined') {
+    document.querySelectorAll('[data-three-divider]').forEach(function (host) {
+      try { mountThreeDivider(host); }
+      catch (err) {
+        console.warn('[motion] three-divider failed; falling back to flat bg', err);
+        host.dataset.loaded = 'false';
+      }
+    });
+  } else {
+    // Mark every divider as fallback so the CSS image kicks in.
+    document.querySelectorAll('[data-three-divider]').forEach(function (host) {
+      host.dataset.loaded = 'false';
+    });
+  }
+
+  function mountThreeDivider(host) {
+    // Quick WebGL availability check
+    var probe = document.createElement('canvas');
+    var hasWebGL = !!(probe.getContext('webgl') || probe.getContext('experimental-webgl'));
+    if (!hasWebGL) { host.dataset.loaded = 'false'; return; }
+
+    var imgUrl = host.dataset.image || 'assets/images/action-indore.jpg';
+    var w = host.clientWidth;
+    var h = host.clientHeight;
+
+    var scene = new THREE.Scene();
+    scene.fog = new THREE.Fog(0x05080e, 5, 16);
+
+    var camera = new THREE.PerspectiveCamera(48, w / h, 0.1, 100);
+    camera.position.set(0, 0, 6);
+
+    var renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
+    renderer.setSize(w, h);
+    renderer.outputColorSpace = THREE.SRGBColorSpace || THREE.sRGBEncoding;
+    host.appendChild(renderer.domElement);
+
+    // ----- Image plane -----
+    var imgPlane = null;
+    new THREE.TextureLoader().load(imgUrl, function (tex) {
+      if (tex.colorSpace !== undefined) tex.colorSpace = THREE.SRGBColorSpace;
+      else tex.encoding = THREE.sRGBEncoding;
+      // Cover-fit: scale plane to image aspect.
+      var img = tex.image;
+      var aspect = (img && img.width && img.height) ? (img.width / img.height) : (16 / 9);
+      var planeH = 3.4;
+      var planeW = planeH * aspect;
+      var geom = new THREE.PlaneGeometry(planeW, planeH, 24, 14);
+      var mat  = new THREE.MeshStandardMaterial({
+        map: tex, metalness: 0.15, roughness: 0.55,
+        transparent: true, opacity: 0.96
+      });
+      imgPlane = new THREE.Mesh(geom, mat);
+      imgPlane.rotation.x = -0.04;
+      imgPlane.rotation.y = 0.10;
+      scene.add(imgPlane);
+      host.dataset.loaded = 'true';
+    }, undefined, function () { host.dataset.loaded = 'false'; });
+
+    // ----- Accent glass panes -----
+    var glassGeom = new THREE.PlaneGeometry(1.6, 3.2, 1, 1);
+    var glassMatA = new THREE.MeshStandardMaterial({
+      color: 0x22e66b, emissive: 0x22e66b, emissiveIntensity: 0.35,
+      metalness: 0.2, roughness: 0.10,
+      transparent: true, opacity: 0.18, side: THREE.DoubleSide
+    });
+    var glassMatB = glassMatA.clone();
+    glassMatB.color    = new THREE.Color(0x38a9ff);
+    glassMatB.emissive = new THREE.Color(0x38a9ff);
+
+    var glassA = new THREE.Mesh(glassGeom, glassMatA);
+    glassA.position.set(-3.6, 0.4, 1.3);
+    glassA.rotation.y = 0.45;
+    scene.add(glassA);
+
+    var glassB = new THREE.Mesh(glassGeom.clone(), glassMatB);
+    glassB.position.set(3.4, -0.5, 1.0);
+    glassB.rotation.y = -0.42;
+    glassB.scale.set(0.85, 0.78, 1);
+    scene.add(glassB);
+
+    // ----- Dust particles -----
+    var pCount = 220;
+    var pGeom = new THREE.BufferGeometry();
+    var pPos = new Float32Array(pCount * 3);
+    var pBase = new Float32Array(pCount * 3);
+    for (var i = 0; i < pCount; i++) {
+      pPos[i*3]   = pBase[i*3]   = (Math.random() - 0.5) * 14;
+      pPos[i*3+1] = pBase[i*3+1] = (Math.random() - 0.5) * 8;
+      pPos[i*3+2] = pBase[i*3+2] = (Math.random() - 0.5) * 6 - 1.5;
+    }
+    pGeom.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    var pMat = new THREE.PointsMaterial({
+      color: 0xd0e3ff, size: 0.028,
+      transparent: true, opacity: 0.55, depthWrite: false,
+      blending: THREE.AdditiveBlending
+    });
+    var particles = new THREE.Points(pGeom, pMat);
+    scene.add(particles);
+
+    // ----- Lights -----
+    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+    var dir = new THREE.DirectionalLight(0xffffff, 0.7);
+    dir.position.set(2, 3, 4);
+    scene.add(dir);
+    var greenP = new THREE.PointLight(0x22e66b, 3.0, 9, 1.6);
+    greenP.position.set(-3, 2, 2.2);
+    scene.add(greenP);
+    var blueP = new THREE.PointLight(0x38a9ff, 2.4, 9, 1.6);
+    blueP.position.set(3, -1.2, 2);
+    scene.add(blueP);
+
+    // ----- Mouse parallax (camera) -----
+    var tmx = 0, tmy = 0, mx = 0, my = 0;
+    function onMove(e) {
+      var r = host.getBoundingClientRect();
+      tmx = (e.clientX - r.left) / r.width  - 0.5;
+      tmy = (e.clientY - r.top)  / r.height - 0.5;
+    }
+    function onLeave() { tmx = 0; tmy = 0; }
+    host.addEventListener('mousemove', onMove);
+    host.addEventListener('mouseleave', onLeave);
+
+    // ----- Pause when offscreen -----
+    var visible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { visible = e.isIntersecting; });
+      }, { threshold: 0.01 }).observe(host);
+    }
+
+    // ----- Animation loop -----
+    var raf;
+    function loop(t) {
+      raf = requestAnimationFrame(loop);
+      if (!visible) return;
+      mx += (tmx - mx) * 0.05;
+      my += (tmy - my) * 0.05;
+      camera.position.x = mx * 0.7;
+      camera.position.y = -my * 0.45;
+      camera.lookAt(0, 0, 0);
+
+      var s = t * 0.001;
+      if (imgPlane) {
+        imgPlane.rotation.y = 0.10 + Math.sin(s * 0.4) * 0.04;
+        imgPlane.rotation.x = -0.04 + Math.cos(s * 0.3) * 0.025;
+        imgPlane.position.y = Math.sin(s * 0.5) * 0.10;
+      }
+      glassA.rotation.y = 0.45 + Math.sin(s * 0.35) * 0.06;
+      glassA.position.y = 0.4 + Math.sin(s * 0.5) * 0.18;
+      glassB.rotation.y = -0.42 + Math.cos(s * 0.4) * 0.06;
+      glassB.position.y = -0.5 + Math.cos(s * 0.45) * 0.15;
+
+      // Drift particles up + wrap
+      var arr = particles.geometry.attributes.position.array;
+      for (var j = 0; j < pCount; j++) {
+        arr[j*3+1] = pBase[j*3+1] + Math.sin(s * 0.3 + j) * 0.4;
+        arr[j*3]   = pBase[j*3]   + Math.cos(s * 0.25 + j * 0.7) * 0.25;
+      }
+      particles.geometry.attributes.position.needsUpdate = true;
+      particles.rotation.y = s * 0.04;
+
+      renderer.render(scene, camera);
+    }
+    raf = requestAnimationFrame(loop);
+
+    // ----- Resize -----
+    function resize() {
+      var nw = host.clientWidth;
+      var nh = host.clientHeight;
+      camera.aspect = nw / nh;
+      camera.updateProjectionMatrix();
+      renderer.setSize(nw, nh);
+    }
+    window.addEventListener('resize', resize);
+  }
+
 })();
