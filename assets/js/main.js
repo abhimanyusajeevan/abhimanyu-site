@@ -334,6 +334,14 @@
       var contactBtn = f.querySelector('.floater-btn:not(.is-primary)');
       if (contactBtn) contactBtn.style.display = 'none';
     }
+    // Suppress the proposal CTA where it overlaps card content / is
+    // redundant with the page's own CTAs (about + partners both have
+    // tall package / partner cards near the bottom-right that the
+    // floater was clipping over).
+    if (path === 'partners.html' || path === 'about.html') {
+      var proposalBtn = f.querySelector('.floater-btn.is-primary');
+      if (proposalBtn) proposalBtn.style.display = 'none';
+    }
   }
   ensureFloater();
 
@@ -616,16 +624,23 @@
       });
     }
 
+    var fired = false;
+    function fireOnce() { if (fired) return; fired = true; fire(); }
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            fire();
+            fireOnce();
             io.unobserve(entry.target);
           }
         });
       }, { rootMargin: '0px 0px -10% 0px', threshold: 0.25 });
       io.observe(trajectory);
+      // Defensive fallback — if IO never fires (because the element is
+      // already in view, or stuck inside a stacking context that hides
+      // it from intersection), draw after a delay so the chart never
+      // ends up blank.
+      setTimeout(fireOnce, 4000);
     } else {
       fire();
     }

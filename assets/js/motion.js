@@ -492,60 +492,15 @@
   });
 
   /* ===== 4. Chapter page-fold entrance ==============================
-     Each home-page chapter section enters with a subtle rotateX +
-     translateZ as it scrolls into the viewport — a paper-fold reveal
-     that gives the whole page a 3D scrolling feel. Only fires on
-     sections tagged with .chapter (or [data-fold-3d]) and only when
-     ScrollTrigger is available; reduced motion already short-circuits
-     this whole file.
+     REMOVED — the rotateX + translateZ + autoAlpha tween on each
+     .chapter section created a 3D rendering context that broke
+     clip-path on child elements (reveal-mask titles never showed),
+     and the autoAlpha:0.65 starting state made the first chapter
+     under the hero read as a blank viewport gap until scrolled into
+     trigger range. The CSS reveal/.reveal-mask system in styles.css
+     + motion.css already gives sections their entrance animation
+     without 3D risk.
   ====================================================================== */
-  if (hasScrollTrigger) {
-    var foldTargets = document.querySelectorAll('.chapter, [data-fold-3d]');
-    if (foldTargets.length) {
-      // Give the document an ambient perspective so the rotateX renders
-      // as 3D depth, not flatten. We scope it on body so it only adds
-      // depth where children opt in via transform.
-      document.body.style.perspective = '1800px';
-      document.body.style.perspectiveOrigin = '50% 30%';
-
-      foldTargets.forEach(function (sec) {
-        // Skip if the section already opts out (e.g. round-rail-section
-        // is data-anim="off" — handled by its own pin).
-        if (sec.dataset.anim === 'off') return;
-        if (sec.classList.contains('round-rail-section')) return;
-        gsap.set(sec, { transformPerspective: 1800, transformOrigin: 'center 50%' });
-        gsap.fromTo(sec,
-          { rotateX: -6, z: -80, autoAlpha: 0.65 },
-          {
-            rotateX: 0, z: 0, autoAlpha: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: sec,
-              start: 'top 92%',
-              end: 'top 50%',
-              scrub: 0.6
-            }
-          }
-        );
-        // Mirror exit fold as the section leaves the top of the
-        // viewport — sections fold back into the page on the way out.
-        gsap.fromTo(sec,
-          { rotateX: 0, z: 0 },
-          {
-            rotateX: 4, z: -50,
-            ease: 'power2.in',
-            scrollTrigger: {
-              trigger: sec,
-              start: 'bottom 60%',
-              end: 'bottom 10%',
-              scrub: 0.6
-            }
-          }
-        );
-      });
-    }
-  }
-
   /* ===== 5. Stat numbers — Z-axis pop ===============================
      Numbers tagged with [data-target] (the count-up convention used
      elsewhere on the site) get an entrance from translateZ(-180px)
