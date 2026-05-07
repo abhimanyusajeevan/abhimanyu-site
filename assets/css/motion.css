@@ -768,21 +768,31 @@
 
 /* =====================================================================
    THREE.JS DIVIDER — host element styling for the WebGL parallax-divider
+   ---------------------------------------------------------------------
+   Default state shows the static fallback image — that way mobile (where
+   Three.js is skipped), no-WebGL, and pre-init all paint correctly. The
+   black-out only applies AFTER Three.js has mounted successfully and
+   set data-loaded="true", at which point the canvas takes over.
    ===================================================================== */
 .parallax-divider-three {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: #05080e;
   overflow: hidden;
+  background:
+    var(--three-fallback-image, url('../images/action-indore.jpg')) center/cover no-repeat,
+    #05080e;
 }
 .parallax-divider-three canvas {
   display: block;
   width: 100% !important;
   height: 100% !important;
+  position: relative;
+  z-index: 2;
 }
-.parallax-divider-three[data-loaded="false"] {
-  background:
-    var(--three-fallback-image, url('../images/action-indore.jpg')) center/cover no-repeat,
-    #05080e;
+/* Once the WebGL canvas is up, hide the static photo behind it so we
+   don't double-paint (the canvas also shows the photo, texture-mapped
+   on the tilted plane). */
+.parallax-divider-three[data-loaded="true"] {
+  background-image: none;
 }
