@@ -372,9 +372,19 @@
       .atlas-stats .as-stat .n { font-size: 24px; }
     }
 
-    /* ── Globe (desktop only) — KEPT for compatibility, hidden ─ */
+    /* ── Globe — interactive 3D scene ─────────────────────────── */
     .globe-wrap {
-      display: none !important;
+      position: relative;
+      width: 100%;
+      height: clamp(440px, 70vh, 680px);
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, #0a1424 0%, #05080e 70%, #02040a 100%);
+      overflow: hidden;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .globe-wrap-keep {
+      display: none !important; /* legacy alias — no longer used */
     }
     .globe-wrap-keep {
       position: relative;
@@ -740,10 +750,14 @@
       .placement-grid { grid-template-columns: 1fr; gap: 32px; }
       .placement-img { display: none; }
     }
-    /* Hide globe on any touch device OR viewport ≤900px (covers landscape iPhones) */
-    @media (max-width: 900px), (pointer: coarse) {
-      .globe-wrap { display: none !important; }
+    /* Globe stays visible on mobile (with reduced height); hide only
+       on very small screens where the WebGL scene becomes unreadable. */
+    @media (max-width: 720px) {
+      .globe-wrap { height: clamp(360px, 60vh, 460px); }
       .mobile-season-strip { display: block !important; }
+    }
+    @media (max-width: 380px) {
+      .globe-wrap { display: none !important; }
     }
     @media (max-width: 900px) {
       .season-reach-strip { grid-template-columns: repeat(2, 1fr); }
@@ -822,6 +836,23 @@
           <div class="rc-l">Indian cities</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== GLOBE — interactive 3D earth with the 6 race pins ===== -->
+  <section class="globe-section chapter" id="globe" data-chapter="The Globe" data-anim="off">
+    <div class="container">
+      <div class="chapter-head">
+        <div class="chapter-num">·</div>
+        <div>
+          <div class="chapter-eyebrow">Spin the season</div>
+          <h2 class="chapter-title">Six pins. <span class="accent">One country.</span></h2>
+          <p class="chapter-lede">Drag to spin the planet. Each green pin is a 2026–27 INRC race weekend — Nashik, Indore, Chennai, Coimbatore, Coorg, Bangalore Rally. Click a pin to fly there.</p>
+        </div>
+      </div>
+    </div>
+    <div class="globe-wrap" data-globe-host>
+      <div id="globe-container"></div>
     </div>
   </section>
 
@@ -983,6 +1014,158 @@
   </footer>
 
   <script src="assets/js/main.js"></script>
+  <!-- globe.gl bundles three.js — used to render the interactive 3D
+       earth with the 6 race pins in the .globe-section. -->
+  <script src="https://unpkg.com/globe.gl"></script>
+  <script>
+  /* === Globe init — interactive earth with 6 INRC race pins === */
+  (function mountSeasonGlobe() {
+    var host = document.getElementById('globe-container');
+    if (!host) return;
+    if (typeof Globe !== 'function') {
+      console.warn('[season] globe.gl failed to load — section will be empty');
+      return;
+    }
+    if (window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return; // honour reduced-motion: skip the rotating scene entirely
+    }
+
+    var rounds = [
+      { id: 1, city: 'Nashik',          lat: 19.99, lng: 73.79, surface: 'Tarmac', win: false },
+      { id: 2, city: 'Indore',          lat: 22.72, lng: 75.87, surface: 'Gravel', win: true  },
+      { id: 3, city: 'Chennai',         lat: 13.08, lng: 80.27, surface: 'Tarmac', win: false },
+      { id: 4, city: 'Coimbatore',      lat: 11.02, lng: 76.96, surface: 'Gravel', win: false },
+      { id: 5, city: 'Coorg',           lat: 12.42, lng: 75.74, surface: 'Forest', win: false },
+      { id: 6, city: 'Bangalore Rally', lat: 12.97, lng: 77.59, surface: 'Mixed',  win: true  }
+    ];
+
+    var arcs = rounds.slice(0, -1).map(function (r, i) {
+      return {
+        startLat: r.lat,    startLng: r.lng,
+        endLat:   rounds[i + 1].lat,
+        endLng:   rounds[i + 1].lng,
+        color: ['rgba(34,230,107,0.92)', 'rgba(56,169,255,0.92)']
+      };
+    });
+
+    var world = Globe()
+      .backgroundColor('rgba(0,0,0,0)')
+      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
+      .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+      .showAtmosphere(true)
+      .atmosphereColor('#22e66b')
+      .atmosphereAltitude(0.20)
+      .htmlElementsData(rounds)
+      .htmlLat('lat').htmlLng('lng').htmlAltitude(0.01)
+      .htmlElement(function (d) {
+        var el = document.createElement('div');
+        el.className = 'gpin gpin-' + (d.win ? 'win' : 'reg');
+        el.innerHTML =
+          '<span class="gpin-dot">' + d.id + '</span>' +
+          '<span class="gpin-ring"></span>' +
+          '<span class="gpin-label">' + d.city + '</span>';
+        // Stagger the entrance via CSS animation-delay
+        el.style.setProperty('--pin-delay', (d.id * 0.18).toFixed(2) + 's');
+        return el;
+      })
+      .arcsData(arcs)
+      .arcColor('color')
+      .arcStroke(0.4)
+      .arcAltitudeAutoScale(0.32)
+      .arcDashLength(0.4)
+      .arcDashGap(0.18)
+      .arcDashAnimateTime(2200)
+      (host);
+
+    // Initial camera over India, then auto-rotate gently
+    world.pointOfView({ lat: 22, lng: 78, altitude: 1.5 }, 0);
+    var ctrl = world.controls();
+    ctrl.autoRotate = true;
+    ctrl.autoRotateSpeed = 0.5;
+    ctrl.enableZoom = true;
+    ctrl.zoomSpeed = 0.7;
+    ctrl.minDistance = 180;
+    ctrl.maxDistance = 480;
+
+    // Keep canvas sized to host
+    function resize() {
+      world.width(host.clientWidth);
+      world.height(host.clientHeight);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+  })();
+  </script>
+  <style>
+    /* Pin styles for the globe — glassy green dot with pulse ring */
+    .gpin { position: absolute; transform: translate(-50%, -50%); pointer-events: none; }
+    .gpin-dot {
+      display: flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #0a0a0a;
+      font-family: var(--font-display, 'Bebas Neue', sans-serif);
+      font-weight: 800;
+      font-size: 13px;
+      box-shadow: 0 0 0 4px rgba(34,230,107,0.20), 0 4px 14px rgba(0,0,0,0.55);
+      animation: gpin-pop 0.6s var(--pin-delay, 0s) cubic-bezier(0.34, 1.56, 0.64, 1) both,
+                 gpin-pulse 2.4s 1s ease-in-out infinite;
+    }
+    .gpin-win .gpin-dot {
+      background: #fff; color: #0a0a0a;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.25), 0 0 14px rgba(255,255,255,0.5);
+    }
+    .gpin-ring {
+      position: absolute; left: 50%; top: 50%;
+      width: 26px; height: 26px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: gpin-ring 2.4s var(--pin-delay, 0s) ease-out infinite;
+      pointer-events: none;
+    }
+    .gpin-label {
+      position: absolute; top: 50%; left: 32px;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(10,16,24,0.85);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 4px;
+      padding: 4px 8px;
+      pointer-events: none;
+      opacity: 0;
+      animation: gpin-label 0.6s calc(var(--pin-delay, 0s) + 0.4s) ease both;
+    }
+    @media (max-width: 720px) {
+      .gpin-label { display: none; }
+      .gpin-dot { width: 22px; height: 22px; font-size: 11px; }
+    }
+    @keyframes gpin-pop {
+      0%   { opacity: 0; transform: scale(0.4) translateY(-30px); }
+      60%  { opacity: 1; transform: scale(1.1) translateY(0); }
+      100% { opacity: 1; transform: scale(1)   translateY(0); }
+    }
+    @keyframes gpin-pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(34,230,107,0.20), 0 4px 14px rgba(0,0,0,0.55); }
+      50%      { box-shadow: 0 0 0 9px rgba(34,230,107,0.34), 0 4px 14px rgba(0,0,0,0.55); }
+    }
+    @keyframes gpin-ring {
+      0%   { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0;   transform: translate(-50%, -50%) scale(2.6); }
+    }
+    @keyframes gpin-label {
+      from { opacity: 0; transform: translate(8px, -50%); }
+      to   { opacity: 0.95; transform: translate(0, -50%); }
+    }
+  </style>
   <script>
   (function () {
     'use strict';

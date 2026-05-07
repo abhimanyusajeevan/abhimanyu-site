@@ -23,9 +23,18 @@
     // documents shared with sponsors, the cinematic driveby is
     // off-tone there.
     if (IN_PITCH) return;
-    try {
-      if (sessionStorage.getItem('abh_loader_shown') === '1') return;
-    } catch (_) {}
+
+    // Throttle gate — show the intro at most once every 6 hours from
+    // a given browser/device (was sessionStorage = lost on tab close).
+    // Override with ?intro=force in the URL for testing.
+    var INTRO_TTL_MS = 6 * 60 * 60 * 1000;
+    var force = /[?&]intro=force/.test(window.location.search);
+    if (!force) {
+      try {
+        var last = parseInt(localStorage.getItem('abh_loader_last') || '0', 10);
+        if (last && (Date.now() - last) < INTRO_TTL_MS) return;
+      } catch (_) {}
+    }
 
     var loader = document.createElement('div');
     loader.className = 'site-loader';
@@ -54,7 +63,7 @@
     var dismiss = function () {
       if (dismissed) return;
       dismissed = true;
-      try { sessionStorage.setItem('abh_loader_shown', '1'); } catch (_) {}
+      try { localStorage.setItem('abh_loader_last', String(Date.now())); } catch (_) {}
       loader.classList.add('is-out');
       document.documentElement.classList.remove('is-loading');
       setTimeout(function () {
