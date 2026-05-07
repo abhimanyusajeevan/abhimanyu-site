@@ -492,28 +492,31 @@
   });
 
   /* ===== 4. Chapter page-fold entrance ==============================
-     Each home-page chapter section folds in dramatically as it scrolls
-     into the viewport — rotateX from -14deg to 0, translateZ from
-     -240px to 0, scale 0.9 -> 1, opacity 0.35 -> 1. Trigger uses
-     'top bottom' so the fold begins right when the section first
-     peeks in from below — the user never sees the dim/folded state
-     except mid-scroll.
+     Each home-page chapter section folds in as it scrolls into the
+     viewport. Desktop and mobile both get the fold — mobile uses
+     scaled-down values + will-change:transform for GPU acceleration
+     so it stays smooth on phones.
 
      SKIPPED for the first .chapter (sits directly under the hero, so
      it would render dim on first paint before the user scrolls), and
-     skipped on (max-width: 720px) — 3D rotateX is jittery on mobile
-     GPUs and the visual impact is muted by the smaller viewport.
+     for any section with data-anim="off" (e.g. round-rail, which
+     owns its own pinned 3D scene).
 
      Reveal-mask is gone from chapter titles so clip-path no longer
      fights this 3D context — that was the previous failure mode.
   ====================================================================== */
-  if (hasScrollTrigger && !window.matchMedia('(max-width: 720px)').matches) {
+  if (hasScrollTrigger) {
+    var isFoldMobile = window.matchMedia('(max-width: 720px)').matches;
+    var foldVals = isFoldMobile
+      ? { rotateX: -8,  z: -120, alpha: 0.5,  scale: 0.94, perspective: 1400 }
+      : { rotateX: -14, z: -240, alpha: 0.35, scale: 0.9,  perspective: 2000 };
+
     var foldTargets = document.querySelectorAll('.chapter');
     if (foldTargets.length) {
       // Body needs perspective for child rotateX to render in real 3D
       // depth instead of flatten. Origin slightly above center so the
       // fold pivots around the user's eye-line.
-      document.body.style.perspective = '2000px';
+      document.body.style.perspective = foldVals.perspective + 'px';
       document.body.style.perspectiveOrigin = '50% 35%';
 
       foldTargets.forEach(function (sec, idx) {
@@ -522,12 +525,18 @@
         if (idx === 0) return;
         if (sec.dataset.anim === 'off') return;
         if (sec.classList.contains('round-rail-section')) return;
+        // GPU acceleration hint — keeps the fold smooth on mobile by
+        // pushing the section to its own compositor layer.
+        sec.style.willChange = 'transform, opacity';
+        sec.style.backfaceVisibility = 'hidden';
+        sec.style.webkitBackfaceVisibility = 'hidden';
         gsap.set(sec, {
-          transformPerspective: 2000,
-          transformOrigin: 'center 60%'
+          transformPerspective: foldVals.perspective,
+          transformOrigin: 'center 60%',
+          force3D: true
         });
         gsap.fromTo(sec,
-          { rotateX: -14, z: -240, autoAlpha: 0.35, scale: 0.9 },
+          { rotateX: foldVals.rotateX, z: foldVals.z, autoAlpha: foldVals.alpha, scale: foldVals.scale },
           {
             rotateX: 0, z: 0, autoAlpha: 1, scale: 1,
             ease: 'power3.out',
@@ -535,7 +544,7 @@
               trigger: sec,
               start: 'top bottom',   // section just peeking in from below
               end: 'top 30%',        // section well into view
-              scrub: 0.5,
+              scrub: isFoldMobile ? 0.3 : 0.5,  // snappier on mobile so it feels responsive on touch scroll
               invalidateOnRefresh: true
             }
           }
