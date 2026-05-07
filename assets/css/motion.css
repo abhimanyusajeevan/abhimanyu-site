@@ -646,9 +646,11 @@
    to coexist with the existing data-tilt 3D rotation — they layer
    without fighting (this paints, that transforms).
    ===================================================================== */
+/* Note: .press-clipping is excluded — it's the OnManorama news article
+   card and needs its original light/white treatment, not the dark
+   glass wash. */
 .partner-card,
 .press-tile,
-.press-clipping,
 .package,
 .reach-channel,
 .fc-card,
@@ -675,7 +677,6 @@
    stays clean. */
 .partner-card::before,
 .press-tile::before,
-.press-clipping::before,
 .package::before,
 .reach-channel::before,
 .fc-card::before,
@@ -708,7 +709,6 @@
 }
 .partner-card:hover::before,
 .press-tile:hover::before,
-.press-clipping:hover::before,
 .package:hover::before,
 .reach-channel:hover::before,
 .fc-card:hover::before,
@@ -721,7 +721,6 @@
    the content (z-index:-1) so the rim+content sit on top. */
 .partner-card::after,
 .press-tile::after,
-.press-clipping::after,
 .package::after,
 .reach-channel::after,
 .fc-card::after,
@@ -742,7 +741,6 @@
 }
 .partner-card:hover::after,
 .press-tile:hover::after,
-.press-clipping:hover::after,
 .package:hover::after,
 .reach-channel:hover::after,
 .fc-card:hover::after,

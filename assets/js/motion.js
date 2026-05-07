@@ -492,15 +492,58 @@
   });
 
   /* ===== 4. Chapter page-fold entrance ==============================
-     REMOVED — the rotateX + translateZ + autoAlpha tween on each
-     .chapter section created a 3D rendering context that broke
-     clip-path on child elements (reveal-mask titles never showed),
-     and the autoAlpha:0.65 starting state made the first chapter
-     under the hero read as a blank viewport gap until scrolled into
-     trigger range. The CSS reveal/.reveal-mask system in styles.css
-     + motion.css already gives sections their entrance animation
-     without 3D risk.
+     Each home-page chapter section folds in dramatically as it scrolls
+     into the viewport — rotateX from -14deg to 0, translateZ from
+     -240px to 0, scale 0.9 -> 1, opacity 0.35 -> 1. Trigger uses
+     'top bottom' so the fold begins right when the section first
+     peeks in from below — the user never sees the dim/folded state
+     except mid-scroll.
+
+     SKIPPED for the first .chapter (sits directly under the hero, so
+     it would render dim on first paint before the user scrolls), and
+     skipped on (max-width: 720px) — 3D rotateX is jittery on mobile
+     GPUs and the visual impact is muted by the smaller viewport.
+
+     Reveal-mask is gone from chapter titles so clip-path no longer
+     fights this 3D context — that was the previous failure mode.
   ====================================================================== */
+  if (hasScrollTrigger && !window.matchMedia('(max-width: 720px)').matches) {
+    var foldTargets = document.querySelectorAll('.chapter');
+    if (foldTargets.length) {
+      // Body needs perspective for child rotateX to render in real 3D
+      // depth instead of flatten. Origin slightly above center so the
+      // fold pivots around the user's eye-line.
+      document.body.style.perspective = '2000px';
+      document.body.style.perspectiveOrigin = '50% 35%';
+
+      foldTargets.forEach(function (sec, idx) {
+        // Skip the first chapter — sits directly under the hero, would
+        // render dim on first paint before any scroll.
+        if (idx === 0) return;
+        if (sec.dataset.anim === 'off') return;
+        if (sec.classList.contains('round-rail-section')) return;
+        gsap.set(sec, {
+          transformPerspective: 2000,
+          transformOrigin: 'center 60%'
+        });
+        gsap.fromTo(sec,
+          { rotateX: -14, z: -240, autoAlpha: 0.35, scale: 0.9 },
+          {
+            rotateX: 0, z: 0, autoAlpha: 1, scale: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sec,
+              start: 'top bottom',   // section just peeking in from below
+              end: 'top 30%',        // section well into view
+              scrub: 0.5,
+              invalidateOnRefresh: true
+            }
+          }
+        );
+      });
+    }
+  }
+
   /* ===== 5. Stat numbers — Z-axis pop ===============================
      Numbers tagged with [data-target] (the count-up convention used
      elsewhere on the site) get an entrance from translateZ(-180px)

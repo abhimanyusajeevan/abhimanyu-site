@@ -19,6 +19,10 @@
   // Shows a short driveby + engine audio, then fades out.
   (function mountLoader() {
     if (prefersReducedMotion) return;
+    // Skip the intro on the sponsor pitch pages — those are formal
+    // documents shared with sponsors, the cinematic driveby is
+    // off-tone there.
+    if (IN_PITCH) return;
     try {
       if (sessionStorage.getItem('abh_loader_shown') === '1') return;
     } catch (_) {}
