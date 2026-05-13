@@ -49,8 +49,14 @@
       '  <div class="site-loader__title">Abhimanyu <span>&amp; Vijay</span></div>' +
       '  <div class="site-loader__sub">Rally duo · Calicut · VW Polo #41</div>' +
       '  <div class="site-loader__bar"><span></span></div>' +
-      '  <button class="site-loader__sound" type="button" aria-label="Enter with sound">Tap for sound 🔊</button>' +
-      '  <button class="site-loader__skip" type="button" aria-label="Skip intro">Skip intro &rsaquo;</button>' +
+      '  <button class="site-loader__sound" type="button" aria-label="Enter with sound">' +
+      '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>' +
+      '    <span>Tap for sound</span>' +
+      '  </button>' +
+      '</div>' +
+      '<div class="site-loader__swipe-hint" aria-hidden="true">' +
+      '  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="18 15 12 9 6 15"/></svg>' +
+      '  <span>Swipe up to continue</span>' +
       '</div>';
     document.documentElement.classList.add('is-loading');
     var mount = function () {
@@ -61,30 +67,31 @@
 
     var v = loader.querySelector('video');
     var dismissed = false;
-    var dismiss = function () {
+    // variant: 'fade' (default, auto-dismiss), 'fold' (user swiped up)
+    var dismiss = function (variant) {
       if (dismissed) return;
       dismissed = true;
       try { localStorage.setItem('abh_loader_last', String(Date.now())); } catch (_) {}
-      loader.classList.add('is-out');
+      loader.classList.add(variant === 'fold' ? 'is-folding' : 'is-out');
       document.documentElement.classList.remove('is-loading');
       setTimeout(function () {
         if (loader.parentNode) loader.parentNode.removeChild(loader);
-      }, 900);
+      }, variant === 'fold' ? 750 : 900);
     };
 
     // Absolute fail-safe — no matter what (video errors, stalls,
     // never fires 'ended', a JS hiccup), the loader is gone within 7s.
     setTimeout(dismiss, 7000);
 
-    // Start muted (autoplay guaranteed). Any user gesture (click/touch/key/mousemove)
-    // unmutes and pauses the hard-cap so users get full audio + driveby.
+    // Start muted (autoplay guaranteed). The "Tap for sound" button
+    // unmutes; swipe-up dismisses with a fold animation.
     var extendedCap = null;
     var hardCap = null;
     var startGuard = null;
     if (v) {
       v.muted = true;
       v.play().catch(function () {});
-      v.addEventListener('ended', dismiss);
+      v.addEventListener('ended', function () { dismiss(); });
       v.addEventListener('error', function () { dismiss(); });
       // If the video hasn't actually started rendering frames within
       // 2.5s (slow connection / can't load), don't make the user wait
@@ -107,6 +114,10 @@
       if (!v.muted) return; // already unmuted
       v.muted = false;
       v.volume = 0.8;
+      // If autoplay was paused (Safari sometimes silently pauses on
+      // unmute), kick the video again.
+      var p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(function () {});
       loader.classList.add('has-sound');
       // Extend so the full intro audio can play (up to 7s total)
       if (hardCap) { clearTimeout(hardCap); hardCap = null; }
@@ -114,27 +125,111 @@
       extendedCap = setTimeout(dismiss, 7000);
     };
 
-    // Skip button — any click on skip dismisses
-    loader.addEventListener('click', function (e) {
-      if (e.target && e.target.classList && e.target.classList.contains('site-loader__skip')) {
-        dismiss();
+    // Explicit click on the sound button — also pointerdown so it
+    // works reliably across iOS Safari + Chrome where the click event
+    // is sometimes swallowed if a parent listener stops propagation.
+    var soundBtn = loader.querySelector('.site-loader__sound');
+    if (soundBtn) {
+      var soundActivate = function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        unmuteAndExtend();
+      };
+      soundBtn.addEventListener('click', soundActivate);
+      soundBtn.addEventListener('pointerdown', soundActivate);
+      soundBtn.addEventListener('touchstart', soundActivate, { passive: false });
+    }
+
+    // ---------- Fold-to-dismiss ----------
+    // Two gesture vocabularies, one animation:
+    //   * Mobile (touch): swipe UP on the loader
+    //   * Desktop (wheel): scroll DOWN on the page (loader is fixed,
+    //     html is overflow:hidden, so the wheel can't scroll the page
+    //     underneath — we capture it instead).
+    // Both feed the same visual: rotateX up to 70deg + translateY -24%
+    // + opacity falloff, plus a fold-out animation at the threshold.
+
+    function applyFold(progress) {
+      // progress 0..1
+      var t = Math.max(0, Math.min(1, progress));
+      var rot = t * 70;
+      var lift = t * -24;
+      loader.style.transform =
+        'perspective(1400px) rotateX(' + rot.toFixed(2) + 'deg) translateY(' + lift.toFixed(2) + '%)';
+      loader.style.opacity = String(1 - t * 0.55);
+    }
+    function snapBack() {
+      loader.style.transition = 'transform 0.35s cubic-bezier(0.2,0.8,0.2,1), opacity 0.35s ease';
+      loader.style.transform = '';
+      loader.style.opacity = '';
+      setTimeout(function () { loader.style.transition = ''; }, 380);
+    }
+
+    // --- Touch swipe-up (mobile) ---
+    var SWIPE_THRESHOLD = 80;
+    var SWIPE_MAX = 240;
+    var sStartY = null, sCurDy = 0, sDragging = false;
+
+    loader.addEventListener('touchstart', function (e) {
+      if (dismissed) return;
+      if (e.target.closest && e.target.closest('.site-loader__sound')) return;
+      sStartY = e.touches[0].clientY;
+      sCurDy = 0;
+      sDragging = true;
+    }, { passive: true });
+
+    loader.addEventListener('touchmove', function (e) {
+      if (!sDragging || sStartY === null) return;
+      sCurDy = sStartY - e.touches[0].clientY;
+      applyFold(Math.max(0, sCurDy) / SWIPE_MAX);
+    }, { passive: true });
+
+    function endSwipe() {
+      if (!sDragging) return;
+      sDragging = false;
+      if (sCurDy > SWIPE_THRESHOLD) dismiss('fold');
+      else snapBack();
+      sStartY = null;
+      sCurDy = 0;
+    }
+    loader.addEventListener('touchend', endSwipe);
+    loader.addEventListener('touchcancel', endSwipe);
+
+    // --- Wheel scroll-down (desktop) ---
+    var WHEEL_THRESHOLD = 220;   // accumulated deltaY to trigger fold
+    var WHEEL_MAX = 400;         // visual reaches full fold at this
+    var wheelAccum = 0;
+    var wheelDecayTimer = null;
+
+    function onWheel(e) {
+      if (dismissed) return;
+      e.preventDefault(); // Lock page scroll while the loader is up
+      if (e.deltaY <= 0) return; // only DOWN counts
+      wheelAccum += e.deltaY;
+      applyFold(wheelAccum / WHEEL_MAX);
+
+      if (wheelAccum >= WHEEL_THRESHOLD) {
+        dismiss('fold');
         return;
       }
-      // Any other click on the loader unmutes
-      unmuteAndExtend();
-    });
+      // Decay accumulated wheel so a pause-then-resume doesn't carry
+      // momentum forever — snaps back if the user stops scrolling.
+      if (wheelDecayTimer) clearTimeout(wheelDecayTimer);
+      wheelDecayTimer = setTimeout(function () {
+        wheelAccum = 0;
+        snapBack();
+      }, 280);
+    }
+    loader.addEventListener('wheel', onWheel, { passive: false });
 
-    // First interaction anywhere unmutes
-    var gestureEvents = ['click', 'touchstart', 'keydown', 'pointerdown'];
-    var onGesture = function () {
-      unmuteAndExtend();
-      gestureEvents.forEach(function (ev) {
-        document.removeEventListener(ev, onGesture, true);
-      });
-    };
-    gestureEvents.forEach(function (ev) {
-      document.addEventListener(ev, onGesture, true);
-    });
+    // Context-aware hint text — swipe vs scroll depending on device.
+    try {
+      var hintLabel = loader.querySelector('.site-loader__swipe-hint span');
+      if (hintLabel && window.matchMedia &&
+          !window.matchMedia('(hover: none)').matches) {
+        hintLabel.textContent = 'Scroll down to continue';
+      }
+    } catch (_) {}
     } catch (err) {
       // Loader is decorative — never let it break the page. Clean up
       // whatever partial state may have been applied.
