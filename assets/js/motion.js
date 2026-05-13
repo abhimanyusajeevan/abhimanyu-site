@@ -410,8 +410,13 @@
       var main = hero.querySelector('.hero-main') || hero.querySelector('.hero-inner');
       var card = hero.querySelector('.hero-card');
       if (!bg && !main) return;
+      // perspective only — NO transform-style:preserve-3d on the hero.
+      // preserve-3d there reorders the stacking of .hero::before
+      // (the dark gradient overlay) vs .hero-inner (the content),
+      // pushing the overlay in front of the content — the page
+      // rendered grey/blank. Direct-child translateZ still parallaxes
+      // correctly with just `perspective` on the parent.
       hero.style.perspective = '1400px';
-      hero.style.transformStyle = 'preserve-3d';
 
       var bgX = 0, bgY = 0, mX = 0, mY = 0, cX = 0, cY = 0;
       var tBgX = 0, tBgY = 0, tMX = 0, tMY = 0, tCX = 0, tCY = 0;
@@ -513,11 +518,11 @@
 
     var foldTargets = document.querySelectorAll('.chapter');
     if (foldTargets.length) {
-      // Body needs perspective for child rotateX to render in real 3D
-      // depth instead of flatten. Origin slightly above center so the
-      // fold pivots around the user's eye-line.
-      document.body.style.perspective = foldVals.perspective + 'px';
-      document.body.style.perspectiveOrigin = '50% 35%';
+      // Per-section transformPerspective only — we deliberately do NOT
+      // set perspective on <body>. Body-level perspective broke initial
+      // paint in some Chromium contexts (page rendered grey/empty until
+      // first scroll). Each chapter's own GSAP transformPerspective is
+      // enough for its rotateX to read as 3D depth.
 
       foldTargets.forEach(function (sec, idx) {
         // Skip the first chapter — sits directly under the hero, would

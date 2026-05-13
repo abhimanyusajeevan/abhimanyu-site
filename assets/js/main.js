@@ -18,6 +18,7 @@
   // ---------- Cinematic intro loader (first visit per session) ----------
   // Shows a short driveby + engine audio, then fades out.
   (function mountLoader() {
+    try {
     if (prefersReducedMotion) return;
     // Skip the intro on the sponsor pitch pages — those are formal
     // documents shared with sponsors, the cinematic driveby is
@@ -71,14 +72,32 @@
       }, 900);
     };
 
+    // Absolute fail-safe — no matter what (video errors, stalls,
+    // never fires 'ended', a JS hiccup), the loader is gone within 7s.
+    setTimeout(dismiss, 7000);
+
     // Start muted (autoplay guaranteed). Any user gesture (click/touch/key/mousemove)
     // unmutes and pauses the hard-cap so users get full audio + driveby.
     var extendedCap = null;
     var hardCap = null;
+    var startGuard = null;
     if (v) {
       v.muted = true;
       v.play().catch(function () {});
       v.addEventListener('ended', dismiss);
+      v.addEventListener('error', function () { dismiss(); });
+      // If the video hasn't actually started rendering frames within
+      // 2.5s (slow connection / can't load), don't make the user wait
+      // — bail out of the intro early.
+      startGuard = setTimeout(function () {
+        if (!v.currentTime || v.currentTime < 0.05) dismiss();
+      }, 2500);
+      v.addEventListener('playing', function () {
+        if (startGuard) { clearTimeout(startGuard); startGuard = null; }
+      });
+    } else {
+      // No video element at all — bail quickly.
+      setTimeout(dismiss, 1200);
     }
     // Default hard cap — dismiss at 4.5s if user never interacts
     hardCap = setTimeout(dismiss, 4500);
@@ -91,6 +110,7 @@
       loader.classList.add('has-sound');
       // Extend so the full intro audio can play (up to 7s total)
       if (hardCap) { clearTimeout(hardCap); hardCap = null; }
+      if (startGuard) { clearTimeout(startGuard); startGuard = null; }
       extendedCap = setTimeout(dismiss, 7000);
     };
 
@@ -115,6 +135,14 @@
     gestureEvents.forEach(function (ev) {
       document.addEventListener(ev, onGesture, true);
     });
+    } catch (err) {
+      // Loader is decorative — never let it break the page. Clean up
+      // whatever partial state may have been applied.
+      console.warn('[main] intro loader failed; continuing without it', err);
+      try { document.documentElement.classList.remove('is-loading'); } catch (_) {}
+      var stray = document.querySelector('.site-loader');
+      if (stray && stray.parentNode) stray.parentNode.removeChild(stray);
+    }
   })();
 
   // ---------- Hero video autoplay + ready state ----------
