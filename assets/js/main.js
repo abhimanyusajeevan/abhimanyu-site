@@ -80,8 +80,9 @@
     };
 
     // Absolute fail-safe — no matter what (video errors, stalls,
-    // never fires 'ended', a JS hiccup), the loader is gone within 7s.
-    setTimeout(dismiss, 7000);
+    // never fires 'ended', a JS hiccup), the loader is gone within
+    // 15s. Bumped from 7s so a 10s intro video has room to play.
+    setTimeout(dismiss, 15000);
 
     // Start muted (autoplay guaranteed). The "Tap for sound" button
     // unmutes; swipe-up dismisses with a fold animation.
@@ -106,8 +107,24 @@
       // No video element at all — bail quickly.
       setTimeout(dismiss, 1200);
     }
-    // Default hard cap — dismiss at 4.5s if user never interacts
-    hardCap = setTimeout(dismiss, 4500);
+    // Default hard cap — dismiss after 12s if user never interacts.
+    // Bumped from 4.5s so the full ~10s intro video can play. The
+    // 'ended' event still fires when the video naturally ends, which
+    // dismisses earlier in most cases.
+    hardCap = setTimeout(dismiss, 12000);
+
+    // If the video reports its duration via loadedmetadata, retune
+    // hardCap so we dismiss right after the video naturally ends
+    // (with a small buffer) instead of waiting the full 12s.
+    if (v) {
+      v.addEventListener('loadedmetadata', function () {
+        if (v.duration && isFinite(v.duration) && hardCap) {
+          clearTimeout(hardCap);
+          var ms = Math.min(Math.ceil(v.duration * 1000) + 600, 15000);
+          hardCap = setTimeout(dismiss, ms);
+        }
+      });
+    }
 
     var unmuteAndExtend = function () {
       if (!v || dismissed) return;
@@ -122,22 +139,32 @@
       // Extend so the full intro audio can play (up to 7s total)
       if (hardCap) { clearTimeout(hardCap); hardCap = null; }
       if (startGuard) { clearTimeout(startGuard); startGuard = null; }
-      extendedCap = setTimeout(dismiss, 7000);
+      // After unmute, let the video play to its natural end (or up to
+      // ~13s of remaining clip) rather than cutting it off at 7s.
+      var remainingMs = 13000;
+      if (v && isFinite(v.duration) && isFinite(v.currentTime)) {
+        remainingMs = Math.min(
+          Math.ceil((v.duration - v.currentTime) * 1000) + 600,
+          13000
+        );
+      }
+      extendedCap = setTimeout(dismiss, remainingMs);
     };
 
-    // Explicit click on the sound button — also pointerdown so it
-    // works reliably across iOS Safari + Chrome where the click event
-    // is sometimes swallowed if a parent listener stops propagation.
+    // Sound button — click ONLY.
+    // Previously we listened on touchstart + pointerdown too, but the
+    // touchstart's preventDefault was breaking iOS's natural touch→
+    // click→media-gesture chain. On iOS, setting muted=false pauses
+    // the autoplay video; we need a true 'click' user-gesture to call
+    // .play() and resume. With only click, the gesture chain works
+    // and the video keeps playing with sound after the tap.
     var soundBtn = loader.querySelector('.site-loader__sound');
     if (soundBtn) {
-      var soundActivate = function (e) {
+      soundBtn.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
         unmuteAndExtend();
-      };
-      soundBtn.addEventListener('click', soundActivate);
-      soundBtn.addEventListener('pointerdown', soundActivate);
-      soundBtn.addEventListener('touchstart', soundActivate, { passive: false });
+      });
     }
 
     // ---------- Fold-to-dismiss ----------
@@ -150,19 +177,30 @@
     // + opacity falloff, plus a fold-out animation at the threshold.
 
     function applyFold(progress) {
-      // progress 0..1
+      // progress 0..1 — composed 3D recede
       var t = Math.max(0, Math.min(1, progress));
-      var rot = t * 70;
-      var lift = t * -24;
+      var rot = t * 62;          // rotateX (fold)
+      var lift = t * -22;        // translateY % (rise up)
+      var depth = t * -220;      // translateZ px (recede into scene)
+      var scale = 1 - t * 0.12;  // shrink
+      var blur = t * 4.5;        // depth haze
       loader.style.transform =
-        'perspective(1400px) rotateX(' + rot.toFixed(2) + 'deg) translateY(' + lift.toFixed(2) + '%)';
+        'perspective(1200px) rotateX(' + rot.toFixed(2) + 'deg)' +
+        ' translateY(' + lift.toFixed(2) + '%)' +
+        ' translateZ(' + depth.toFixed(2) + 'px)' +
+        ' scale(' + scale.toFixed(3) + ')';
       loader.style.opacity = String(1 - t * 0.55);
+      loader.style.filter = 'blur(' + blur.toFixed(2) + 'px)';
     }
     function snapBack() {
-      loader.style.transition = 'transform 0.35s cubic-bezier(0.2,0.8,0.2,1), opacity 0.35s ease';
+      loader.style.transition =
+        'transform 0.45s cubic-bezier(0.2,0.8,0.2,1),' +
+        ' opacity 0.45s ease,' +
+        ' filter 0.45s ease';
       loader.style.transform = '';
       loader.style.opacity = '';
-      setTimeout(function () { loader.style.transition = ''; }, 380);
+      loader.style.filter = '';
+      setTimeout(function () { loader.style.transition = ''; }, 480);
     }
 
     // --- Touch swipe-up (mobile) ---
