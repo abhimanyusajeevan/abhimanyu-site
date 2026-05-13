@@ -2066,13 +2066,47 @@ html.is-loading { overflow: hidden; }
 .site-loader.is-out { animation: loader-out 0.8s ease forwards; }
 
 /* Fold-out: triggered by swipe-up (mobile) or scroll-down (desktop).
-   Loader tips away from the viewer like a paper card folding up. */
+   Loader recedes into 3D depth and tips away from the viewer — same
+   vocabulary as the drag visual in main.js so the keyframe handoff
+   looks like one continuous motion. */
 .site-loader.is-folding {
-  /* Cancel the per-frame inline transform set during the drag and
-     hand off to the keyframe so the snap-to-final is smooth. */
-  animation: loader-fold-up 0.7s cubic-bezier(0.86, 0, 0.07, 1) forwards !important;
+  animation: loader-fold-3d 0.85s cubic-bezier(0.83, 0, 0.17, 1) forwards !important;
   transform-origin: top center;
   pointer-events: none;
+}
+
+@keyframes loader-fold-3d {
+  0% {
+    transform:
+      perspective(1200px)
+      rotateX(var(--fold-from-rot, 0deg))
+      translateY(var(--fold-from-y, 0))
+      translateZ(0)
+      scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+  55% {
+    transform:
+      perspective(1200px)
+      rotateX(58deg)
+      translateY(-26%)
+      translateZ(-220px)
+      scale(0.92);
+    opacity: 0.42;
+    filter: blur(5px);
+  }
+  100% {
+    transform:
+      perspective(1200px)
+      rotateX(95deg)
+      translateY(-52%)
+      translateZ(-460px)
+      scale(0.78);
+    opacity: 0;
+    filter: blur(12px);
+    visibility: hidden;
+  }
 }
 
 /* Transform transition on the loader is normally OFF (inline transform
@@ -2114,17 +2148,6 @@ html.is-loading { overflow: hidden; }
 
 @keyframes loader-in  { from { opacity: 0; } to { opacity: 1; } }
 @keyframes loader-out { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
-@keyframes loader-fold-up {
-  0% {
-    transform: perspective(1400px) rotateX(var(--fold-from-rot, 0deg)) translateY(var(--fold-from-y, 0));
-    opacity: 1;
-  }
-  100% {
-    transform: perspective(1400px) rotateX(95deg) translateY(-55%);
-    opacity: 0;
-    visibility: hidden;
-  }
-}
 @keyframes loader-text {
   from { opacity: 0; transform: translateY(14px); }
   to   { opacity: 1; transform: translateY(0); }
