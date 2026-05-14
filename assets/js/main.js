@@ -93,7 +93,15 @@
       v.muted = true;
       v.play().catch(function () {});
       v.addEventListener('ended', function () { dismiss(); });
-      v.addEventListener('error', function () { dismiss(); });
+      // 'error' only kills the loader if NOTHING has played yet.
+      // On iOS Safari, toggling .muted mid-playback can fire a
+      // transient 'error' event (audio codec/track quirk) — that
+      // shouldn't dismiss the loader and yank the video out from
+      // under the user. If the video has already rendered frames,
+      // any subsequent error is non-fatal: let it keep going.
+      v.addEventListener('error', function () {
+        if (!v.currentTime || v.currentTime < 0.05) dismiss();
+      });
       // If the video hasn't actually started rendering frames within
       // 2.5s (slow connection / can't load), don't make the user wait
       // — bail out of the intro early.
@@ -129,12 +137,41 @@
     var unmuteAndExtend = function () {
       if (!v || dismissed) return;
       if (!v.muted) return; // already unmuted
+
+      // Canonical iOS Safari unmute pattern. Three things go wrong
+      // with the naive `muted=false; play()`:
+      //
+      //   (a) iOS pauses the autoplay video when muted=false is set
+      //       mid-playback. Setting muted on a *paused* video doesn't
+      //       trigger that — so explicitly pause first.
+      //   (b) iOS sometimes resets currentTime when re-initialising
+      //       audio output — re-set it to the saved position.
+      //   (c) If the audio track has a codec iOS can't decode, the
+      //       play() promise rejects. Fall back to re-muted playback
+      //       so the user at least sees the video.
+      //
+      // play() MUST be called inside this click handler — that's the
+      // user-gesture context iOS needs to allow audio output.
+      var savedTime = isFinite(v.currentTime) ? v.currentTime : 0;
+      try { v.pause(); } catch (_) {}
       v.muted = false;
       v.volume = 0.8;
-      // If autoplay was paused (Safari sometimes silently pauses on
-      // unmute), kick the video again.
+      try { v.currentTime = savedTime; } catch (_) {}
+
       var p = v.play();
-      if (p && typeof p.catch === 'function') p.catch(function () {});
+      if (p && typeof p.catch === 'function') {
+        p.catch(function (err) {
+          // Couldn't play with sound — fall back to muted playback so
+          // the user still sees the intro. This shouldn't dismiss the
+          // loader; only the audio is lost.
+          try {
+            v.muted = true;
+            v.currentTime = savedTime;
+            v.play().catch(function () {});
+            loader.classList.remove('has-sound');
+          } catch (_) {}
+        });
+      }
       loader.classList.add('has-sound');
       // Extend so the full intro audio can play (up to 7s total)
       if (hardCap) { clearTimeout(hardCap); hardCap = null; }
