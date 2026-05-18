@@ -2159,6 +2159,24 @@ html.is-loading { overflow: hidden; }
 }
 @keyframes loader-bar  { from { width: 0%; } to { width: 100%; } }
 
+/* Narrow phones (Galaxy Fold, iPhone SE 1st gen, etc.) — the 56px
+   floor of the title was clipping the "Abhimanyu & Vijay" headline
+   off the viewport edge. Drop the floor further and tighten the
+   surrounding type so everything fits with margin. */
+@media (max-width: 380px) {
+  .site-loader__eyebrow { font-size: 10px; letter-spacing: 0.34em; margin-bottom: 12px; }
+  .site-loader__title { font-size: clamp(38px, 11vw, 56px); line-height: 0.96; }
+  .site-loader__sub   { font-size: 11px; letter-spacing: 0.22em; margin-top: 10px; }
+  .site-loader__bar   { margin-top: 24px; }
+  .site-loader__content { padding: 0 16px; }
+  .site-loader__swipe-hint { font-size: 9px; letter-spacing: 0.26em; }
+}
+/* Standard phones (iPhone 12/13/14 SE 2/3) — slight relaxation of the
+   title cap so it always fits comfortably. */
+@media (max-width: 480px) {
+  .site-loader__title { font-size: clamp(46px, 12vw, 84px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-loader { display: none !important; }
 }

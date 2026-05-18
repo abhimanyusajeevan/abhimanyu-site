@@ -19,23 +19,37 @@
   // Shows a short driveby + engine audio, then fades out.
   (function mountLoader() {
     try {
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion) {
+      console.info('[intro] skipped: prefers-reduced-motion');
+      return;
+    }
     // Skip the intro on the sponsor pitch pages — those are formal
     // documents shared with sponsors, the cinematic driveby is
     // off-tone there.
-    if (IN_PITCH) return;
+    if (IN_PITCH) {
+      console.info('[intro] skipped: pitch page');
+      return;
+    }
 
-    // Throttle gate — show the intro at most once every 6 hours from
-    // a given browser/device (was sessionStorage = lost on tab close).
-    // Override with ?intro=force in the URL for testing.
-    var INTRO_TTL_MS = 6 * 60 * 60 * 1000;
+    // Throttle gate — show the intro at most once every 30 seconds
+    // from a given browser/device. Short window because (a) sponsors
+    // navigating away and back within the same minute would otherwise
+    // miss the wow-moment on the second visit, (b) testers need the
+    // intro on every real reload without remembering ?intro=force.
+    // Override with ?intro=force in the URL to always force-show.
+    var INTRO_TTL_MS = 30 * 1000;
     var force = /[?&]intro=force/.test(window.location.search);
     if (!force) {
       try {
         var last = parseInt(localStorage.getItem('abh_loader_last') || '0', 10);
-        if (last && (Date.now() - last) < INTRO_TTL_MS) return;
+        if (last && (Date.now() - last) < INTRO_TTL_MS) {
+          console.info('[intro] skipped: shown recently (' +
+            Math.round((Date.now() - last) / 1000) + 's ago). Use ?intro=force to override.');
+          return;
+        }
       } catch (_) {}
     }
+    console.info('[intro] mounting loader');
 
     var loader = document.createElement('div');
     loader.className = 'site-loader';
