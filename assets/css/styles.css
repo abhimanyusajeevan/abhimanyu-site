@@ -2137,6 +2137,11 @@ html.is-loading { overflow: hidden; }
     swipe-hint-pulse 2.2s 1.4s ease-in-out infinite;
 }
 .site-loader__swipe-hint svg { stroke: rgba(255,255,255,0.7); }
+/* Two-icon swap: speaker before unmute, chevron-up after.
+   Toggled via the .has-sound class added in unmuteAndExtend. */
+.site-loader__swipe-hint .hint-icon-up { display: none; }
+.site-loader.has-sound .site-loader__swipe-hint .hint-icon-sound { display: none; }
+.site-loader.has-sound .site-loader__swipe-hint .hint-icon-up { display: inline-block; }
 @keyframes swipe-hint-in {
   from { opacity: 0; transform: translate(-50%, 14px); }
   to   { opacity: 1; transform: translate(-50%, 0); }

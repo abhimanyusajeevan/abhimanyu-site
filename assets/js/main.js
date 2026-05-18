@@ -49,14 +49,16 @@
       '  <div class="site-loader__title">Abhimanyu <span>&amp; Vijay</span></div>' +
       '  <div class="site-loader__sub">Rally duo · Calicut · VW Polo #41</div>' +
       '  <div class="site-loader__bar"><span></span></div>' +
-      '  <button class="site-loader__sound" type="button" aria-label="Enter with sound">' +
-      '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>' +
-      '    <span>Tap for sound</span>' +
-      '  </button>' +
       '</div>' +
       '<div class="site-loader__swipe-hint" aria-hidden="true">' +
-      '  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="18 15 12 9 6 15"/></svg>' +
-      '  <span>Swipe up to continue</span>' +
+      '  <svg class="hint-icon hint-icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">' +
+      '    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>' +
+      '    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>' +
+      '  </svg>' +
+      '  <svg class="hint-icon hint-icon-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14">' +
+      '    <polyline points="18 15 12 9 6 15"/>' +
+      '  </svg>' +
+      '  <span>Tap anywhere for sound</span>' +
       '</div>';
     document.documentElement.classList.add('is-loading');
     var mount = function () {
@@ -188,21 +190,41 @@
       extendedCap = setTimeout(dismiss, remainingMs);
     };
 
-    // Sound button — click ONLY.
-    // Previously we listened on touchstart + pointerdown too, but the
-    // touchstart's preventDefault was breaking iOS's natural touch→
-    // click→media-gesture chain. On iOS, setting muted=false pauses
-    // the autoplay video; we need a true 'click' user-gesture to call
-    // .play() and resume. With only click, the gesture chain works
-    // and the video keeps playing with sound after the tap.
-    var soundBtn = loader.querySelector('.site-loader__sound');
-    if (soundBtn) {
-      soundBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        unmuteAndExtend();
-      });
+    // Hint label — text content is swapped after unmute, see below.
+    var hintLabel = loader.querySelector('.site-loader__swipe-hint span');
+    var isHoverNone = (window.matchMedia &&
+                       window.matchMedia('(hover: none)').matches);
+
+    function setHintForUnmuted() {
+      if (!hintLabel) return;
+      hintLabel.textContent = isHoverNone
+        ? 'Swipe up to continue'
+        : 'Scroll down to continue';
     }
+
+    // Pre-tap hint: "Tap anywhere for sound" / "Click anywhere for sound"
+    if (hintLabel) {
+      hintLabel.textContent = isHoverNone
+        ? 'Tap anywhere for sound'
+        : 'Click anywhere for sound';
+    }
+
+    // Wrap unmuteAndExtend so the hint text swaps once sound is on.
+    var unmuteCore = unmuteAndExtend;
+    unmuteAndExtend = function () {
+      var wasMuted = v && v.muted;
+      unmuteCore();
+      if (wasMuted) setHintForUnmuted();
+    };
+
+    // Desktop fallback — a real click event fires unmute (covers any
+    // input device that synthesises 'click' without a wheel/touch).
+    loader.addEventListener('click', function (e) {
+      if (dismissed) return;
+      if (!v || !v.muted) return; // already unmuted
+      e.stopPropagation();
+      unmuteAndExtend();
+    });
 
     // ---------- Fold-to-dismiss ----------
     // Two gesture vocabularies, one animation:
@@ -240,32 +262,55 @@
       setTimeout(function () { loader.style.transition = ''; }, 480);
     }
 
-    // --- Touch swipe-up (mobile) ---
+    // --- Touch swipe-up (mobile) + tap-anywhere-to-unmute ---
+    // Swipe up past SWIPE_THRESHOLD = fold-dismiss.
+    // Touch with minimal movement (drag <8px, duration <400ms) = TAP,
+    // which unmutes the video instead of dragging.
     var SWIPE_THRESHOLD = 80;
     var SWIPE_MAX = 240;
-    var sStartY = null, sCurDy = 0, sDragging = false;
+    var TAP_MAX_DRAG = 14;  // px of total movement still counts as a tap
+                            // (thumb taps often jitter 8-12px)
+    var TAP_MAX_TIME = 700; // ms — longer touches are deliberate holds
+    var sStartY = null, sCurDy = 0, sDragging = false, sStartT = 0;
 
     loader.addEventListener('touchstart', function (e) {
       if (dismissed) return;
-      if (e.target.closest && e.target.closest('.site-loader__sound')) return;
       sStartY = e.touches[0].clientY;
       sCurDy = 0;
       sDragging = true;
+      sStartT = Date.now();
     }, { passive: true });
 
     loader.addEventListener('touchmove', function (e) {
       if (!sDragging || sStartY === null) return;
       sCurDy = sStartY - e.touches[0].clientY;
-      applyFold(Math.max(0, sCurDy) / SWIPE_MAX);
+      // Only apply the fold transform for upward drags past the tap
+      // tolerance — small jitters don't move anything.
+      if (sCurDy > TAP_MAX_DRAG) {
+        applyFold(sCurDy / SWIPE_MAX);
+      }
     }, { passive: true });
 
     function endSwipe() {
       if (!sDragging) return;
       sDragging = false;
-      if (sCurDy > SWIPE_THRESHOLD) dismiss('fold');
-      else snapBack();
+      var dt = Date.now() - sStartT;
+      var absDy = Math.abs(sCurDy);
+
+      if (sCurDy > SWIPE_THRESHOLD) {
+        // Real swipe up past threshold — fold-dismiss
+        dismiss('fold');
+      } else if (absDy <= TAP_MAX_DRAG && dt <= TAP_MAX_TIME) {
+        // It was a tap — unmute
+        if (v && v.muted) unmuteAndExtend();
+        // No snap-back needed; nothing was applied
+      } else {
+        // Partial swipe that didn't clear threshold — snap back
+        snapBack();
+      }
       sStartY = null;
       sCurDy = 0;
+      sStartT = 0;
     }
     loader.addEventListener('touchend', endSwipe);
     loader.addEventListener('touchcancel', endSwipe);
@@ -297,14 +342,6 @@
     }
     loader.addEventListener('wheel', onWheel, { passive: false });
 
-    // Context-aware hint text — swipe vs scroll depending on device.
-    try {
-      var hintLabel = loader.querySelector('.site-loader__swipe-hint span');
-      if (hintLabel && window.matchMedia &&
-          !window.matchMedia('(hover: none)').matches) {
-        hintLabel.textContent = 'Scroll down to continue';
-      }
-    } catch (_) {}
     } catch (err) {
       // Loader is decorative — never let it break the page. Clean up
       // whatever partial state may have been applied.
