@@ -372,30 +372,204 @@
       .atlas-stats .as-stat .n { font-size: 24px; }
     }
 
-    /* ── Globe — interactive 3D scene ─────────────────────────── */
+    /* ── Globe — interactive 3D scene + side detail panel ───────── */
+    .globe-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 1fr);
+      gap: 32px;
+      margin-top: 32px;
+      align-items: stretch;
+    }
+    @media (max-width: 880px) {
+      .globe-grid { grid-template-columns: 1fr; gap: 18px; }
+    }
     .globe-wrap {
       position: relative;
       width: 100%;
-      height: clamp(440px, 70vh, 680px);
+      height: clamp(380px, 56vh, 540px);
       background:
         radial-gradient(ellipse 80% 60% at 50% 50%, #0a1424 0%, #05080e 70%, #02040a 100%);
       overflow: hidden;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
     }
-    .globe-wrap-keep {
-      display: none !important; /* legacy alias — no longer used */
-    }
-    .globe-wrap-keep {
-      position: relative;
-      width: 100%;
-      height: clamp(440px, 60vh, 620px);
-      background: var(--bg);
-      overflow: hidden;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
+    .globe-wrap-keep { display: none !important; }
     #globe-container { width: 100%; height: 100%; }
+    .globe-hint {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
+      background: rgba(10,16,24,0.78);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-family: 'Menlo', 'Courier New', monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      pointer-events: none;
+      z-index: 5;
+    }
+    .globe-hint-sep { color: var(--accent); }
+
+    /* Side detail panel */
+    .globe-detail {
+      position: relative;
+      background:
+        radial-gradient(ellipse 80% 60% at 100% 0%, rgba(34,230,107,0.10), transparent 60%),
+        linear-gradient(160deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01) 60%),
+        var(--surface, #0f1722);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 360px;
+    }
+    .globe-detail .gd-eyebrow {
+      font-family: 'Menlo', 'Courier New', monospace;
+      font-size: 10px;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .globe-detail .gd-city {
+      font-family: var(--font-display, 'Bebas Neue', sans-serif);
+      font-size: clamp(40px, 4.5vw, 64px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin: 0;
+      color: var(--text);
+      /* Animates on city change */
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .globe-detail .gd-state {
+      font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--text-mute, #9ba9c0);
+    }
+    .globe-detail .gd-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .globe-detail .gd-tag {
+      font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text-mute, #9ba9c0);
+    }
+    .globe-detail .gd-tag-surface {
+      background: rgba(34,230,107,0.10);
+      color: var(--accent);
+      border-color: rgba(34,230,107,0.40);
+    }
+    .globe-detail .gd-tag-status[data-status="win"] {
+      background: rgba(255,210,63,0.10);
+      color: #ffd23f;
+      border-color: rgba(255,210,63,0.40);
+    }
+    .globe-detail .gd-tag-status[data-status="dns"] {
+      background: rgba(255,255,255,0.04);
+      color: var(--text-mute, #9ba9c0);
+    }
+    .globe-detail .gd-tag-status[data-status="flagship"] {
+      background: rgba(56,169,255,0.10);
+      color: #38a9ff;
+      border-color: rgba(56,169,255,0.40);
+    }
+    .globe-detail .gd-desc {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--text);
+      opacity: 0.92;
+      transition: opacity 0.3s ease;
+    }
+    .globe-detail.is-changing .gd-city,
+    .globe-detail.is-changing .gd-desc { opacity: 0; }
+
+    /* Counter + progress bar */
+    .globe-detail .gd-counter {
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 14px;
+      align-items: center;
+    }
+    .globe-detail .gd-counter-now {
+      font-family: var(--font-display, 'Bebas Neue', sans-serif);
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .globe-detail .gd-counter-of {
+      font-family: var(--font-sub, 'Rajdhani', system-ui, sans-serif);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      color: var(--text-mute, #9ba9c0);
+      grid-column: 1;
+    }
+    .globe-detail .gd-progress {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      height: 3px;
+      background: rgba(255,255,255,0.10);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .globe-detail .gd-progress span {
+      display: block;
+      height: 100%;
+      width: 17%;
+      background: linear-gradient(90deg, var(--accent), #38a9ff);
+      transition: width 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .globe-detail .gd-cycle {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      display: flex;
+      gap: 4px;
+    }
+    .globe-detail .gd-cycle button {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.16);
+      color: var(--text-mute, #9ba9c0);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .globe-detail .gd-cycle button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(34,230,107,0.08);
+    }
 
     .globe-label-bar {
       position: absolute;
@@ -847,12 +1021,42 @@
         <div>
           <div class="chapter-eyebrow">Spin the season</div>
           <h2 class="chapter-title">Six pins. <span class="accent">One country.</span></h2>
-          <p class="chapter-lede">Drag to spin the planet. Each green pin is a 2026–27 INRC race weekend — Nashik, Indore, Chennai, Coimbatore, Coorg, Bangalore Rally. Click a pin to fly there.</p>
+          <p class="chapter-lede">Tap a pin to fly there. Each green pin is a 2026–27 INRC race weekend — Nashik, Indore, Chennai, Coimbatore, Coorg, Bangalore Rally.</p>
         </div>
       </div>
-    </div>
-    <div class="globe-wrap" data-globe-host>
-      <div id="globe-container"></div>
+      <div class="globe-grid">
+        <div class="globe-wrap" data-globe-host>
+          <div id="globe-container"></div>
+          <div class="globe-hint" aria-hidden="true">
+            <span>India · 2026–27</span>
+            <span class="globe-hint-sep">·</span>
+            <span>tap any pin →</span>
+          </div>
+        </div>
+        <aside class="globe-detail" data-globe-detail aria-live="polite">
+          <div class="gd-eyebrow">Round <span data-gd-num>1</span> · <span data-gd-month>Aug 2026</span></div>
+          <h3 class="gd-city" data-gd-city>Nashik</h3>
+          <div class="gd-state" data-gd-state>Maharashtra · West India</div>
+          <div class="gd-tags">
+            <span class="gd-tag gd-tag-surface" data-gd-surface>Tarmac</span>
+            <span class="gd-tag gd-tag-status" data-gd-status>Standard round</span>
+          </div>
+          <p class="gd-desc" data-gd-desc>Season opener. Tarmac sprint round in the Western Ghats foothills — the curtain-raiser that sets the tone for the campaign.</p>
+          <div class="gd-counter">
+            <span class="gd-counter-now"><span data-gd-counter>1</span></span>
+            <span class="gd-counter-of">/ 6</span>
+            <div class="gd-progress"><span data-gd-progress></span></div>
+          </div>
+          <div class="gd-cycle">
+            <button class="gd-prev" type="button" data-gd-prev aria-label="Previous round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="gd-next" type="button" data-gd-next aria-label="Next round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 
@@ -1032,12 +1236,48 @@
     }
 
     var rounds = [
-      { id: 1, city: 'Nashik',          lat: 19.99, lng: 73.79, surface: 'Tarmac', win: false },
-      { id: 2, city: 'Indore',          lat: 22.72, lng: 75.87, surface: 'Gravel', win: true  },
-      { id: 3, city: 'Chennai',         lat: 13.08, lng: 80.27, surface: 'Tarmac', win: false },
-      { id: 4, city: 'Coimbatore',      lat: 11.02, lng: 76.96, surface: 'Gravel', win: false },
-      { id: 5, city: 'Coorg',           lat: 12.42, lng: 75.74, surface: 'Forest', win: false },
-      { id: 6, city: 'Bangalore Rally', lat: 12.97, lng: 77.59, surface: 'Mixed',  win: true  }
+      {
+        id: 1, city: 'Nashik', lat: 19.99, lng: 73.79,
+        surface: 'Tarmac', status: 'std', statusLabel: 'Standard round',
+        state: 'Maharashtra · West India',
+        month: 'Aug 2026 · TBC',
+        desc: 'Season opener. Tarmac sprint round in the Western Ghats foothills — the curtain-raiser that sets the tone for the campaign.'
+      },
+      {
+        id: 2, city: 'Indore', lat: 22.72, lng: 75.87,
+        surface: 'Gravel', status: 'win', statusLabel: '2× legs won · dominant',
+        state: 'Madhya Pradesh · Central India',
+        month: 'Sep 2026 · TBC',
+        desc: 'Madhya Pradesh gravel. The most dominant round of the 2025–26 campaign — won both legs back-to-back. Returning to defend.'
+      },
+      {
+        id: 3, city: 'Chennai', lat: 13.08, lng: 80.27,
+        surface: 'Tarmac', status: 'std', statusLabel: 'East-coast opener',
+        state: 'Tamil Nadu · South Coast',
+        month: 'Oct 2026 · TBC',
+        desc: 'East-coast tarmac. Technical stages, fastest average speeds of the year. Missed the 2025–26 opener here — the unfinished business round.'
+      },
+      {
+        id: 4, city: 'Coimbatore', lat: 11.02, lng: 76.96,
+        surface: 'Gravel', status: 'std', statusLabel: 'Debut podium · 2025',
+        state: 'Tamil Nadu · Kovai',
+        month: 'Dec 2026 · TBC',
+        desc: 'High-grip red-earth gravel. The debut podium last season — P2 in JINRC, P4 INRC3 overall. Where the story started.'
+      },
+      {
+        id: 5, city: 'Coorg', lat: 12.42, lng: 75.74,
+        surface: 'Forest', status: 'std', statusLabel: 'Forest twisties',
+        state: 'Karnataka · Western Ghats',
+        month: 'Feb 2027 · TBC',
+        desc: 'Forest twisties on plantation roads. Narrow lines, blind crests, no margin. P3 overall last season — Leg 2 P2 in the dark.'
+      },
+      {
+        id: 6, city: 'Bangalore Rally', lat: 12.97, lng: 77.59,
+        surface: 'Mixed', status: 'flagship', statusLabel: 'Flagship round',
+        state: 'Karnataka · Home',
+        month: 'Apr 2027 · TBC',
+        desc: 'INRC flagship. India\'s biggest rally crowd. First-ever stage win last season — Leg 1 of the home-city rally. The brand moment everyone watches.'
+      }
     ];
 
     var arcs = rounds.slice(0, -1).map(function (r, i) {
@@ -1060,13 +1300,21 @@
       .htmlLat('lat').htmlLng('lng').htmlAltitude(0.01)
       .htmlElement(function (d) {
         var el = document.createElement('div');
-        el.className = 'gpin gpin-' + (d.win ? 'win' : 'reg');
+        el.className = 'gpin gpin-' + (d.status === 'win' ? 'win' :
+                                       d.status === 'flagship' ? 'flagship' : 'reg');
+        el.dataset.roundId = String(d.id);
         el.innerHTML =
           '<span class="gpin-dot">' + d.id + '</span>' +
           '<span class="gpin-ring"></span>' +
           '<span class="gpin-label">' + d.city + '</span>';
-        // Stagger the entrance via CSS animation-delay
         el.style.setProperty('--pin-delay', (d.id * 0.18).toFixed(2) + 's');
+        // Make the pin clickable — fly + update side panel
+        el.style.pointerEvents = 'auto';
+        el.style.cursor = 'pointer';
+        el.addEventListener('click', function (e) {
+          e.stopPropagation();
+          showRound(d.id);
+        });
         return el;
       })
       .arcsData(arcs)
@@ -1078,15 +1326,91 @@
       .arcDashAnimateTime(2200)
       (host);
 
-    // Initial camera over India, then auto-rotate gently
-    world.pointOfView({ lat: 22, lng: 78, altitude: 1.5 }, 0);
+    // Initial camera framed on India (closer + slightly tilted east so
+    // the southern cluster doesn't get hidden under the camera pole).
+    world.pointOfView({ lat: 20, lng: 79, altitude: 0.85 }, 0);
     var ctrl = world.controls();
-    ctrl.autoRotate = true;
-    ctrl.autoRotateSpeed = 0.5;
+    ctrl.autoRotate = false;          // no rotation — focus stays on India
     ctrl.enableZoom = true;
     ctrl.zoomSpeed = 0.7;
-    ctrl.minDistance = 180;
-    ctrl.maxDistance = 480;
+    ctrl.minDistance = 150;           // can zoom in slightly more
+    ctrl.maxDistance = 360;           // but not zoom out past sub-continent
+
+    // ----- Side detail panel wiring -----
+    var detail = document.querySelector('[data-globe-detail]');
+    var currentIdx = 0;
+    var autoCycleTimer = null;
+    var userInteracted = false;
+
+    function applyDetail(round) {
+      if (!detail) return;
+      detail.classList.add('is-changing');
+      // Tiny delay so the fade-out is perceived, then swap content + fade in.
+      setTimeout(function () {
+        detail.querySelector('[data-gd-num]').textContent = round.id;
+        detail.querySelector('[data-gd-month]').textContent = round.month;
+        detail.querySelector('[data-gd-city]').textContent = round.city;
+        detail.querySelector('[data-gd-state]').textContent = round.state;
+        detail.querySelector('[data-gd-surface]').textContent = round.surface;
+        var status = detail.querySelector('[data-gd-status]');
+        status.textContent = round.statusLabel;
+        status.setAttribute('data-status',
+          round.status === 'win' ? 'win' :
+          round.status === 'flagship' ? 'flagship' :
+          round.status === 'dns' ? 'dns' : 'std');
+        detail.querySelector('[data-gd-desc]').textContent = round.desc;
+        detail.querySelector('[data-gd-counter]').textContent = round.id;
+        detail.querySelector('[data-gd-progress]').style.width =
+          ((round.id / rounds.length) * 100).toFixed(1) + '%';
+        detail.classList.remove('is-changing');
+      }, 220);
+    }
+
+    function showRound(id, opts) {
+      opts = opts || {};
+      var round = null;
+      for (var i = 0; i < rounds.length; i++) {
+        if (rounds[i].id === id) { round = rounds[i]; currentIdx = i; break; }
+      }
+      if (!round) return;
+      if (!opts.silent) userInteracted = true;
+      // Fly the camera to the round (tilt the camera slightly so the
+      // pin shows above the city, not directly on top of it).
+      world.pointOfView({
+        lat: round.lat - 2.5,
+        lng: round.lng,
+        altitude: 0.55
+      }, 1200);
+      applyDetail(round);
+      // Highlight the active pin in the DOM
+      document.querySelectorAll('.gpin').forEach(function (el) {
+        el.classList.toggle('is-active', el.dataset.roundId === String(id));
+      });
+    }
+
+    // Wire prev / next buttons
+    var prevBtn = detail && detail.querySelector('[data-gd-prev]');
+    var nextBtn = detail && detail.querySelector('[data-gd-next]');
+    if (prevBtn) prevBtn.addEventListener('click', function () {
+      var n = (currentIdx - 1 + rounds.length) % rounds.length;
+      showRound(rounds[n].id);
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function () {
+      var n = (currentIdx + 1) % rounds.length;
+      showRound(rounds[n].id);
+    });
+
+    // Initial state: round 1 selected silently
+    showRound(1, { silent: true });
+
+    // Auto-cycle through the rounds every 5s — until user interacts.
+    // Slightly slower than typical scroll-stop dwell, fast enough to
+    // feel like the section is "alive" without being annoying.
+    autoCycleTimer = setInterval(function () {
+      if (userInteracted) return; // user-piloted from now on
+      var next = (currentIdx + 1) % rounds.length;
+      showRound(rounds[next].id, { silent: true });
+    }, 5000);
 
     // Keep canvas sized to host
     function resize() {
@@ -1117,6 +1441,32 @@
       background: #fff; color: #0a0a0a;
       box-shadow: 0 0 0 4px rgba(255,255,255,0.25), 0 0 14px rgba(255,255,255,0.5);
     }
+    .gpin-flagship .gpin-dot {
+      background: #ffd23f; color: #0a0a0a;
+      box-shadow: 0 0 0 4px rgba(255,210,63,0.30), 0 0 14px rgba(255,210,63,0.55);
+    }
+    /* Active pin (selected from side panel / clicked): grow + halo */
+    .gpin.is-active .gpin-dot {
+      transform: scale(1.25);
+      box-shadow:
+        0 0 0 6px rgba(34,230,107,0.35),
+        0 0 0 14px rgba(34,230,107,0.15),
+        0 6px 20px rgba(0,0,0,0.6);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .gpin.is-active.gpin-win .gpin-dot {
+      box-shadow:
+        0 0 0 6px rgba(255,255,255,0.45),
+        0 0 0 14px rgba(255,255,255,0.18),
+        0 6px 20px rgba(0,0,0,0.6);
+    }
+    .gpin.is-active.gpin-flagship .gpin-dot {
+      box-shadow:
+        0 0 0 6px rgba(255,210,63,0.50),
+        0 0 0 14px rgba(255,210,63,0.20),
+        0 6px 20px rgba(0,0,0,0.6);
+    }
+    .gpin:hover .gpin-dot { transform: scale(1.12); transition: transform 0.2s ease; }
     .gpin-ring {
       position: absolute; left: 50%; top: 50%;
       width: 26px; height: 26px;
