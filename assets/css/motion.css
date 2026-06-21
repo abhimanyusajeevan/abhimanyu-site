@@ -463,9 +463,10 @@
   letter-spacing: 0.02em;
   margin: 0 0 16px;
   color: var(--text, #f4f8ff);
-  /* clip-path mask, animated on .is-active */
-  clip-path: inset(0 100% 0 0);
-  -webkit-clip-path: inset(0 100% 0 0);
+  /* Visible by default; the optional clip-path reveal only applies once a
+     card is JS-activated, so text never depends on the pin engaging. */
+  clip-path: inset(0 0 0 0);
+  -webkit-clip-path: inset(0 0 0 0);
   transition: clip-path 1.0s 0.15s cubic-bezier(0.77, 0, 0.18, 1),
               -webkit-clip-path 1.0s 0.15s cubic-bezier(0.77, 0, 0.18, 1);
 }
@@ -509,8 +510,10 @@
   line-height: 1.6;
   color: var(--text, #f4f8ff);
   margin: 0;
-  opacity: 0;
-  transform: translateY(16px);
+  /* Visible by default — the coverflow dims side cards via the whole-card
+     opacity (set in JS), so text no longer hides if the pin doesn't run. */
+  opacity: 0.92;
+  transform: none;
   transition: opacity 0.7s 0.25s cubic-bezier(0.2,0.8,0.2,1),
               transform 0.7s 0.25s cubic-bezier(0.2,0.8,0.2,1);
 }
