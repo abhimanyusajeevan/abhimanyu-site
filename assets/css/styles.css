@@ -4815,3 +4815,122 @@ img, video { max-width: 100%; height: auto; }
   .reach-trajectory .rt-area { opacity: 1; transition: none; }
   .hcc-city { transition: none; }
 }
+
+/* ============================================================
+   SIGNATURE BRAND SYSTEM
+   #41 race-plates · pace-note motif · telemetry · lights-out
+   ============================================================ */
+
+/* Race-plate number device (extends the #41 nav mark) */
+.num-plate {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 34px; height: 34px; padding: 0 9px;
+  background: #0a0e14;
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 18px; letter-spacing: 0.04em;
+  color: var(--accent);
+  box-shadow: 0 0 16px rgba(61,214,140,0.22);
+}
+
+/* Pace-note motif — the co-driver's call, as a recurring label */
+.pace-note {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.24em;
+  text-transform: uppercase; color: var(--text-mute);
+}
+.pace-note::before {
+  content: '\00BB'; color: var(--accent); font-size: 15px; line-height: 1;
+  transform: translateY(-1px);
+}
+.pace-note strong { color: var(--accent); font-weight: 700; }
+
+/* Full-width pace-note divider between sections */
+.pace-divider { padding: 6px 24px; }
+.pace-divider .pd-inner {
+  display: flex; align-items: center; gap: 18px;
+  max-width: var(--maxw); margin: 0 auto;
+}
+.pace-divider .pd-rule { flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line)); }
+.pace-divider .pd-rule.r-rev {
+  background: linear-gradient(90deg, var(--line), transparent); }
+
+/* Signature stat band — "13 months" + telemetry readout */
+.signature-band {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--bg-2), var(--bg));
+  padding: 44px 0;
+}
+.signature-band .sig-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+}
+.signature-band .sig-stat { display: flex; align-items: center; gap: 20px; }
+.signature-band .sig-plate {
+  min-width: 66px; height: 66px; font-size: 34px; border-radius: 10px; flex-shrink: 0;
+}
+.signature-band .sig-big {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 46px); font-weight: 800;
+  line-height: 0.95; letter-spacing: -0.01em; color: var(--text);
+}
+.signature-band .sig-cap {
+  font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
+  font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-mute); margin-top: 9px; max-width: 44ch;
+}
+.signature-band .sig-telemetry { display: flex; gap: 10px; flex-wrap: wrap; }
+.signature-band .tlm {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px 14px; min-width: 98px;
+  background: rgba(0,0,0,0.28); border: 1px solid var(--line); border-radius: 6px;
+}
+.signature-band .tlm-l {
+  font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
+  font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--text-dim);
+}
+.signature-band .tlm-v {
+  font-family: var(--font-display); font-weight: 700; font-size: 15px;
+  color: var(--accent); letter-spacing: 0.02em;
+}
+@media (max-width: 760px) {
+  .signature-band .sig-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .signature-band .sig-telemetry { width: 100%; }
+  .signature-band .tlm { flex: 1; }
+}
+
+/* Lights-out start sequence (home intro) */
+.lights-out {
+  position: fixed; inset: 0; z-index: 9999;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 30px; background: #05080c;
+  animation: lo-fade 0.5s 1.95s ease forwards;
+}
+.lights-out .lo-gantry { display: flex; gap: 14px; }
+.lights-out .lo-light {
+  width: clamp(26px, 6vw, 46px); height: clamp(26px, 6vw, 46px);
+  border-radius: 50%; background: #1a0606; border: 2px solid #2a0a0a;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.85);
+}
+.lights-out .lo-light:nth-child(1) { animation: lo-on 0.01s 0.30s forwards; }
+.lights-out .lo-light:nth-child(2) { animation: lo-on 0.01s 0.55s forwards; }
+.lights-out .lo-light:nth-child(3) { animation: lo-on 0.01s 0.80s forwards; }
+.lights-out .lo-light:nth-child(4) { animation: lo-on 0.01s 1.05s forwards; }
+.lights-out .lo-light:nth-child(5) { animation: lo-on 0.01s 1.30s forwards; }
+.lights-out .lo-go {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(34px, 8vw, 72px); letter-spacing: 0.12em; color: var(--accent);
+  opacity: 0; transform: scale(0.8);
+  animation: lo-go 0.4s 1.55s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes lo-on {
+  to { background: #ff2e2e; border-color: #ff6b6b;
+       box-shadow: 0 0 24px rgba(255,46,46,0.8), inset 0 0 8px rgba(255,180,180,0.6); }
+}
+@keyframes lo-go { to { opacity: 1; transform: scale(1); } }
+@keyframes lo-fade { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+@media (prefers-reduced-motion: reduce) { .lights-out { display: none !important; } }

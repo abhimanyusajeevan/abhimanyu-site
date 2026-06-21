@@ -28,6 +28,36 @@
 </head>
 <body>
 
+  <!-- ===== LIGHTS-OUT START SEQUENCE (home intro) ===== -->
+  <div class="lights-out" data-lights-out aria-hidden="true">
+    <div class="lo-gantry">
+      <span class="lo-light"></span>
+      <span class="lo-light"></span>
+      <span class="lo-light"></span>
+      <span class="lo-light"></span>
+      <span class="lo-light"></span>
+    </div>
+    <div class="lo-go">GO</div>
+  </div>
+  <script>
+    /* Lights-out: lock scroll briefly, then clear. Plays once per session.
+       Skipped entirely under reduced-motion (CSS hides it). If JS never
+       runs, the CSS animation still fades + disables it — never blocks. */
+    (function () {
+      var lo = document.querySelector('[data-lights-out]');
+      if (!lo) return;
+      var reduce = window.matchMedia &&
+                   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || sessionStorage.getItem('lo-seen')) { lo.remove(); return; }
+      try { sessionStorage.setItem('lo-seen', '1'); } catch (e) {}
+      document.documentElement.style.overflow = 'hidden';
+      setTimeout(function () {
+        document.documentElement.style.overflow = '';
+        if (lo && lo.parentNode) lo.parentNode.removeChild(lo);
+      }, 2500);
+    })();
+  </script>
+
   <!-- ===== NAV ===== -->
   <nav class="nav">
     <div class="nav-inner">
@@ -206,6 +236,27 @@
     </div>
   </section>
 
+  <!-- ===== SIGNATURE STAT BAND — 13 months + telemetry ===== -->
+  <section class="signature-band" aria-label="The 13-month rise">
+    <div class="container">
+      <div class="sig-inner">
+        <div class="sig-stat">
+          <span class="num-plate sig-plate">13</span>
+          <div>
+            <div class="sig-big">months.</div>
+            <div class="sig-cap">» One karting session to a national rally seat.</div>
+          </div>
+        </div>
+        <div class="sig-telemetry" aria-hidden="true">
+          <span class="tlm"><span class="tlm-l">Stage</span><span class="tlm-v">06 / 06</span></span>
+          <span class="tlm"><span class="tlm-l">Result</span><span class="tlm-v">P2 JINRC</span></span>
+          <span class="tlm"><span class="tlm-l">Reach</span><span class="tlm-v">30M+ / ev</span></span>
+          <span class="tlm"><span class="tlm-l">Car</span><span class="tlm-v">POLO #41</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== CHAPTER 03 — THE STORY (Manorama press clipping with photo) ===== -->
   <section class="chapter is-light" id="chapter-story" data-chapter="The Story">
     <div class="container">
@@ -313,6 +364,14 @@
 
   <!-- ===== CHAPTER 03 — THE NUMBERS (reach dashboard) ===== -->
   <!-- ===== CHAPTER 04 — THE NUMBERS ===== -->
+  <div class="pace-divider" aria-hidden="true">
+    <div class="pd-inner">
+      <span class="pd-rule r-rev"></span>
+      <span class="pace-note"><strong>30 million eyes</strong> · don't lift</span>
+      <span class="pd-rule"></span>
+    </div>
+  </div>
+
   <section class="chapter is-dim" id="chapter-numbers" data-chapter="The Numbers">
     <div class="container">
       <div class="chapter-head">
@@ -585,6 +644,14 @@
   </section>
 
   <!-- ===== CHAPTER 06 — THE SEASON AHEAD (3 feature cards) ===== -->
+  <div class="pace-divider" aria-hidden="true">
+    <div class="pd-inner">
+      <span class="pd-rule r-rev"></span>
+      <span class="pace-note">6 left · <strong>season opens</strong> · flat out</span>
+      <span class="pd-rule"></span>
+    </div>
+  </div>
+
   <section class="chapter is-dim" id="chapter-season" data-chapter="The Season">
     <div class="container">
       <div class="chapter-head">
