@@ -7,7 +7,7 @@
   <meta name="description" content="Six race weekends. Six Indian cities. Your brand on the INRC's most talked-about car — 30M+ social views and 2M+ national TV viewers per event." />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a1018'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-size='36' font-weight='900' fill='%2322e66b'%3E41%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a1018'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Arial Black,Arial,sans-serif' font-size='36' font-weight='900' fill='%233DD68C'%3E41%3C/text%3E%3C/svg%3E" />
   <link rel="apple-touch-icon" href="assets/images/portrait-color.png" />
 
   <!-- Open Graph / Twitter -->
@@ -395,6 +395,105 @@
     }
     .globe-wrap-keep { display: none !important; }
     #globe-container { width: 100%; height: 100%; }
+
+    /* Colour legend — gives the pin colours meaning */
+    .globe-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 22px;
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      width: fit-content;
+      max-width: 100%;
+    }
+    .globe-legend .gl-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-sub);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .globe-legend .gl-dot {
+      width: 11px; height: 11px; border-radius: 50%;
+      box-shadow: 0 0 8px currentColor;
+    }
+    .gl-dot-std  { background: var(--accent); color: var(--accent); }
+    .gl-dot-win  { background: #ffffff; color: rgba(255,255,255,0.7); }
+    .gl-dot-flag { background: #ffd23f; color: rgba(255,210,63,0.8); }
+    .globe-legend .gl-line {
+      width: 18px; height: 2px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), #38a9ff);
+    }
+
+    /* Static fallback inside the globe box — visible until the WebGL
+       globe mounts (.globe-ready), or permanently if it can't. */
+    .globe-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+      padding: 24px;
+      z-index: 2;
+    }
+    .globe-wrap.globe-ready .globe-fallback { display: none; }
+    .globe-fallback .gf-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: 0.06em;
+      color: var(--text);
+      line-height: 1;
+    }
+    .globe-fallback .gf-sub {
+      font-family: var(--font-sub);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .globe-fallback .gf-list {
+      list-style: none; margin: 0; padding: 0;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 8px 18px;
+      justify-content: center;
+    }
+    .globe-fallback .gf-list li {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-sub);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text-mute);
+    }
+    .globe-fallback .gf-n {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--accent); color: #06121f;
+      font-family: var(--font-display); font-size: 11px; font-weight: 800;
+    }
+    .globe-fallback .gf-n-flag { background: #ffd23f; }
+    .globe-fallback .gf-hint {
+      margin-top: 16px;
+      font-family: var(--font-sub);
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(155,169,192,0.6);
+    }
+    @media (max-width: 480px) {
+      .globe-fallback .gf-list { grid-template-columns: repeat(2, auto); }
+    }
     .globe-hint {
       position: absolute;
       bottom: 16px;
@@ -1021,16 +1120,40 @@
         <div>
           <div class="chapter-eyebrow">Spin the season</div>
           <h2 class="chapter-title">Six pins. <span class="accent">One country.</span></h2>
-          <p class="chapter-lede">Tap a pin to fly there. Each green pin is a 2026–27 INRC race weekend — Nashik, Indore, Chennai, Coimbatore, Coorg, Bangalore Rally.</p>
+          <p class="chapter-lede">Drag to spin, tap any pin to fly there. Each pin is a 2026–27 INRC race weekend — and its colour tells you the story.</p>
         </div>
       </div>
+
+      <!-- Colour legend — the pins mean something -->
+      <div class="globe-legend" aria-hidden="true">
+        <span class="gl-item"><span class="gl-dot gl-dot-std"></span>Race weekend</span>
+        <span class="gl-item"><span class="gl-dot gl-dot-win"></span>2025–26 stage win</span>
+        <span class="gl-item"><span class="gl-dot gl-dot-flag"></span>Flagship round</span>
+        <span class="gl-item gl-item-route"><span class="gl-line"></span>Season route</span>
+      </div>
+
       <div class="globe-grid">
         <div class="globe-wrap" data-globe-host>
           <div id="globe-container"></div>
+          <!-- Static fallback — shown when WebGL/globe.gl can't run or
+               the visitor prefers reduced motion. Never leaves a blank box. -->
+          <div class="globe-fallback" aria-hidden="true">
+            <div class="gf-title">INDIA · 2026–27</div>
+            <div class="gf-sub">Six race weekends</div>
+            <ul class="gf-list">
+              <li><span class="gf-n">1</span> Nashik</li>
+              <li><span class="gf-n">2</span> Indore</li>
+              <li><span class="gf-n">3</span> Chennai</li>
+              <li><span class="gf-n">4</span> Coimbatore</li>
+              <li><span class="gf-n">5</span> Coorg</li>
+              <li><span class="gf-n gf-n-flag">6</span> Bengaluru</li>
+            </ul>
+            <div class="gf-hint">Explore each round in the atlas below ↓</div>
+          </div>
           <div class="globe-hint" aria-hidden="true">
             <span>India · 2026–27</span>
             <span class="globe-hint-sep">·</span>
-            <span>tap any pin →</span>
+            <span>drag &amp; tap →</span>
           </div>
         </div>
         <aside class="globe-detail" data-globe-detail aria-live="polite">
@@ -1104,7 +1227,7 @@
           <button class="atlas-stop" data-city="bengaluru" role="tab">
             <span class="as-rd">RD 06</span>
             <span class="as-dot" aria-hidden="true"></span>
-            <span class="as-meta"><span class="as-city">Bangalore Rally</span><span class="as-state">Karnataka</span></span>
+            <span class="as-meta"><span class="as-city">Bengaluru</span><span class="as-state">Karnataka</span></span>
           </button>
         </div>
 
@@ -1220,7 +1343,7 @@
   <script src="assets/js/main.js"></script>
   <!-- globe.gl bundles three.js — used to render the interactive 3D
        earth with the 6 race pins in the .globe-section. -->
-  <script src="https://unpkg.com/globe.gl"></script>
+  <script src="https://unpkg.com/globe.gl@2"></script>
   <script>
   /* === Globe init — interactive earth with 6 INRC race pins === */
   (function mountSeasonGlobe() {
@@ -1272,7 +1395,7 @@
         desc: 'Forest twisties on plantation roads. Narrow lines, blind crests, no margin. P3 overall last season — Leg 2 P2 in the dark.'
       },
       {
-        id: 6, city: 'Bangalore Rally', lat: 12.97, lng: 77.59,
+        id: 6, city: 'Bengaluru', lat: 12.97, lng: 77.59,
         surface: 'Mixed', status: 'flagship', statusLabel: 'Flagship round',
         state: 'Karnataka · Home',
         month: 'Apr 2027 · TBC',
@@ -1291,11 +1414,11 @@
 
     var world = Globe()
       .backgroundColor('rgba(0,0,0,0)')
-      .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-night.jpg')
-      .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
+      .showGlobe(true)
+      .showGraticules(true)
       .showAtmosphere(true)
-      .atmosphereColor('#22e66b')
-      .atmosphereAltitude(0.20)
+      .atmosphereColor('#3DD68C')
+      .atmosphereAltitude(0.24)
       .htmlElementsData(rounds)
       .htmlLat('lat').htmlLng('lng').htmlAltitude(0.01)
       .htmlElement(function (d) {
@@ -1325,6 +1448,20 @@
       .arcDashGap(0.18)
       .arcDashAnimateTime(2200)
       (host);
+
+    // Solid, brand-coloured globe — clean and simplistic, no photoreal
+    // texture (also drops a flaky external image dependency). Deep navy
+    // sphere + bright graticule grid reads as a stylised "reference map".
+    try {
+      var gm = world.globeMaterial();
+      if (gm && gm.color)    gm.color.set('#0e1b2e');
+      if (gm && gm.emissive) { gm.emissive.set('#0a1422'); gm.emissiveIntensity = 0.6; }
+      if (gm)                gm.shininess = 4;
+    } catch (e) { /* material API changed — globe still renders */ }
+
+    // Mounted successfully: hide the static fallback.
+    var wrap = host.closest('.globe-wrap');
+    if (wrap) wrap.classList.add('globe-ready');
 
     // Initial camera framed on India (closer + slightly tilted east so
     // the southern cluster doesn't get hidden under the camera pole).
@@ -1563,7 +1700,7 @@
         s2n: '30M+', s2l: 'Social views / event'
       },
       bengaluru: {
-        rd: 'RD 06', name: 'Bangalore Rally', state: 'Karnataka',
+        rd: 'RD 06', name: 'Bengaluru', state: 'Karnataka',
         photo: 'assets/images/team-celebrate-car.jpg',
         title: 'Home weekend. First stage win. India\'s biggest rally crowd.',
         desc: '"100% chaos. Stages changing minute to minute. Still the fastest car." The first-ever stage win — Leg 1 of the Bangalore rally, India\'s flagship rally weekend. The driver\'s home city. The brand moment everyone watches.',

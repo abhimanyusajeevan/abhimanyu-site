@@ -168,11 +168,11 @@
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .sticky-rail li[data-active="true"] {
-  border-left-color: var(--accent, #22e66b);
+  border-left-color: var(--accent, #3DD68C);
   color: var(--text, #f4f8ff);
   transform: translateX(4px);
 }
-.sticky-rail li[data-active="true"] .sr-num { color: var(--accent, #22e66b); }
+.sticky-rail li[data-active="true"] .sr-num { color: var(--accent, #3DD68C); }
 .sticky-rail .sr-num {
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
   font-size: 22px;
@@ -208,7 +208,7 @@
   }
   .sticky-rail li[data-active="true"] {
     border-left: 0;
-    border-bottom-color: var(--accent, #22e66b);
+    border-bottom-color: var(--accent, #3DD68C);
     transform: none;
   }
   .sticky-frames > * { min-height: auto; }
@@ -241,7 +241,7 @@
   font-weight: 700;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--accent, #22e66b);
+  color: var(--accent, #3DD68C);
   margin-bottom: 14px;
 }
 .round-frame.is-dns .rf-eyebrow { color: var(--text-mute, #9ba9c0); }
@@ -263,7 +263,7 @@
   padding: 6px 12px;
   border-radius: 999px;
   background: rgba(34,230,107,0.14);
-  color: var(--accent, #22e66b);
+  color: var(--accent, #3DD68C);
   border: 1px solid rgba(34,230,107,0.4);
   margin-bottom: 18px;
 }
@@ -273,7 +273,7 @@
   border-color: rgba(255,255,255,0.12);
 }
 .round-frame.is-win .rf-result {
-  background: var(--accent, #22e66b);
+  background: var(--accent, #3DD68C);
   color: #0a0a0a;
 }
 .round-frame .rf-narrative {
@@ -335,7 +335,7 @@
   font-weight: 700;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: var(--accent, #22e66b);
+  color: var(--accent, #3DD68C);
   margin-bottom: 18px;
 }
 .round-rail-head h2 {
@@ -424,7 +424,7 @@
 .round-card .rc-num-prefix {
   font-size: 14px;
   letter-spacing: 0.32em;
-  color: var(--accent, #22e66b);
+  color: var(--accent, #3DD68C);
   font-weight: 700;
   margin-bottom: 4px;
 }
@@ -484,7 +484,7 @@
   padding: 7px 12px;
   border-radius: 999px;
   background: rgba(34,230,107,0.14);
-  color: var(--accent, #22e66b);
+  color: var(--accent, #3DD68C);
   border: 1px solid rgba(34,230,107,0.4);
   margin-bottom: 18px;
   width: fit-content;
@@ -495,9 +495,9 @@
   border-color: rgba(255,255,255,0.14);
 }
 .round-card.is-win .rc-result {
-  background: var(--accent, #22e66b);
+  background: var(--accent, #3DD68C);
   color: #0a0a0a;
-  border-color: var(--accent, #22e66b);
+  border-color: var(--accent, #3DD68C);
 }
 .round-card.is-finale .rc-result {
   background: rgba(255,210,63,0.14);
@@ -546,7 +546,7 @@
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
   font-size: 20px;
   letter-spacing: 0.04em;
-  color: var(--accent, #22e66b);
+  color: var(--accent, #3DD68C);
 }
 .round-rail-progress .rrp-of {
   color: var(--text-mute, #9ba9c0);
@@ -562,7 +562,7 @@
 .round-rail-progress .rrp-fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, var(--accent, #22e66b), #38a9ff);
+  background: linear-gradient(90deg, var(--accent, #3DD68C), #38a9ff);
   transition: width 0.2s linear;
 }
 

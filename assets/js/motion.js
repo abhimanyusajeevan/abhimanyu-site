@@ -661,7 +661,7 @@
     // ----- Accent glass panes -----
     var glassGeom = new THREE.PlaneGeometry(1.6, 3.2, 1, 1);
     var glassMatA = new THREE.MeshStandardMaterial({
-      color: 0x22e66b, emissive: 0x22e66b, emissiveIntensity: 0.35,
+      color: 0x3DD68C, emissive: 0x3DD68C, emissiveIntensity: 0.35,
       metalness: 0.2, roughness: 0.10,
       transparent: true, opacity: 0.18, side: THREE.DoubleSide
     });
@@ -704,7 +704,7 @@
     var dir = new THREE.DirectionalLight(0xffffff, 0.7);
     dir.position.set(2, 3, 4);
     scene.add(dir);
-    var greenP = new THREE.PointLight(0x22e66b, 3.0, 9, 1.6);
+    var greenP = new THREE.PointLight(0x3DD68C, 3.0, 9, 1.6);
     greenP.position.set(-3, 2, 2.2);
     scene.add(greenP);
     var blueP = new THREE.PointLight(0x38a9ff, 2.4, 9, 1.6);
