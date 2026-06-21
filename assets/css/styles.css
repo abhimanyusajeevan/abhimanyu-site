@@ -3446,6 +3446,73 @@ img, video { max-width: 100%; height: auto; }
 }
 .package-soft-note strong { color: var(--accent); font-style: normal; font-weight: 600; }
 
+/* Per-tier ROI — "what you get back" block */
+.package-returns {
+  margin-top: 20px;
+  padding: 16px 18px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(61,214,140,0.22);
+  border-radius: var(--radius);
+}
+.package-returns .pr-label {
+  font-family: var(--font-sub);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.package-returns .pr-big {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text);
+}
+.package-returns .pr-big .u { color: var(--accent); }
+.package-returns .pr-sub {
+  font-family: var(--font-sub);
+  font-size: 12.5px;
+  letter-spacing: 0.04em;
+  color: var(--text-mute);
+  margin-top: 4px;
+}
+.package-returns ul.pr-list {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+}
+.package-returns ul.pr-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--text);
+  margin-bottom: 7px;
+}
+.package-returns ul.pr-list li:last-child { margin-bottom: 0; }
+.package-returns ul.pr-list li::before {
+  content: '';
+  position: absolute;
+  left: 4px; top: 7px;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.package-returns ul.pr-list li strong { color: var(--text); font-weight: 700; }
+
+/* Title flagship — marquee section layout */
+.title-flagship-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .title-flagship-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
 /* #14 — pricing signal pill on each tier card */
 .package-price {
   display: inline-flex;
