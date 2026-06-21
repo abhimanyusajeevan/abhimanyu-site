@@ -325,8 +325,14 @@
     // ---- Desktop: GSAP pin path -------------------------------------
     if (!hasScrollTrigger) {
       // GSAP missing — give every card the activated state so the user
-      // still sees the card content (no horizontal pin available).
+      // still sees the card content, and make the track scroll natively
+      // so cards 2..n stay reachable (otherwise they sit off-screen
+      // behind the pin's overflow:hidden).
       cards.forEach(function (c) { c.classList.add('no-anim'); });
+      track.style.overflowX = 'auto';
+      track.style.scrollSnapType = 'x mandatory';
+      track.style.webkitOverflowScrolling = 'touch';
+      cards.forEach(function (c) { c.style.scrollSnapAlign = 'center'; });
       return;
     }
 
